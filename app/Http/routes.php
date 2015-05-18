@@ -11,10 +11,14 @@
 |
 */
 
-Route::get('/', 'WelcomeController@index');
+// Frontend Routing
+Route::get('/', 'HomeController@index');
 
-Route::get('home', 'HomeController@index');
+// CMS routing
+Route::get('cms', 'CmsController@index');
+Route::get('cms/users', 'CmsUserController@index');
 
+// Authentication routing
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
