@@ -16,8 +16,13 @@ Route::get('/', 'HomeController@index');
 
 // CMS routing
 Route::get('cms', 'CmsController@index');
-Route::get('cms/users', 'CmsUserController@index');
-Route::get('cms/users/create', 'CmsUserController@create');
+// Route::get('cms/users', 'CmsUserController@index');
+// Route::get('cms/users/create', 'CmsUserController@create');
+// Route::get('cms/users/{id}/edit', 'CmsUserController@edit');
+// Route::get('cms/users/{id}/update', 'CmsUserController@update');
+
+Route::resource('cms/users', 'CmsUserController');
+
 
 // Authentication routing
 Route::controllers([
