@@ -17,6 +17,7 @@ Route::get('/', 'HomeController@index');
 // CMS routing
 Route::get('cms', 'CmsController@index');
 Route::get('cms/users', 'CmsUserController@index');
+Route::get('cms/users/create', 'CmsUserController@create');
 
 // Authentication routing
 Route::controllers([

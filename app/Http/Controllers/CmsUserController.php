@@ -16,7 +16,8 @@ class CmsUserController extends Controller {
 	public function index()
 	{
 		$users = User::all();
-		return view('index')->with('users', $users);
+
+		return view('cms.users.index')->with('users', $users);
 	}
 
 	/**
