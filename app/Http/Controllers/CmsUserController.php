@@ -1,6 +1,7 @@
 <?php namespace Neutrino\Http\Controllers;
 
 use Neutrino\User;
+use Neutrino\Role;
 use Neutrino\Http\Requests;
 use Neutrino\Http\Controllers\Controller;
 
@@ -48,7 +49,7 @@ class CmsUserController extends Controller {
 	 */
 	public function show($id)
 	{
-		//
+		return redirect('cms/users/'.$id.'/edit');
 	}
 
 	/**
@@ -60,9 +61,13 @@ class CmsUserController extends Controller {
 	public function edit($id)
 	{
 		$user = User::findOrFail($id);
-		return view('cms.users.edit')->with('user', $user);
-		// dd($user);
+		$roles = Role::lists('name','id');
 
+		return view('cms.users.edit')->with(
+			[
+			'user' => $user,
+			'roles' => $roles
+			]);
 	}
 
 	/**
@@ -74,7 +79,7 @@ class CmsUserController extends Controller {
 	public function update(Request $request, $id)
 	{
 		$user = User::findOrFail($id);
-		
+
 		$user->update($request->all());
 
 		return redirect('cms/users');

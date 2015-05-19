@@ -13,6 +13,11 @@
 		   	{!! Form::label('email', "Email:") !!}
 		    {!! Form::email('email', null) !!}
 	    </div>
+
+	    <div class="form-group">
+		   	{!! Form::label('email', "Email:") !!}
+		    {!! Form::select('role_id', $roles, null) !!}
+	    </div>
 			{{$user->role->name}}
 
 		<div class="form-group">
