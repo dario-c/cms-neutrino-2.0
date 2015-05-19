@@ -27,7 +27,7 @@ class CmsUserController extends Controller {
 	 */
 	public function create()
 	{
-		//
+
 	}
 
 	/**
@@ -59,7 +59,10 @@ class CmsUserController extends Controller {
 	 */
 	public function edit($id)
 	{
-		//
+		$user = User::findOrFail($id);
+		return view('cms.users.edit')->with('user', $user);
+		// dd($user);
+
 	}
 
 	/**
@@ -68,9 +71,13 @@ class CmsUserController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update(Request $request, $id)
 	{
-		//
+		$user = User::findOrFail($id);
+		
+		$user->update($request->all());
+
+		return redirect('cms/users');
 	}
 
 	/**
