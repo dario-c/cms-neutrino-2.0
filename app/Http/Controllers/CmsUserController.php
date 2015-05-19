@@ -1,5 +1,6 @@
 <?php namespace Neutrino\Http\Controllers;
 
+use Neutrino\User;
 use Neutrino\Http\Requests;
 use Neutrino\Http\Controllers\Controller;
 
@@ -14,7 +15,8 @@ class CmsUserController extends Controller {
 	 */
 	public function index()
 	{
-		//
+		$users = User::all();
+		return view('index')->with('users', $users);
 	}
 
 	/**
