@@ -31,4 +31,14 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 */
 	protected $hidden = ['password', 'remember_token'];
 
+	/**
+	 * A user has a Role (belongs to a Role)
+	 *
+	 * @var array
+	 */
+	public function role()
+	{
+		return $this->belongsTo('Neutrino\Role');
+	}
+
 }
