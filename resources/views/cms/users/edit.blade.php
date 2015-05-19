@@ -4,30 +4,25 @@
 
 	{!! Form::model($user, ['method' => 'PATCH', 'action' => ['CmsUserController@update', $user->id]]) !!}
 		
-		<div class="form-group">
-		    {!! Form::label('name', "Name:") !!}
-		    {!! Form::text('name', null) !!}
-	    </div>
+		@include('cms.users._editForm')
 
 	    <div class="form-group">
-		   	{!! Form::label('email', "Email:") !!}
-		    {!! Form::email('email', null) !!}
+		   	{!! Form::label('role', "Role:") !!}
+		   	@if($user->role->name !== 'admin' )
+			    {!! Form::select('role_id', $roles, null) !!}
+		   	@else
+			   	{{ $user->role->name }}
+			@endif
 	    </div>
 
-	    <div class="form-group">
-		   	{!! Form::label('email', "Email:") !!}
-		    {!! Form::select('role_id', $roles, null) !!}
-	    </div>
-			{{$user->role->name}}
+	{!! Form::close() !!}	
+
+
+	@if($user->role->name !== 'admin' )
+		@include('cms.users._deleteUserForm');
+	@endif
 
 		<div class="form-group">
 		    {!! Form::submit() !!}
 		</div>
-	
-	{!! Form::close() !!}	
-
-	{!! Form::open(['method' => 'DELETE', 'action' => ['CmsUserController@update', $user->id]] ) !!}
-	      <button type="submit" class="btn btn-danger btn-mini">Delete</button>
-	{!! Form::close() !!}
-
 @stop

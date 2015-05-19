@@ -1,5 +1,6 @@
 <?php namespace Neutrino\Http\Controllers;
 
+use Auth;
 use Neutrino\User;
 use Neutrino\Role;
 use Neutrino\Http\Requests;
@@ -17,6 +18,7 @@ class CmsUserController extends Controller {
 	public function index()
 	{
 		$users = User::all();
+		$logged = Auth::user();
 
 		return view('cms.users.index')->with('users', $users);
 	}
@@ -93,7 +95,7 @@ class CmsUserController extends Controller {
 		$user = User::findOrFail($id);
 
 		$user->delete();
-		
+
 		return redirect('cms/users');
 	}
 
