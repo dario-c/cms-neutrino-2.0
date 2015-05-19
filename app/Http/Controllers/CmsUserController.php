@@ -61,13 +61,10 @@ class CmsUserController extends Controller {
 	public function edit($id)
 	{
 		$user = User::findOrFail($id);
+
 		$roles = Role::lists('name','id');
 
-		return view('cms.users.edit')->with(
-			[
-			'user' => $user,
-			'roles' => $roles
-			]);
+		return view('cms.users.edit', compact('user', 'roles'));
 	}
 
 	/**
@@ -93,7 +90,11 @@ class CmsUserController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+		$user = User::findOrFail($id);
+
+		$user->delete();
+		
+		return redirect('cms/users');
 	}
 
 }
