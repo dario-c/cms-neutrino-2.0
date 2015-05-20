@@ -29,7 +29,9 @@ class CmsUserController extends Controller {
 	 */
 	public function create()
 	{
-		return view('cms.users.create');
+		$roles = Role::lists('name','id');
+
+		return view('cms.users.create', compact('roles'));
 	}
 
 	/**
@@ -39,12 +41,7 @@ class CmsUserController extends Controller {
 	 */
 	public function store(Request $request)
 	{
-		$user = new User;
-		$user->name = $request->name;
-		$user->email = $request->email;
-		$user->password = $request->password;
-		$user->role_id = 3;
-		$user->save();
+		$user = User::create($request->all());
 
 		return redirect('cms/users');
 	}
@@ -69,7 +66,6 @@ class CmsUserController extends Controller {
 	public function edit($id)
 	{
 		$user = User::findOrFail($id);
-
 		$roles = Role::lists('name','id');
 
 		return view('cms.users.edit', compact('user', 'roles'));
