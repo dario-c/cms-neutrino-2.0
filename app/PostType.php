@@ -1,18 +1,14 @@
 <?php namespace Neutrino;
 
-use App/AbstractModel;
+use Neutrino/AbstractModel;
 
 class PostType extends AbstractModel {
 
-    public function __construct(array $attributes = array())
-    {
-        this->fill($attributes);
-    }
+    protected $fillable = array('name', 'singular_name', 'slug', 'template_slug', 'fields', 'relation', 'parent');
     
     /**
      * Return fields for the authenticated user role 
      * 
-     * @access public
      * @param int $pnRoleId (default: Role::USER_ROLE)
      * @return array
      */
