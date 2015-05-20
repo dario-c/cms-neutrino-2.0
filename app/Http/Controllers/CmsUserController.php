@@ -18,7 +18,6 @@ class CmsUserController extends Controller {
 	public function index()
 	{
 		$users = User::all();
-		$logged = Auth::user();
 
 		return view('cms.users.index')->with('users', $users);
 	}
@@ -30,7 +29,7 @@ class CmsUserController extends Controller {
 	 */
 	public function create()
 	{
-
+		return view('cms.users.create');
 	}
 
 	/**
@@ -38,8 +37,9 @@ class CmsUserController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(Request $request)
 	{
+		dd($request);
 		//
 	}
 
