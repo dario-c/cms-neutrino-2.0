@@ -32,6 +32,16 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	protected $hidden = ['password', 'remember_token'];
 
 	/**
+	 * Passwords are hashed when set
+	 *
+	 * @var array
+	 */
+	public function setPasswordAttribute($password)
+	{
+		$this->attributes['password'] = \Hash::make($password);
+	}
+
+	/**
 	 * A user has a Role (belongs to a Role)
 	 *
 	 * @var array
