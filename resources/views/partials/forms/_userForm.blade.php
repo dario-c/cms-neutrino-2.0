@@ -20,17 +20,17 @@
 
 
 <!-- ROLE -->
-	@if(Auth::user()->role->name === 'admin' )
-		<div class="form-group">
-			{!! Form::label('role', "Role:") !!}
-			{!! Form::select('role_id', $roles, null) !!}
-		</div>
-	@elseif(isset($user))
-		<div class="form-group">
-			{!! Form::label('role', "Role:") !!}
-			{{ $user->role->name }}
-		</div>
-	@endif
+@if(Auth::user()->isAdmin() )
+	<div class="form-group">
+		{!! Form::label('role', "Role:") !!}
+		{!! Form::select('role_id', $roles, null) !!}
+	</div>
+@elseif(isset($user))
+	<div class="form-group">
+		{!! Form::label('role', "Role:") !!}
+		{{ $user->role->name }}
+	</div>
+@endif
 
 
 <!-- SUBMIT -->

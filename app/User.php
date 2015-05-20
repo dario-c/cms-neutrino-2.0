@@ -42,6 +42,16 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	}
 
 	/**
+	 * Passwords are hashed when set
+	 *
+	 * @var array
+	 */
+	public function isAdmin()
+	{
+		return $this->role->name !== 'admin';
+	}
+
+	/**
 	 * A user has a Role (belongs to a Role)
 	 *
 	 * @var array

@@ -8,7 +8,7 @@
 
 	{!! Form::close() !!}	
 
-	@if(Auth::user()->role->name === 'admin' )
+	@if(Auth::user()->isAdmin() )
 		@include('partials.forms._deleteUserForm')
 	@endif
 
