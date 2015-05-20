@@ -1,6 +1,6 @@
 <?php namespace Neutrino;
 
-use Neutrino/AbstractModel;
+use Neutrino\AbstractModel;
 
 class PostType extends AbstractModel {
 

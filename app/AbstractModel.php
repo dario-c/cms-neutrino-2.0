@@ -1,4 +1,4 @@
-<?php namespace Neutrino
+<?php namespace Neutrino;
 	
 abstract class AbstractModel {
 
@@ -24,7 +24,7 @@ abstract class AbstractModel {
 	 */
     public function __construct(array $attributes = array())
     {
-        this->fill($attributes);
+        $this->fill($attributes);
     }
     
     protected function fill(array $attributes)
@@ -104,7 +104,7 @@ abstract class AbstractModel {
 	 */
 	protected function fillableFromArray(array $attributes)
 	{
-		if (count($this->fillable) > 0 && ! static::$unguarded)
+		if (count($this->fillable) > 0)
 		{
 			return array_intersect_key($attributes, array_flip($this->fillable));
 		}
