@@ -39,8 +39,14 @@ class CmsUserController extends Controller {
 	 */
 	public function store(Request $request)
 	{
-		dd($request);
-		//
+		$user = new User;
+		$user->name = $request->name;
+		$user->email = $request->email;
+		$user->password = bcrypt($request->password);
+		$user->role_id = 3;
+		$user->save();
+
+		return redirect('cms/users');
 	}
 
 	/**
