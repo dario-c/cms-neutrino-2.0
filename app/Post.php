@@ -2,9 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class Role extends Model {
-
-	const ROLE_USER = 1;
+class Post extends Model {
 
 	/**
 	 * A Role has many users
@@ -12,9 +10,9 @@ class Role extends Model {
 	 * @var array
 	 */
 
-	public function users()
+	public function user()
 	{
-		return $this->hasMany('Neutrino\User');
+		return $this->belongsTo('Neutrino\User');
 	}
 
 }
