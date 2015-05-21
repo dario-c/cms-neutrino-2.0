@@ -1,0 +1,133 @@
+{
+    "post_types": [
+        {
+            "name": "pages",
+            "singular_name": "page",
+            "fields": [
+                {
+                    "id": "post_content",
+                    "title": "Page Content",
+                    "type": "content_editor"
+                },
+                {
+                    "id": "post_summary",
+                    "title": "Page Summary",
+                    "type": "paragraph",
+                    "required": 0
+                },
+                {
+                    "id": "post_meta",
+                    "title": "Page Meta Tags",
+                    "type": "meta_tags",
+                    "roles": [1,2,3,4]
+                }
+            ],
+            "slug": "page",
+            "template_slug": "page"
+        },
+        {
+            "name": "locations",
+            "singular_name": "location",
+            "fields": [
+                {
+                    "id": "post_content",
+                    "title": "Location Content",
+                    "type": "paragraph"
+                },
+                {
+                    "id": "post_summary",
+                    "title": "Location Summary",
+                    "type": "paragraph",
+                    "required": 0
+                }
+            ],
+            "slug": "location",
+            "template_slug": "location"
+        },
+        {
+            "name": "directors",
+            "singular_name": "director",
+            "fields": [
+                {
+                    "id": "post_content",
+                    "title": "Director Biography",
+                    "type": "content_editor"
+                }
+            ],
+            "slug": "director",
+            "template_slug": "director"
+        },
+        {
+            "name": "projects",
+            "singular_name": "project",
+            "fields": [
+                {
+                    "id": "post_content",
+                    "title": "Project Content",
+                    "type": "content_editor"
+                },
+                {
+                    "id": "post_image",
+                    "title": "Project Featured Image",
+                    "type": "image_selector"
+                },
+                {
+                    "id": "post_category",
+                    "title": "Select a Category",
+                    "type": "select_box",
+                    "source": [
+                        {
+                            "id": 1,
+                            "value": "Digital"
+                        },
+                        {
+                            "id": 2,
+                            "value": "Music Video's",
+                            "selected": 1
+                        }
+                    ]
+                },
+                {
+                    "id": "project_digital",
+                    "title": "Digital Details",
+                    "type": "group_start",
+                    "listen_to": "post_category",
+                    "listen_value": "1"  
+                },
+                {
+                    "id": "location_id",
+                    "title": "Select a location",
+                    "type": "relation",
+                    "multiple": false,
+                    "post_type": "locations"
+                },
+                {
+                    "id": "director_id",
+                    "title": "Select Director(s)",
+                    "type": "relation",
+                    "multiple": true,
+                    "post_type": "directors"
+                },
+                {
+                    "type": "group_end"  
+                }
+            ],
+            "slug": "project",
+            "template_slug": "project"
+        },
+        {
+            "name": "contacts",
+            "singular_name": "contact",
+            "fields": [
+                {
+                    "id": "post_content",
+                    "title": "Short Biography",
+                    "type": "paragraph"
+                }
+            ],
+            "slug": "director",
+            "template_slug": "director",
+            "parent": "locations"
+        }
+    ]
+}
