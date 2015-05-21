@@ -1,6 +1,7 @@
 <?php namespace Neutrino\Http\Controllers;
 
 use View;
+use Auth;
 use Neutrino\Post;
 use Neutrino\PostType;
 use Neutrino\Http\Requests;
@@ -30,7 +31,7 @@ class CmsPostTypeController extends Controller {
 		$postType = PostType::findByNameOrFail($postTypeName);
 		$posts 	  = Post::where('type', '=', $postType->name)->paginate(20); // needs to be config
 		
-		return $this->getView('index', compact('post', 'postType'), $postType->singular_name);
+		return $this->getView('index', compact('posts', 'postType'), $postType->singular_name);
 	}
 
 	/**

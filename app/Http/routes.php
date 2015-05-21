@@ -20,7 +20,7 @@ Route::get('cms/users', 'CmsUserController@index');
 
 // CMS Post Type routing
 Route::get('cms/{post_type}', 'CmsPostTypeController@index');
-Route::get('cms/{post_type}/create', 'CmsPostTypeController@index');
+Route::get('cms/{post_type}/create', 'CmsPostTypeController@create');
 Route::post('cms/{post_type}', 'CmsPostTypeController@store');
 Route::get('cms/{post_type}/{id}', 'CmsPostTypeController@show');
 Route::get('cms/{post_type}/{id}/edit', 'CmsPostTypeController@edit');
