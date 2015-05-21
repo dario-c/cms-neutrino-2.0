@@ -49,7 +49,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 */
 	public function isAdmin()
 	{
-		return strcasecmp($this->role->name, 'admin') != 0;
+		return strcasecmp($this->role->name, 'admin') == 0;
 	}
 
 	/**
