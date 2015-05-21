@@ -4,12 +4,12 @@
 
 	{!! Form::model($user, ['method' => 'PATCH', 'action' => ['CmsUserController@update', $user->id]]) !!}
 	
-		@include('partials.forms._userForm', ['submitText' => 'Edit'])
+		@include('partials.forms._user', ['submitText' => 'Edit'])
 
 	{!! Form::close() !!}	
 
 	@if(Auth::user()->isAdmin() )
-		@include('partials.forms._deleteUserForm')
+		@include('partials.forms._deleteUser')
 	@endif
 
 @stop
