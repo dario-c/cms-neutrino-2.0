@@ -144,6 +144,11 @@ return [
 		'Neutrino\Providers\ConfigServiceProvider',
 		'Neutrino\Providers\EventServiceProvider',
 		'Neutrino\Providers\RouteServiceProvider',
+		
+		/*
+		 * Custom Service Providers...
+		 */
+		'Neutrino\Providers\PostTypeServiceProvider',
 
 	],
 

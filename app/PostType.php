@@ -1,8 +1,11 @@
 <?php namespace Neutrino;
 
 use Neutrino\AbstractModel;
+use Illuminate\Database\Eloquent\Collection;
 
 class PostType extends AbstractModel {
+
+	private static $postTypeCollection;
 
     protected $fillable = array('name', 'singular_name', 'slug', 'template_slug', 'fields', 'relation', 'parent');
     
@@ -28,4 +31,15 @@ class PostType extends AbstractModel {
         return $fields;
     }
 
+	public static function addToCollection(PostType $postType)
+	{
+		self::$postTypeCollection = (self::$postTypeCollection instanceof Collection) ? self::$postTypeCollection : new Collection;
+		
+		self::$postTypeCollection->add($postType);
+	}
+
+	public static function all()
+	{
+		return self::$postTypeCollection;
+	} 
 }
