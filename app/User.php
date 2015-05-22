@@ -22,7 +22,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['name', 'email', 'password'];
+	protected $fillable = ['name', 'email', 'password', 'role_id'];
 
 	/**
 	 * The attributes excluded from the model's JSON form.
@@ -30,6 +30,27 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 * @var array
 	 */
 	protected $hidden = ['password', 'remember_token'];
+
+	/**
+	 * Passwords are hashed when set
+	 *
+	 * @var array
+	 */
+	public function setPasswordAttribute($password)
+	{
+		$this->attributes['password'] = \Hash::make($password);
+	}
+
+	/**
+	 * Check if a user has Admin role
+	 *
+	 * @var array
+	 * @return boolean
+	 */
+	public function isAdmin()
+	{
+		return strcasecmp($this->role->name, 'admin') == 0;
+	}
 
 	/**
 	 * A user has a Role (belongs to a Role)
