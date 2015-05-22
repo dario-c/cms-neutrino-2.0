@@ -8,7 +8,6 @@
 		 [
 		 'submitText' => 'Create Text Key',
 		 'category_id' => null,
-		 'category'=>null,
 		 'value'=>null
 		 ])
 	

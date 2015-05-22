@@ -14,7 +14,7 @@
 			@foreach ($textKeys as $textKey)
 			<tr>
 				<td>{{ $textKey->title }} 
-					(	{!! Html::linkAction('CmsTextKeyController@edit', 'edit', [$textKey->id]) !!} | <a href="#">delete</a>)
+					({!! Html::linkAction('CmsTextKeyController@edit', 'edit', [$textKey->id]) !!} | <a href="#">delete</a>)
 				</td>
 				<td>{{ $textKey->values->where('language_id','1')->first()->value }}</td>
 				<td>{{ $textKey->category->title }} </td>
