@@ -29,7 +29,7 @@ class CmsPostTypeController extends Controller {
 	public function index($postTypeName)
 	{
 		$postType = PostType::findByNameOrFail($postTypeName);
-		$posts 	  = Post::where('type', '=', $postType->name)->paginate(20); // needs to be config
+		$posts 	  = Post::where('type', '=', $postType->name)->paginate(Config::get('posts_per_page', 20)); // needs to be config
 		
 		return $this->getView('index', compact('posts', 'postType'), $postType->singular_name);
 	}
