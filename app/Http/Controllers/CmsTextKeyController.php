@@ -119,9 +119,12 @@ class CmsTextKeyController extends Controller {
 	 */
 	public function destroy($id)
 	{
-	
-		return 'text keys destroy';
+		$textKey = TextKey::findOrfail($id);
+		
+		$textKey->values->first()->delete();
+		$textKey->delete();
 
+		return redirect()->action('CmsTextKeyController@index');
 	}
 
 }
