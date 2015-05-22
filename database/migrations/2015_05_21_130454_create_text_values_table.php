@@ -17,7 +17,7 @@ class CreateTextValuesTable extends Migration {
 			$table->increments('id');
 			$table->string('value');
 			$table->integer('text_key_id')->unsigned();
-			$table->integer('text_language_id')->unsigned();
+			$table->integer('language_id')->unsigned();
 			$table->timestamps();
 
 			$table->foreign('text_key_id')

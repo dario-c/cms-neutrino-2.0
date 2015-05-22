@@ -1,5 +1,7 @@
 <?php namespace Neutrino;
 
+use Neutrino\TextCategory;
+use Neutrino\TextValue;
 use Illuminate\Database\Eloquent\Model;
 
 class TextKey extends Model {
@@ -11,7 +13,7 @@ class TextKey extends Model {
 	 */
 	public function category()
 	{
-		return $this->belongsTo('Neutrino\TextCategory', 'text_category_id');
+		return $this->belongsTo('TextCategory', 'text_category_id');
 	}
 
 	/**
@@ -22,6 +24,6 @@ class TextKey extends Model {
 
 	public function values()
 	{
-		return $this->hasMany('Neutrino\TextValue');
+		return $this->hasMany('TextValue');
 	}
 }
