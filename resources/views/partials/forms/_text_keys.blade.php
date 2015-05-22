@@ -1,13 +1,13 @@
-<!-- TITLE -->
-<div class="form-group">
-	{!! Form::label('title', "Title:") !!}
-	{!! Form::text('title', null) !!}
-</div>
-
-<!-- VALUE -->
+<!-- CATEGORY -->
 <div class="form-group">
 	{!! Form::label('category', "Category:") !!}
-	{!! Form::text('category', $category) !!}
+	{!! Form::select('category_id', $categories, $category_id) !!}
+</div>
+
+<!-- TITLE -->
+<div class="form-group">
+	{!! Form::label('title', "Key:") !!}
+	{!! Form::text('title', null) !!}
 </div>
 
 <!-- VALUE -->

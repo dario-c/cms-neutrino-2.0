@@ -18,6 +18,7 @@ class CmsTextKeyController extends Controller {
 	public function index()
 	{
 		$textKeys = TextKey::all();
+
 		return view('cms.textKeys.index', compact('textKeys'));
 	}
 
@@ -28,8 +29,9 @@ class CmsTextKeyController extends Controller {
 	 */
 	public function create()
 	{
+		$categories = TextCategory::lists('title','id');
 
-		return view('cms.textKeys.create');
+		return view('cms.textKeys.create', compact('categories'));
 	
 	}
 
@@ -40,23 +42,33 @@ class CmsTextKeyController extends Controller {
 	 */
 	public function store(Request $request)
 	{
-		$category = TextCategory::where('title', $request->category)->first();
-		
-		// check if textKey exists or create
-		$textKey = TextKey::where('title', $request->title)->first();
+		$category = TextCategory::findOrfail($request->input('category_id', 0));
 
-		if(! $textKey) {
-			$textKey = new TextKey($request->all());
-			$category->keys()->save($textKey);
-		}
+		$textKey = new TextKey($request->all());
 
-		$textValue = new TextValue($request->all());
-		$textValue->language_id = 1;  // TODO: Remove
+		$category->keys()->save($textKey);
 
-		$textKey->values()->save($textValue);
+		$this->storeValue($textKey, $request, 1);
 
 		return redirect()->action('CmsTextKeyController@index');
 	}
+
+	/**
+	 * Store the TextValue of a given TextKey
+	 *
+	 * @param  TextKey  $textKey
+	 * @param  Request  $request
+	 * @param  int  	$language_id (default: null)
+	 * @return void
+	 */
+	public function storeValue(TextKey $textKey, Request $request, $language_id = null)
+	{
+		$textValue = new TextValue($request->all());
+		$textValue->language_id = (isset($language_id)) ? $language_id : Config::get('language_id', 1);
+
+		$textKey->values()->save($textValue);
+	}
+
 
 	/**
 	 * Display the specified resource.
@@ -76,11 +88,13 @@ class CmsTextKeyController extends Controller {
 	 * @return Response
 	 */
 	public function edit($id)
-	{
-		$textKey = TextKey::findOrfail($id);
-		$category = $textKey->category->title;
-		$value = $textKey->values()->first()->value;
-		return view('cms.textKeys.edit', compact('textKey', 'category', 'value'));
+	{		
+		$textKey 		= TextKey::findOrfail($id);
+		$categories 	= TextCategory::lists('title','id');
+		$category_id 	= $textKey->text_category_id;
+		$value 			= $textKey->values()->first()->value;
+
+		return view('cms.textKeys.edit', compact('textKey', 'category_id', 'value', 'categories'));
 	}
 
 	/**
@@ -105,7 +119,7 @@ class CmsTextKeyController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+	
 		return 'text keys destroy';
 
 	}
