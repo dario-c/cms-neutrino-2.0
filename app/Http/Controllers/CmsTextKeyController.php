@@ -28,10 +28,9 @@ class CmsTextKeyController extends Controller {
 	 */
 	public function create()
 	{
-		// SHOW A FORM
 
 		return view('cms.textKeys.create');
-
+	
 	}
 
 	/**
@@ -56,7 +55,7 @@ class CmsTextKeyController extends Controller {
 
 		$textKey->values()->save($textValue);
 
-		return redirect('cms/textKeys');
+		return redirect()->action('CmsTextKeyController@index');
 	}
 
 	/**
@@ -67,9 +66,7 @@ class CmsTextKeyController extends Controller {
 	 */
 	public function show($id)
 	{
-		//
-		return 'text keys show';
-
+		return redirect()->action('CmsTextKeyController@edit', [$id]);
 	}
 
 	/**
@@ -94,11 +91,10 @@ class CmsTextKeyController extends Controller {
 	 */
 	public function update($id, Request $request)
 	{
-		//
 		$textKey = TextKey::findOrfail($id);
 		$textKey->values()->first()->update(["value" => $request->value]);
 
-		return redirect('cms/textKeys');
+		return redirect()->action('CmsTextKeyController@index');
 	}
 
 	/**
