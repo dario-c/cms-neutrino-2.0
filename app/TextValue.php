@@ -5,6 +5,13 @@ use Illuminate\Database\Eloquent\Model;
 class TextValue extends Model {
 
 	/**
+	 * The attributes that are mass assignable.
+	 *
+	 * @var array
+	 */
+	protected $fillable = ['value'];
+
+	/**
 	 * A TextValue has a TextKey (belongs to a TextKey)
 	 *
 	 * @var array

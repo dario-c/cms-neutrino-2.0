@@ -51,16 +51,33 @@ class DatabaseSeeder extends Seeder {
 			'title' => 'english', 
 		));
 
+		Neutrino\Language::create(array( 
+			'code' => 'du', 
+			'title' => 'dutch', 
+		));
+
 		Neutrino\TextValue::create(array( 
-			'value' => 'kng', 
+			'value' => 'send now!', 
 			'text_key_id' => '1',
 			'language_id' => '1'
 		));
 
 		Neutrino\TextValue::create(array( 
-			'value' => 'kng', 
+			'value' => 'edit this', 
 			'text_key_id' => '2',
 			'language_id' => '1'
+		));
+
+		Neutrino\TextValue::create(array( 
+			'value' => 'nu verzenden!', 
+			'text_key_id' => '1',
+			'language_id' => '2'
+		));
+
+		Neutrino\TextValue::create(array( 
+			'value' => 'bewerk nu!', 
+			'text_key_id' => '2',
+			'language_id' => '2'
 		));
 
 		// $this->call('UserTableSeeder');

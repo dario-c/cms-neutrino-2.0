@@ -1,10 +1,15 @@
 <?php namespace Neutrino;
 
-use Neutrino\TextCategory;
-use Neutrino\TextValue;
 use Illuminate\Database\Eloquent\Model;
 
 class TextKey extends Model {
+
+	/**
+	 * The attributes that are mass assignable.
+	 *
+	 * @var array
+	 */
+	protected $fillable = ['title'];
 
 	/**
 	 * A TextKey has a TextCategory (belongs to a TextCategory)
@@ -13,7 +18,7 @@ class TextKey extends Model {
 	 */
 	public function category()
 	{
-		return $this->belongsTo('TextCategory', 'text_category_id');
+		return $this->belongsTo('Neutrino\TextCategory', 'text_category_id');
 	}
 
 	/**
@@ -24,6 +29,6 @@ class TextKey extends Model {
 
 	public function values()
 	{
-		return $this->hasMany('TextValue');
+		return $this->hasMany('Neutrino\TextValue');
 	}
 }
