@@ -49,17 +49,28 @@ class CmsPostTypeController extends Controller {
 
 	/**
 	 * Store a newly created resource in storage.
-	 *
+	 * 
+	 * @access public
+	 * @param string $postTypeName
+	 * @param Request $request
 	 * @return Response
 	 */
-	public function store(Request $request)
+	public function store($postTypeName, Request $request)
 	{
 		// store post
 		$post = Post::create($request->all());
 	
 		// Add post meta storing
-		// ..
-			
+		/* ..
+		
+		$postMeta = new PostMeta();
+		$postMeta->post_id 	= $post->id;
+		$postMeta->key 		= 'post_video'; // post type field identifier
+		$postMeta->value 	= $value;
+		$postMeta->save();
+		
+		*/
+
 		return redirect('cms/users');
 	}
 
@@ -132,16 +143,17 @@ class CmsPostTypeController extends Controller {
 	 * getView function.
 	 * 
 	 * @param mixed $action
-	 * @param $with $affix (default: '')
+	 * @param array $with (default: array())
+	 * @param $affix (default: '')
 	 * @return View
 	 */
-	private function getView($action, $with, $affix = '')
+	private function getView($action, array $with = array(), $affix = '')
 	{
-		if(View::exists('cms.posts.'.$action.'_'.$affix))
+		if(View::exists('cms.posts.'.$action.'_'.$affix)) // example: cms/posts/index_projects.blade.php
 		{
 		    return View::make('cms.posts.'.$action.'_'.$affix)->with($with);
 		}
 		
-		return View::make('cms.posts.'.$action)->with($with); 
+		return View::make('cms.posts.'.$action)->with($with); // example: cms/posts/index.blade.php
 	}
 }

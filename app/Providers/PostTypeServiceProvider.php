@@ -32,6 +32,9 @@ class PostTypeServiceProvider extends ServiceProvider {
         $postTypeJson	= file_get_contents(base_path() . self::POST_TYPE_FILE);
         $postTypes  	= json_decode($postTypeJson, true);
         
+        // build json check
+        // ..
+        
         if(is_array($postTypes['post_types']))
         {
             foreach($postTypes['post_types'] as $rawPostType)
