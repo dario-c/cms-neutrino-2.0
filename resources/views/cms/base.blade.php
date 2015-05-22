@@ -7,10 +7,8 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         
-        <link type="text/css" rel="stylesheet" href="{{ asset_path }}/css/libraries/bootstrap.min.css" />
-        <link type="text/css" rel="stylesheet" href="{{ asset_path }}/css/app.css" />
-        <link type="text/css" rel="stylesheet" href="{{ asset_path }}/css/libraries/form-validation.min.css" />
-        <link type="text/css" rel="stylesheet" href="{{ asset_path }}/css/libraries/font-awesome.min.css" rel="stylesheet" />
+        <link type="text/css" rel="stylesheet" href="{{ asset('cms/css/libraries.css') }}" />
+        <link type="text/css" rel="stylesheet" href="{{ asset('cms/css/app.css') }}" />
         
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -22,16 +20,22 @@
     <body>
 	 
 		<div class="container-fluid">
-	        @include('partials/top_bar.blade.php')
+	        @include('cms.partials.top_bar')
 	        
+	        @if (Auth::guest())
+	        <div class="">
+				@yield('content')
+            </div>
+	        @else
 	        <div class="row main-content">
 	            <div class="col-sm-3 menu-bar">   
-	                @include('partials/menu_bar.blade.php')    
+	                @include('cms.partials.menu_bar')    
 	            </div>
 	            <div class="col-sm-9">
 					@yield('content')
 	            </div>
 	        </div>
+	        @endif
 		</div>
 	
 		<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -49,12 +53,7 @@
             </div>
         </div>
         
-        <script type="text/javascript" src="{{ asset_path }}/js/jquery-1.11.2.min.js"></script>
-        <script type="text/javascript" src="{{ asset_path }}/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="{{ asset_path }}/js/form-validation.min.js"></script>
-        <script type="text/javascript" src="https://raw.githubusercontent.com/formvalidation/formvalidation/master/dist/js/framework/bootstrap.min.js"></script>
-        <script type="text/javascript" src="https://raw.githubusercontent.com/mindmup/bootstrap-wysiwyg/master/external/jquery.hotkeys.js"></script>
-        <script type="text/javascript" src="{{ asset_path }}/js/bootstrap-wysiwyg.min.js"></script>
+        <script type="text/javascript" src="{{ asset('cms/js/libraries.js') }}"></script>
         <script type="text/javascript">
             
             $("[data-toggle=popover]").popover({
@@ -174,13 +173,13 @@
             }
         </script>
         
-        {% for filename in component_js_files %}
+        {{-- % for filename in component_js_files %}
         <script type="text/javascript" src="{{ filename }}"></script>
-        {% endfor %}
+        {% endfor % --}}
         
-        {% for resource in Resource.getScripts() %}
+        {{-- % for resource in Resource.getScripts() %}
         <script type="text/javascript" src="{{ asset_path }}/js/{{ resource }}"></script>
-        {% endfor %}
+        {% endfor --}}
         
     </body>
 </html>

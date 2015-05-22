@@ -1,0 +1,56 @@
+.pointer { cursor: pointer; }
+
+/* Loader */
+.simple-loader {
+    width: 200px;
+    margin: 10% auto;
+}
+
+/* enable absolute positioning */
+.inner-addon { 
+    position: relative; 
+}
+
+/* style icon */
+.inner-addon .glyphicon {
+  position: absolute;
+  padding: 10px;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* align icon */
+.left-addon .glyphicon  { left:  0px;}
+.right-addon .glyphicon { right: 0px;}
+
+/* add padding  */
+.left-addon input  { padding-left:  30px; }
+.right-addon input { padding-right: 30px; }
+
+.two-columns {
+    -moz-column-count: 2;
+    -moz-column-gap: 30px;
+    -webkit-column-count: 2;
+    -webkit-column-gap: 30px;
+    column-count: 2;
+    column-gap: 30px;
+}
+
+.no-row-padding > div:first-child {
+    padding-left: 0px !important;
+}
+.no-row-padding > div:last-child {
+    padding-right: 0px !important;
+}
+
+.no-border-radius {
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    -o-border-radius: 0px;
+    border-radius: 0px;
+    border: 0px;
+}
+
+.popover-custom-content {
+    display: none;
+}
