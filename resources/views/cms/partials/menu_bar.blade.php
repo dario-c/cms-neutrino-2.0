@@ -57,7 +57,7 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4 class="panel-title">
-                <a href="/cms/texts/">
+                <a href="/cms/text-keys/">
                     <span class="glyphicon glyphicon-font"></span> 
                     Text keys
                 </a>
@@ -89,7 +89,7 @@
                     <a href="/cms/users/">- View users</a>
                 </li>
                 <li class="list-group-item">
-                    <a href="/cms/users/add/">- Add user</a>
+                    <a href="/cms/users/create/">- Add user</a>
                 </li>
             </ul>
         </div>

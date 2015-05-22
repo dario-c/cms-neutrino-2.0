@@ -1,10 +1,10 @@
-@extends('app')
+@extends('cms.base')
 
 @section('content')
 
 	{!! Form::open(['method' => 'POST', 'action' => 'CmsUserController@store']) !!}
 
-		@include('partials.forms._user', ['submitText' => 'Register'])
+		@include('cms.partials.forms.user', ['submitText' => 'Register'])
 	
 	{!! Form::close() !!}
 
