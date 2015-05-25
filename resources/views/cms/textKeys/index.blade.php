@@ -19,7 +19,7 @@
 					@include('partials.forms._delete_text_key')
 					
 				</td>
-				<td>{{ $textKey->values->where('language_id','1')->first()->value }}</td>
+				<td>{{ $textKey->valueForLanguage('1') }}</td>
 				<td>{{ $textKey->category->title }} </td>
 			</tr>
 			@endforeach

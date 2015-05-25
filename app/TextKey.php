@@ -26,9 +26,19 @@ class TextKey extends Model {
 	 *
 	 * @var array
 	 */
-
 	public function values()
 	{
 		return $this->hasMany('Neutrino\TextValue');
+	}
+
+	/**
+	 * Returns the TextValue for a particular language
+	 *
+	 * @param int $language_id (default: null)
+	 * @var array
+	 */
+	public function valueForLanguage($language_id = null)
+	{
+		return $this->values->where('language_id', $language_id)->first()->value;
 	}
 }

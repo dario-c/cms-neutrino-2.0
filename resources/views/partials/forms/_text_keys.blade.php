@@ -7,13 +7,13 @@
 <!-- TITLE -->
 <div class="form-group">
 	{!! Form::label('title', "Key:") !!}
-	{!! Form::text('title', null) !!}
+	{!! Form::text('title', null, ['required']) !!}
 </div>
 
 <!-- VALUE -->
 <div class="form-group">
 	{!! Form::label('value', "Value:") !!}
-	{!! Form::text('value', $value) !!}
+	{!! Form::text('value', $value, ['required']) !!}
 </div>
 
 

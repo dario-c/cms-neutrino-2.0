@@ -11,6 +11,16 @@ use Illuminate\Http\Request;
 class CmsTextKeyController extends Controller {
 
 	/**
+	 * Create a new controller instance.
+	 *
+	 * @return void
+	 */
+	public function __construct()
+	{
+		$this->middleware('auth');
+	}
+
+	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
@@ -32,7 +42,6 @@ class CmsTextKeyController extends Controller {
 		$categories = TextCategory::lists('title','id');
 
 		return view('cms.textKeys.create', compact('categories'));
-	
 	}
 
 	/**
@@ -42,15 +51,27 @@ class CmsTextKeyController extends Controller {
 	 */
 	public function store(Request $request)
 	{
-		$category = TextCategory::findOrfail($request->input('category_id', 0));
-
 		$textKey = new TextKey($request->all());
 
-		$category->keys()->save($textKey);
+		$this->storeIntoCategory($textKey, $request->input('category_id', 0));
 
 		$this->storeValue($textKey, $request, 1);
 
 		return redirect()->action('CmsTextKeyController@index');
+	}
+
+	/**
+	 * Store a newly created resource in storage.
+	 *
+	 * @param TextKey $textKey
+	 * @param int $categoryId
+	 * @return void
+	 */
+	public function storeIntoCategory(TextKey $textKey, $categoryId)
+	{
+		$category = TextCategory::findOrfail($categoryId);
+
+		$category->keys()->save($textKey);
 	}
 
 	/**

@@ -9,7 +9,7 @@
 	{!! Form::close() !!}	
 
 	@if(Auth::user()->isAdmin() )
-		@include('partials.forms._deleteUser')
+		@include('partials.forms._delete_user')
 	@endif
 
 @stop
