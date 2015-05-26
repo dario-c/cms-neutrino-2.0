@@ -1,6 +1,7 @@
 @extends('app')
 
 @section('content')
+	@include('partials.forms.errors')
 
 	{!! Form::open(['method' => 'POST', 'action' => 'CmsTextKeyController@store']) !!}
 

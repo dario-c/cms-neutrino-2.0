@@ -1,6 +1,8 @@
 @extends('app')
 
 @section('content')
+	@include('partials.forms.errors')
+
 	@if(isset($textKeys))
 
 	<div class="panel panel-default">
