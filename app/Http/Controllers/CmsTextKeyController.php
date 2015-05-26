@@ -29,7 +29,7 @@ class CmsTextKeyController extends Controller {
 	{
 		$textKeys = TextKey::all();
 
-		return view('cms.textKeys.index', compact('textKeys'));
+		return view('cms.text_keys.index', compact('textKeys'));
 	}
 
 	/**
@@ -41,7 +41,7 @@ class CmsTextKeyController extends Controller {
 	{
 		$categories = TextCategory::lists('title','id');
 
-		return view('cms.textKeys.create', compact('categories'));
+		return view('cms.text_keys.create', compact('categories'));
 	}
 
 	/**
@@ -90,7 +90,6 @@ class CmsTextKeyController extends Controller {
 		$textKey->values()->save($textValue);
 	}
 
-
 	/**
 	 * Display the specified resource.
 	 *
@@ -115,7 +114,7 @@ class CmsTextKeyController extends Controller {
 		$category_id 	= $textKey->text_category_id;
 		$value 			= $textKey->values()->first()->value;
 
-		return view('cms.textKeys.edit', compact('textKey', 'category_id', 'value', 'categories'));
+		return view('cms.text_keys.edit', compact('textKey', 'category_id', 'value', 'categories'));
 	}
 
 	/**

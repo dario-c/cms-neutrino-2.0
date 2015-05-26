@@ -16,7 +16,7 @@
 				<td>{{ $textKey->title }}
 					<br>
 					{!! Html::linkAction('CmsTextKeyController@edit', 'edit', [$textKey->id]) !!}
-					@include('partials.forms._delete_text_key')
+					@include('partials.forms.delete_text_key')
 					
 				</td>
 				<td>{{ $textKey->valueForLanguage('1') }}</td>

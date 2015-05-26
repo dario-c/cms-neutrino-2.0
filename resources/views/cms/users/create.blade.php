@@ -4,7 +4,7 @@
 
 	{!! Form::open(['method' => 'POST', 'action' => 'CmsUserController@store']) !!}
 
-		@include('partials.forms._user', ['submitText' => 'Register'])
+		@include('partials.forms.user', ['submitText' => 'Register'])
 	
 	{!! Form::close() !!}
 
