@@ -112,7 +112,7 @@ class CmsPostTypeController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update(Request $request, $id)
+	public function update($postTypeName, $id, Request $request)
 	{		
 		$postType 	= PostType::findByNameOrFail($postTypeName);
 		$post 		= Post::findOrFail($id);
@@ -122,7 +122,7 @@ class CmsPostTypeController extends Controller {
 		// Add post meta storing
 		// ..
 		
-		return redirect('cms/users');
+		return redirect('cms/'.$postTypeName);
 	}
 
 	/**

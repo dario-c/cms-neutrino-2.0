@@ -140,9 +140,9 @@
         <div class="col-xs-4">
             <strong class="pointer">{{ $post->title }} [{{ $post->state }}]</strong>
             <div class="list-item-actions">
-                <a href="edit/{{ $post->post_id }}/">Edit</a> | 
+                <a href="/cms/{{ $postType->name }}/{{ $post->id }}/edit/">Edit</a> | 
                 <a href="#">Preview</a> | 
-                <a data-href="delete/{{ $post->post_id }}/" data-toggle="modal" data-target="#confirm-delete" href="#">Delete</a>
+                <a data-href="cms/{{ $postType->name }}/edit/{{ $post->id }}/delete/" data-toggle="modal" data-target="#confirm-delete" href="#">Delete</a>
             </div>
         </div>
         <div class="col-xs-2 hide-in-grid">{{ $post->slug }}</div>
