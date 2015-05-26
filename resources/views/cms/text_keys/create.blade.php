@@ -1,10 +1,10 @@
-@extends('app')
+@extends('cms.base')
 
 @section('content')
 
 	{!! Form::open(['method' => 'POST', 'action' => 'CmsTextKeyController@store']) !!}
 
-		@include('partials.forms.text_keys',
+		@include('cms.partials.forms.text_keys',
 		[
 			'submitText' => 'Create Text Key',
 			'category_id' => null,
