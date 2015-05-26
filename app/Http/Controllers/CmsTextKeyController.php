@@ -6,18 +6,28 @@ use Neutrino\TextValue;
 use Neutrino\Http\Requests;
 use Neutrino\Http\Controllers\Controller;
 
+use Neutrino\Exceptions\ValidationException;
+use Neutrino\Services\Validation\TextKeyValidator;
+
 use Illuminate\Http\Request;
 
 class CmsTextKeyController extends Controller {
+
+
+	/**
+	 * @var Neutrino\Services\Validation\TextKeyValidator
+	 */
+	protected $_validator;
 
 	/**
 	 * Create a new controller instance.
 	 *
 	 * @return void
 	 */
-	public function __construct()
+	public function __construct(TextKeyValidator $validator)
 	{
 		$this->middleware('auth');
+		$this->_validator = $validator;
 	}
 
 	/**
@@ -56,6 +66,23 @@ class CmsTextKeyController extends Controller {
 		$this->storeIntoCategory($textKey, $request->input('category_id', 0));
 
 		$this->storeValue($textKey, $request, 1);
+
+
+
+		try {
+
+			$validate_data = $this->_validator->validate( $textKey->toArray() );
+				
+			return "Validation passed!";
+				// return Redirect::route( 'dummy.create' )->withMessage( 'Data passed validation checks' );
+			} catch ( ValidationException $e ) {
+
+				return $e->get_errors();
+				// return Redirect::route( 'dummy.create' )->withInput()->withErrors( $e->get_errors() );
+		}
+
+
+
 
 		return redirect()->action('CmsTextKeyController@index');
 	}
