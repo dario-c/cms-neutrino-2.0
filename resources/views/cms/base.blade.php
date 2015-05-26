@@ -7,8 +7,8 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         
-        <link type="text/css" rel="stylesheet" href="{{ asset('cms/css/libraries.css') }}" />
-        <link type="text/css" rel="stylesheet" href="{{ asset('cms/css/app.css') }}" />
+        <link type="text/css" rel="stylesheet" href="{{ asset('assets/cms/css/libraries.css') }}" />
+        <link type="text/css" rel="stylesheet" href="{{ asset('assets/cms/css/app.css') }}" />
         
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -53,7 +53,7 @@
             </div>
         </div>
         
-        <script type="text/javascript" src="{{ asset('cms/js/libraries.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('assets/cms/js/libraries.js') }}"></script>
         <script type="text/javascript">
             
             $("[data-toggle=popover]").popover({
