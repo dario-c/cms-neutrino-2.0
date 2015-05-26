@@ -4,6 +4,7 @@ use View;
 use Auth;
 use Config;
 use Neutrino\Post;
+use Neutrino\User;
 use Neutrino\PostType;
 use Neutrino\Http\Requests;
 use Neutrino\Http\Controllers\Controller;
@@ -58,8 +59,11 @@ class CmsPostTypeController extends Controller {
 	 */
 	public function store($postTypeName, Request $request)
 	{
-		// store post
-		$post = Post::create($request->all());
+		$post = new Post($request->all());
+		
+		$post->user_id = Auth::user()->id;
+		
+		$post->save();
 	
 		// Add post meta storing
 		/* ..
@@ -72,7 +76,7 @@ class CmsPostTypeController extends Controller {
 		
 		*/
 
-		return redirect('cms/users');
+		return redirect('cms/'.$postTypeName);
 	}
 
 	/**
