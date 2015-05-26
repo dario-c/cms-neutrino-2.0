@@ -2,6 +2,7 @@
 
 use View;
 use Auth;
+use Config;
 use Neutrino\Post;
 use Neutrino\PostType;
 use Neutrino\Http\Requests;
