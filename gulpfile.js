@@ -26,9 +26,9 @@ elixir(function(mix) {
 	    'libraries/bootstrap.min.css',
 	    'libraries/font-awesome.min.css',
 	    'libraries/form-validation.min.css'
-    ], 'public/cms/css/libraries.css');
+    ], 'public/assets/cms/css/libraries.css');
     
-    mix.less('app.less', 'public/cms/css');
+    mix.less('app.less', 'public/assets/cms/css');
         
     mix.scripts([
 	    'libraries/jquery-1.11.2.min.js',
@@ -36,8 +36,8 @@ elixir(function(mix) {
 	    'libraries/form-validation.min.js',
 	    'libraries/form-validation-bootstrap.min.js',
 	    'libraries/jquery.hotkeys.min.js'
-    ], 'public/cms/js/libraries.js');
+    ], 'public/assets/cms/js/libraries.js');
     
-    mix.copy('resources/assets/cms/images', 'public/cms/images');
-    mix.copy('resources/assets/cms/fonts', 'public/cms/fonts');
+    mix.copy('resources/assets/cms/images', 'public/assets/cms/images');
+    mix.copy('resources/assets/cms/fonts', 'public/assets/cms/fonts');
 });
