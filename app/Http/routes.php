@@ -24,6 +24,15 @@ Route::get('cms', 'CmsController@index');
 Route::resource('cms/users', 'CmsUserController');
 
 
+// CMS Post Type routing
+Route::get('cms/{post_type}', 'CmsPostTypeController@index');
+Route::get('cms/{post_type}/create', 'CmsPostTypeController@index');
+Route::post('cms/{post_type}', 'CmsPostTypeController@store');
+Route::get('cms/{post_type}/{id}', 'CmsPostTypeController@show');
+Route::get('cms/{post_type}/{id}/edit', 'CmsPostTypeController@edit');
+Route::patch('cms/{post_type}/{id}', 'CmsPostTypeController@update');
+Route::delete('cms/{post_type}/{id}', 'CmsPostTypeController@destroy');
+
 // Authentication routing
 Route::controllers([
 	'auth' => 'Auth\AuthController',

@@ -2,6 +2,8 @@
 
 use Neutrino\AbstractModel;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class PostType extends AbstractModel {
 
@@ -42,4 +44,18 @@ class PostType extends AbstractModel {
 	{
 		return self::$postTypeCollection;
 	} 
+	
+	public static function findByNameOrFail($postTypeName)
+	{
+		foreach(self::$postTypeCollection as $item) 
+		{	
+			if(isset($item->name) && strcasecmp($item->name, $postTypeName) == 0) 
+	        {
+	            return $item;
+	        }
+	    }
+	    
+	    throw new NotFoundHttpException;
+	    //throw (new ModelNotFoundException)->setModel(get_called_class());
+	}
 }
