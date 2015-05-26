@@ -126,9 +126,25 @@ class CmsTextKeyController extends Controller {
 	public function update($id, Request $request)
 	{
 		$textKey = TextKey::findOrfail($id);
+
+		$this->updateCategory($textKey, $request->category_id);
 		$textKey->values()->first()->update(["value" => $request->value]);
 
 		return redirect()->action('CmsTextKeyController@index');
+	}
+
+	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function updateCategory(TextKey $textKey, $category_id)
+	{
+		$category = TextCategory::findOrfail($category_id);
+
+		$textKey->category()->associate($category);
+		$textKey->save();
 	}
 
 	/**
