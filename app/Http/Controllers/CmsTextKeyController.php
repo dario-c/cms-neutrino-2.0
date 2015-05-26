@@ -67,7 +67,7 @@ class CmsTextKeyController extends Controller {
 
 		$this->storeValue($textKey, $request, 1);
 
-
+		// dd($textKey->toArray());
 
 		try {
 
