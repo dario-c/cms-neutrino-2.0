@@ -9,7 +9,9 @@
 	{!! Form::close() !!}	
 
 	@if(Auth::user()->isAdmin() )
+
 		@include('cms.partials.forms.delete_user')
+
 	@endif
 
 @stop

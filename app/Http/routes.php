@@ -22,6 +22,7 @@ Route::get('cms', 'CmsController@index');
 // Route::get('cms/users/{id}/update', 'CmsUserController@update');
 
 Route::resource('cms/users', 'CmsUserController');
+Route::resource('cms/text-keys', 'CmsTextKeyController');
 
 
 // CMS Post Type routing

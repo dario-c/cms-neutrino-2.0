@@ -1,21 +1,21 @@
 <!-- NAME -->
 <div class="form-group">
 	{!! Form::label('name', "Name:") !!}
-	{!! Form::text('name', null) !!}
+	{!! Form::text('name', null, ['required']) !!}
 </div>
 
 
 <!-- EMAIL -->
 <div class="form-group">
 	{!! Form::label('email', "Email:") !!}
-	{!! Form::email('email', null) !!}
+	{!! Form::email('email', null, ['required']) !!}
 </div>
 
 
 <!-- PASSWORD -->
 <div class="form-group">
 	{!! Form::label('password', "Password:") !!}
-	{!! Form::password('password', null) !!}
+	{!! Form::password('password', null, ['required']) !!}
 </div>
 
 
