@@ -63,28 +63,20 @@ class CmsTextKeyController extends Controller {
 	{
 		$textKey = new TextKey($request->all());
 
-		$this->storeIntoCategory($textKey, $request->input('category_id', 0));
-
-		$this->storeValue($textKey, $request, 1);
-
-		// dd($textKey->toArray());
 
 		try {
-
 			$validate_data = $this->_validator->validate( $textKey->toArray() );
-				
-			return "Validation passed!";
-				// return Redirect::route( 'dummy.create' )->withMessage( 'Data passed validation checks' );
+
+			$textKey->save();
+			$this->storeValue($textKey, $request, 1);
+
+
+			return redirect()->action('CmsTextKeyController@index')->withMessage( 'Saved Successfully' );;
+
 			} catch ( ValidationException $e ) {
 
-				return $e->get_errors();
-				// return Redirect::route( 'dummy.create' )->withInput()->withErrors( $e->get_errors() );
+				return redirect()->action('CmsTextKeyController@create')->withErrors( $e->get_errors() );
 		}
-
-
-
-
-		return redirect()->action('CmsTextKeyController@index');
 	}
 
 	/**

@@ -9,7 +9,7 @@ class TextKey extends Model {
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['title'];
+	protected $fillable = ['title', 'text_category_id'];
 
 	/**
 	 * A TextKey has a TextCategory (belongs to a TextCategory)
