@@ -1,8 +1,9 @@
 <?php namespace Neutrino\Http\Controllers;
 
+use Config;
 use Neutrino\TextKey;
-use Neutrino\TextCategory;
 use Neutrino\TextValue;
+use Neutrino\TextCategory;
 use Neutrino\Http\Requests;
 use Neutrino\Http\Controllers\Controller;
 
@@ -31,6 +32,7 @@ class CmsTextKeyController extends Controller {
 	 */
 	public function __construct(TextKeyValidator $textKeyValidator, TextValueValidator $textValueValidator)
 	{
+		// TODO: Short?
 		$this->middleware('auth');
 		$this->_textKeyValidator = $textKeyValidator;
 		$this->_textValueValidator = $textValueValidator;
@@ -67,33 +69,37 @@ class CmsTextKeyController extends Controller {
 	 */
 	public function store(Request $request)
 	{
-		$textKey = new TextKey($request->all());
+		echo "Store-----";
 
-		$validationErrors = $this->validateData($request, $textKey, $this->_textKeyValidator);
-		if(isset($validationErrors)){ return redirect()->action('CmsTextKeyController@create')->withErrors( $validationErrors ); }
+		$this->validateData($request->all(), $this->_textKeyValidator, 'CmsTextKeyController@create');
 
-		$textKey->save();
+		$textKey = TextKey::create($request->all());
 
-		$validationErrors = $this->storeValue($textKey->id, $request, 1);
-		if(isset($validationErrors)){ 
-			return redirect()->action('CmsTextKeyController@edit', [$textKey->id])->withErrors( $validationErrors );
-		}
+		echo "-----TextKey has been created-----"; 
+		$this->storeValue($textKey->id, $request->input());
 
 		return redirect()->action('CmsTextKeyController@index')->withMessage( 'Saved Successfully' );
 	}
+
 
 	/**
 	 * Store a newly created resource in storage.
 	 *
 	 * @return Response
 	 */
-	public function validateData(Request $request, $checkObject, $validator)
+	private function validateData($inputs, $validator, $action, array $parameters = array())
 	{
-		try {
-			$validator->validate( $checkObject->toArray());
-
-			} catch ( ValidationException $e ) {
-				return $e->get_errors();
+		try 
+		{
+			$validator->validate( $inputs );
+		} 
+		catch ( ValidationException $e ) 
+		{
+			$errors = $e->get_errors();
+		
+			var_dump($errors);
+			redirect()->action($action, $parameters)->withErrors($errors)->send();
+			exit();
 		}
 	}
 
@@ -105,17 +111,15 @@ class CmsTextKeyController extends Controller {
 	 * @param  int  	$language_id (default: null)
 	 * @return void
 	 */
-	public function storeValue($textKeyId, Request $request, $language_id = null)
+	private function storeValue($textKeyId, $value, $language_id = null)
 	{
-		$textValue = new TextValue($request->all());
+		echo '-----in  storeValue-----';
+		var_dump($value);
+		$this->validateData($value, $this->_textValueValidator, 'CmsTextKeyController@edit', [$textKeyId]);
 
-		$textValue->language_id = (isset($language_id)) ? $language_id : Config::get('language_id', 1);
-		$textValue->text_key_id = $textKeyId;
+		$language_id = (isset($language_id)) ? $language_id : Config::get('language_id', 1);
 
-		$validationErrors = $this->validateData($request, $textValue, $this->_textValueValidator);
-
-		if(!isset($validationErrors)){ $textValue->save(); }
-		return $validationErrors;
+		$textValue = TextValue::updateOrCreate(array('text_key_id' => $textKeyId, 'language_id' => $language_id), array('value' => $value));
 	}
 
 	/**
@@ -153,31 +157,15 @@ class CmsTextKeyController extends Controller {
 	 */
 	public function update($id, Request $request)
 	{
+
 		$textKey = TextKey::findOrfail($id);
 
 		$this->updateCategory($textKey, $request->text_category_id);
 
 
-
-		if(count($textKey->values) > 0){
-			$textValue = $textKey->values()->first(); 
-			$textValue->value = $request->value;
-
-		} else {
-			$textValue = new TextValue($request->all());
-			$textValue->language_id =  1;
-			$textValue->text_key_id = $id;
-		}
+		$this->storeValue($textKey->id, $request->input());
 
 
-		$validationErrors = $this->validateData($request, $textValue, $this->_textValueValidator);
-
-		if(isset($validationErrors)){ 
-			return redirect()->action('CmsTextKeyController@edit', [$textKey->id])->withErrors( $validationErrors );
-		}
-
-		
-		$textValue->save(); 
 		return redirect()->action('CmsTextKeyController@index')->withMessage( 'Saved Successfully' );
 	}
 
