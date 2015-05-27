@@ -1,6 +1,7 @@
 @extends('app')
 
 @section('content')
+	@include('partials.forms.errors')
 
 	{!! Form::model($user, ['method' => 'PATCH', 'action' => ['CmsUserController@update', $user->id]]) !!}
 	

@@ -1,4 +1,5 @@
 @extends('app');
+@include('partials.forms.errors')
 
 @section('content')
 	@unless ($users->isEmpty())

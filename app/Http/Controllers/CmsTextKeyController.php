@@ -71,7 +71,7 @@ class CmsTextKeyController extends Controller {
 
 
 		try {
-			$validate_data = $this->_textKeyValidator->validate( $textKey->toArray() );
+			$this->_textKeyValidator->validate( $textKey->toArray());
 
 			$textKey->save();
 			$this->storeValue($textKey, $request, 1);
