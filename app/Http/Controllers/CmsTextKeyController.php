@@ -69,19 +69,31 @@ class CmsTextKeyController extends Controller {
 	{
 		$textKey = new TextKey($request->all());
 
+		$validationErrors = $this->validateData($request, $textKey, $this->_textKeyValidator);
+		if(isset($validationErrors)){ return redirect()->action('CmsTextKeyController@create')->withErrors( $validationErrors ); }
 
+		$textKey->save();
+
+		$validationErrors = $this->storeValue($textKey->id, $request, 1);
+		if(isset($validationErrors)){ 
+			return redirect()->action('CmsTextKeyController@edit', [$textKey->id])->withErrors( $validationErrors );
+		}
+
+		return redirect()->action('CmsTextKeyController@index')->withMessage( 'Saved Successfully' );
+	}
+
+	/**
+	 * Store a newly created resource in storage.
+	 *
+	 * @return Response
+	 */
+	public function validateData(Request $request, $checkObject, $validator)
+	{
 		try {
-			$this->_textKeyValidator->validate( $textKey->toArray());
-
-			$textKey->save();
-			$this->storeValue($textKey, $request, 1);
-
-
-			return redirect()->action('CmsTextKeyController@index')->withMessage( 'Saved Successfully' );;
+			$validator->validate( $checkObject->toArray());
 
 			} catch ( ValidationException $e ) {
-
-				return redirect()->action('CmsTextKeyController@create')->withErrors( $e->get_errors() );
+				return $e->get_errors();
 		}
 	}
 
@@ -93,12 +105,17 @@ class CmsTextKeyController extends Controller {
 	 * @param  int  	$language_id (default: null)
 	 * @return void
 	 */
-	public function storeValue(TextKey $textKey, Request $request, $language_id = null)
+	public function storeValue($textKeyId, Request $request, $language_id = null)
 	{
 		$textValue = new TextValue($request->all());
-		$textValue->language_id = (isset($language_id)) ? $language_id : Config::get('language_id', 1);
 
-		$textKey->values()->save($textValue);
+		$textValue->language_id = (isset($language_id)) ? $language_id : Config::get('language_id', 1);
+		$textValue->text_key_id = $textKeyId;
+
+		$validationErrors = $this->validateData($request, $textValue, $this->_textValueValidator);
+
+		if(!isset($validationErrors)){ $textValue->save(); }
+		return $validationErrors;
 	}
 
 	/**
@@ -123,7 +140,7 @@ class CmsTextKeyController extends Controller {
 		$textKey 		= TextKey::findOrfail($id);
 		$categories 	= TextCategory::lists('title','id');
 		$category_id 	= $textKey->text_category_id;
-		$value 			= $textKey->values()->first()->value;
+		$value 			= (isset($textKey->values()->first()->value)) ? $textKey->values()->first()->value : null;
 
 		return view('cms.text_keys.edit', compact('textKey', 'category_id', 'value', 'categories'));
 	}
@@ -139,9 +156,29 @@ class CmsTextKeyController extends Controller {
 		$textKey = TextKey::findOrfail($id);
 
 		$this->updateCategory($textKey, $request->text_category_id);
-		$textKey->values()->first()->update(["value" => $request->value]);
 
-		return redirect()->action('CmsTextKeyController@index');
+
+
+		if(count($textKey->values) > 0){
+			$textValue = $textKey->values()->first(); 
+			$textValue->value = $request->value;
+
+		} else {
+			$textValue = new TextValue($request->all());
+			$textValue->language_id =  1;
+			$textValue->text_key_id = $id;
+		}
+
+
+		$validationErrors = $this->validateData($request, $textValue, $this->_textValueValidator);
+
+		if(isset($validationErrors)){ 
+			return redirect()->action('CmsTextKeyController@edit', [$textKey->id])->withErrors( $validationErrors );
+		}
+
+		
+		$textValue->save(); 
+		return redirect()->action('CmsTextKeyController@index')->withMessage( 'Saved Successfully' );
 	}
 
 	/**
