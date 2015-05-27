@@ -8,26 +8,32 @@ use Neutrino\Http\Controllers\Controller;
 
 use Neutrino\Exceptions\ValidationException;
 use Neutrino\Services\Validation\TextKeyValidator;
+use Neutrino\Services\Validation\TextValueValidator;
 
 use Illuminate\Http\Request;
 
 class CmsTextKeyController extends Controller {
 
-
 	/**
 	 * @var Neutrino\Services\Validation\TextKeyValidator
 	 */
-	protected $_validator;
+	protected $_textKeyValidator;
+
+	/**
+	 * @var Neutrino\Services\Validation\TextValueValidator
+	 */
+	protected $_textValueValidator;
 
 	/**
 	 * Create a new controller instance.
 	 *
 	 * @return void
 	 */
-	public function __construct(TextKeyValidator $validator)
+	public function __construct(TextKeyValidator $textKeyValidator, TextValueValidator $textValueValidator)
 	{
 		$this->middleware('auth');
-		$this->_validator = $validator;
+		$this->_textKeyValidator = $textKeyValidator;
+		$this->_textValueValidator = $textValueValidator;
 	}
 
 	/**
@@ -65,7 +71,7 @@ class CmsTextKeyController extends Controller {
 
 
 		try {
-			$validate_data = $this->_validator->validate( $textKey->toArray() );
+			$validate_data = $this->_textKeyValidator->validate( $textKey->toArray() );
 
 			$textKey->save();
 			$this->storeValue($textKey, $request, 1);
@@ -77,20 +83,6 @@ class CmsTextKeyController extends Controller {
 
 				return redirect()->action('CmsTextKeyController@create')->withErrors( $e->get_errors() );
 		}
-	}
-
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @param TextKey $textKey
-	 * @param int $categoryId
-	 * @return void
-	 */
-	public function storeIntoCategory(TextKey $textKey, $categoryId)
-	{
-		$category = TextCategory::findOrfail($categoryId);
-
-		$category->keys()->save($textKey);
 	}
 
 	/**
@@ -146,7 +138,7 @@ class CmsTextKeyController extends Controller {
 	{
 		$textKey = TextKey::findOrfail($id);
 
-		$this->updateCategory($textKey, $request->category_id);
+		$this->updateCategory($textKey, $request->text_category_id);
 		$textKey->values()->first()->update(["value" => $request->value]);
 
 		return redirect()->action('CmsTextKeyController@index');
