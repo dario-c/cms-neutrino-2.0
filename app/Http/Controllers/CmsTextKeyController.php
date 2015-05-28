@@ -6,7 +6,6 @@ use Neutrino\TextValue;
 use Neutrino\TextCategory;
 use Neutrino\Http\Requests;
 use Neutrino\Http\Controllers\Controller;
-
 use Neutrino\Exceptions\ValidationException;
 use Neutrino\Services\Validation\TextKeyValidator;
 use Neutrino\Services\Validation\TextValueValidator;
@@ -69,16 +68,13 @@ class CmsTextKeyController extends Controller {
 	 */
 	public function store(Request $request)
 	{
-
-		$validate = $this->validateData($request->all(), $this->_textKeyValidator, 'CmsTextKeyController@create');
-		if(gettype($validate) === 'object') { return $validate; }; //TODO: REMOVE!
-		
+		$this->validateData($request->all(), $this->_textKeyValidator, 'CmsTextKeyController@create');
+				
 		$textKey = TextKey::create($request->all());
 
-		$validateValue = $this->storeValue($textKey->id, $request->input('value'));
-		if(gettype($validateValue) === 'object') { return $validateValue; }; //TODO: REMOVE!
+		$this->storeValue($textKey->id, $request->input('value'));
 
-		return redirect()->action('CmsTextKeyController@index')->withMessage( 'Saved Successfully' );
+		return redirect()->action('CmsTextKeyController@index')->withMessage( 'Saved Successfully' );	
 	}
 
 
@@ -95,10 +91,10 @@ class CmsTextKeyController extends Controller {
 		} 
 		catch ( ValidationException $e ) 
 		{
-			$errors = $e->get_errors();
-
-			return redirect()->action($action, $parameters)->withErrors($errors)->withInput();
-			// TODO: Redirect directly from here instead of returning
+			$response = redirect()->action($action, $parameters)->withErrors($e->get_errors())->withInput();
+			\Session::driver()->save();
+			$response->send();
+			exit();
 		}
 	}
 
@@ -112,8 +108,7 @@ class CmsTextKeyController extends Controller {
 	 */
 	private function storeValue($textKeyId, $value, $language_id = null)
 	{
-		$validate = $this->validateData(['value'=>$value], $this->_textValueValidator, 'CmsTextKeyController@edit', [$textKeyId]);
-		if(gettype($validate) === 'object') { return $validate; }; //TODO: REMOVE!
+		$this->validateData(['value'=>$value], $this->_textValueValidator, 'CmsTextKeyController@edit', [$textKeyId]);
 
 		$language_id = (isset($language_id)) ? $language_id : Config::get('language_id', 1);
 
@@ -159,8 +154,7 @@ class CmsTextKeyController extends Controller {
 
 		$this->updateCategory($textKey, $request->text_category_id);
 
-		$validate = $this->storeValue($textKey->id, $request->input('value'));
-		if(gettype($validate) === 'object') { return $validate; }; //TODO: REMOVE!
+		$this->storeValue($textKey->id, $request->input('value'));
 
 		return redirect()->action('CmsTextKeyController@index')->withMessage( 'Saved Successfully' );
 	}
