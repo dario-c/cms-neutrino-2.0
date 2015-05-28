@@ -61,17 +61,31 @@ class CmsUserController extends Controller {
 	 */
 	public function store(Request $request)
 	{
-		$user = new User($request->all());
+		$this->validateData($request->all(), $this->_userValidator, 'CmsUserController@create');
 
-		try {
-			$this->_userValidator->validate( $user->toArray());
-			$user->save();
-
-			} catch ( ValidationException $e ) {
-				return redirect()->action('CmsUserController@create')->withErrors($e->get_errors());
-		}
+		User::create($request->all());
 
 		return redirect()->action('CmsUserController@index')->withMessage('User saved successfully!');
+	}
+
+	/**
+	 * Store a newly created resource in storage.
+	 *
+	 * @return Response
+	 */
+	private function validateData($inputs, $validator, $action, array $parameters = array())
+	{
+		try 
+		{
+			$validator->validate( $inputs );
+		} 
+		catch ( ValidationException $e ) 
+		{
+			$response = redirect()->action($action, $parameters)->withErrors($e->get_errors())->withInput();
+			\Session::driver()->save();
+			$response->send();
+			exit();
+		}
 	}
 
 	/**
@@ -82,7 +96,7 @@ class CmsUserController extends Controller {
 	 */
 	public function show($id)
 	{
-		return redirect('cms/users/'.$id.'/edit');
+		return redirect()->action('CmsUserController@edit', [$id]);
 	}
 
 	/**
@@ -109,17 +123,11 @@ class CmsUserController extends Controller {
 	{
 		$user = User::findOrFail($id);
 
-		// try {
-		// 	$this->_userValidator->validate( $request->all());
-		// 	dd('success');
-		// 	} catch ( ValidationException $e ) {
-		// 		dd($e->get_errors());
-		// }
+		$this->validateData($request->all(), $this->_userValidator, 'CmsUserController@edit', [$id]);
 
+		$user->update($request->all());
 
-		// $user->update($request->all());
-
-		return redirect('cms/users');
+		return redirect()->action('CmsUserController@index')->withMessage( 'Edited Successfully' );
 	}
 
 	/**
@@ -134,7 +142,6 @@ class CmsUserController extends Controller {
 
 		$user->delete();
 
-		return redirect('cms/users');
+		return redirect()->action('CmsUserController@index')->withMessage( 'Destroyed Successfully' );
 	}
-
 }
