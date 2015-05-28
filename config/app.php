@@ -26,7 +26,7 @@ return [
 	|
 	*/
 
-	'url' => 'http://localhost',
+	'url' => 'http://neutrino.dev',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -40,6 +40,33 @@ return [
 	*/
 
 	'timezone' => 'UTC',
+	
+	/*
+	|--------------------------------------------------------------------------
+	| Application Default Posts per Page Configuration
+	|--------------------------------------------------------------------------
+	|
+	| The application posts per page determines how much results to display
+	| on each page. This can be used in the CMS as in the Website itself
+	| and be adjusted per project. This will not affect the framework.
+	|
+	*/
+
+	'post_per_page' => 20,
+
+	/*
+	|--------------------------------------------------------------------------
+	| Application Default Language Id Configuration
+	|--------------------------------------------------------------------------
+	|
+	| The application language id determines the default id that 'll be used
+	| by the translation service provider. You are free to set this value
+	| to any of the locales which will be supported by the application.
+	|
+	*/
+
+	'language_id' => 1,
+
 
 	/*
 	|--------------------------------------------------------------------------

@@ -1,4 +1,4 @@
-@extends('app')
+@extends('cms.base')
 
 @section('content')
 	@include('partials.forms.flash_messages')
@@ -18,7 +18,7 @@
 				<td>{{ $textKey->title }}
 					<br>
 					{!! Html::linkAction('CmsTextKeyController@edit', 'edit', [$textKey->id]) !!}
-					@include('partials.forms.delete_text_key')
+					@include('cms.partials.forms.delete_text_key')
 					
 				</td>
 				<td>{{ $textKey->valueForLanguage('1') }}</td>
