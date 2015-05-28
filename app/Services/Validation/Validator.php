@@ -16,11 +16,13 @@ abstract class Validator {
      */
     protected $_validator;
  
-    public function __construct( IlluminateValidator $validator ) {
+    public function __construct( IlluminateValidator $validator )
+    {
         $this->_validator = $validator;
     }
  
-    public function validate( array $data, array $rules = array(), array $custom_errors = array() ) {
+    public function validate( array $data, array $rules = array(), array $custom_errors = array() )
+    {
         if ( empty( $rules ) && ! empty( $this->rules ) && is_array( $this->rules ) ) {
             //no rules passed to function, use the default rules defined in sub-class
             $rules = $this->rules;
