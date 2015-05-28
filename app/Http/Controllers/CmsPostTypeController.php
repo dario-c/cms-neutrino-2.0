@@ -72,7 +72,7 @@ class CmsPostTypeController extends Controller {
 		// process meta and validate post and its meta's
 		$this->validatePost($postType, $request);
 		
-		$post = $this->storePost($request->all())
+		$post = $this->storePost($request->all());
 	
 		// Add post meta storing
 		$this->storeMetaFields($postType, $post->id, $request);

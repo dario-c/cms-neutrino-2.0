@@ -26,22 +26,3 @@ Component::register('text_area', 'text_area', 'TextAreaComponent');
 Component::register('select_box', 'select_box', 'SelectBoxComponent');
 Component::register('url_field', 'url_field', 'UrlFieldComponent');
 Component::register('image_selector', 'image_selector', 'ImageSelectorComponent');
-
-
-
-
-
-
-
-/*
-
-@foreach($postTypeFields as $postTypeField)
-
-	@include($postTypeField->template)
-
-
-//
-$component = Component::findByTypeOrFail('text_field');
-
-return COMPONENT_TEMPLATE_PATH.$component->template;
-*/

@@ -1,6 +1,6 @@
 <?php namespace Neutrino\Components;
 	
-class TextFieldComponent extends AbstractComponent {
+class TextAreaComponent extends AbstractComponent {
 	
     
     /**

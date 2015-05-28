@@ -58,7 +58,7 @@ class PostType extends AbstractModel {
     {
 	    foreach($this->fields as $postTypeField)
         {
-	        $requestData = Component::findByTypeOrFail($this->type)->process($postTypeField->id, $requestData);
+	        $requestData = Component::findByTypeOrFail($postTypeField->type)->getClass()->process($postTypeField->id, $requestData);
 	    }
 	    
 	    return $requestData;
@@ -75,7 +75,7 @@ class PostType extends AbstractModel {
 	    
 	    foreach($this->fields as $postTypeField)
         {
-	        $rules = array_merge($rules, Component::findByTypeOrFail($this->type)->rules($postTypeField->id, $postTypeField->parameters));
+	        $rules = array_merge($rules, Component::findByTypeOrFail($postTypeField->type)->getClass()->rules($postTypeField->id, $postTypeField->parameters));
 	    }
 	    
 	    return $rules;

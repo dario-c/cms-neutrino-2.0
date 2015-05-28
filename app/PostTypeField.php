@@ -1,6 +1,7 @@
 <?php namespace Neutrino;
 
 use Neutrino\AbstractModel;
+use Illuminate\Http\Request;
 
 class PostTypeField extends AbstractModel {
 
@@ -18,7 +19,7 @@ class PostTypeField extends AbstractModel {
 	
 	public function save($postId, Request $request)
 	{
-		$fields = Component::findByTypeOrFail($this->type)->fields($this->id);
+		$fields = Component::findByTypeOrFail($this->type)->getClass()->fields($this->id);
 		
 		foreach($fields as $field)
 		{

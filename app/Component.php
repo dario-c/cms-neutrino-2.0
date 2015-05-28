@@ -8,8 +8,22 @@ class Component extends AbstractModel {
 
 	private static $componentCollection;
 	private static $templatePath = 'cms/partials/components/';
+	
+	private $classObject = null;
 
-    protected $fillable = array('type', 'template', 'class', 'resources');
+    protected $fillable = array('type', 'template', 'classname', 'resources');
+    
+    public function getClass()
+    {
+	    if($this->classObject == null)
+	    {
+		    $className = 'Neutrino\Components\\'.$this->classname;
+		    
+		    $this->classObject = new $className;
+	    }
+	    
+	    return $this->classObject;
+    }
     
 	public static function addToCollection(Component $component)
 	{
@@ -18,12 +32,12 @@ class Component extends AbstractModel {
 		self::$componentCollection->add($component);
 	}
 	
-	public static function register($type, $template, $class, array $resources = array())
+	public static function register($type, $template, $classname, array $resources = array())
 	{
 		$component = new Component(array(
 			'type' 		=> $type, 
 			'template'	=> $template, 
-			'class'		=> $class, 
+			'classname'	=> $classname, 
 			'resources'	=> $resources
 		));
 		
@@ -44,7 +58,7 @@ class Component extends AbstractModel {
 	            return $item;
 	        }
 	    }
-	    
+
 	    throw (new ModelNotFoundException)->setModel(get_called_class());
 	}
 	
