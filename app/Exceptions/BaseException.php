@@ -8,13 +8,15 @@ abstract class BaseException extends Exception {
  
     protected $_errors;
  
-    public function __construct( $errors = null, $message = null, $code = 0, Exception $previous = null ) {
+    public function __construct( $errors = null, $message = null, $code = 0, Exception $previous = null )
+    {
         $this->_set_errors( $errors );
  
         parent::__construct( $message, $code, $previous );
     }
  
-    protected function _set_errors( $errors ) {
+    protected function _set_errors( $errors )
+    {
         if ( is_string( $errors ) ) {
             $errors = array(
                 'error' => $errors,
@@ -28,7 +30,8 @@ abstract class BaseException extends Exception {
         $this->_errors = $errors;
     }
  
-    public function get_errors() {
+    public function get_errors() 
+    {
         return $this->_errors;
     }
  
