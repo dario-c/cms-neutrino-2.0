@@ -1,4 +1,4 @@
-@extends('app');
+@extends('cms.base')
 @include('partials.forms.flash_messages')
 
 @section('content')
