@@ -1,23 +1,39 @@
 <?php namespace Neutrino\Http\Controllers;
 
+use Config;
 use Neutrino\TextKey;
-use Neutrino\TextCategory;
 use Neutrino\TextValue;
+use Neutrino\TextCategory;
 use Neutrino\Http\Requests;
-use Neutrino\Http\Controllers\Controller;
-
 use Illuminate\Http\Request;
+use Neutrino\Http\Controllers\Controller;
+use Neutrino\Exceptions\ValidationException;
+use Neutrino\Services\Validation\TextKeyValidator;
+use Neutrino\Services\Validation\TextValueValidator;
+
 
 class CmsTextKeyController extends Controller {
+
+	/**
+	 * @var Neutrino\Services\Validation\TextKeyValidator
+	 */
+	protected $_textKeyValidator;
+
+	/**
+	 * @var Neutrino\Services\Validation\TextValueValidator
+	 */
+	protected $_textValueValidator;
 
 	/**
 	 * Create a new controller instance.
 	 *
 	 * @return void
 	 */
-	public function __construct()
+	public function __construct(TextKeyValidator $textKeyValidator, TextValueValidator $textValueValidator)
 	{
 		$this->middleware('auth');
+		$this->_textKeyValidator = $textKeyValidator;
+		$this->_textValueValidator = $textValueValidator;
 	}
 
 	/**
@@ -51,27 +67,13 @@ class CmsTextKeyController extends Controller {
 	 */
 	public function store(Request $request)
 	{
-		$textKey = new TextKey($request->all());
+		$this->_textKeyValidator->validateOrRespond($request->all(), 'CmsTextKeyController@create');
+				
+		$textKey = TextKey::create($request->all());
 
-		$this->storeIntoCategory($textKey, $request->input('category_id', 0));
+		$this->storeValue($textKey->id, $request->input('value'));
 
-		$this->storeValue($textKey, $request, 1);
-
-		return redirect()->action('CmsTextKeyController@index');
-	}
-
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @param TextKey $textKey
-	 * @param int $categoryId
-	 * @return void
-	 */
-	public function storeIntoCategory(TextKey $textKey, $categoryId)
-	{
-		$category = TextCategory::findOrfail($categoryId);
-
-		$category->keys()->save($textKey);
+		return redirect()->action('CmsTextKeyController@index')->withMessage( 'Saved Successfully' );	
 	}
 
 	/**
@@ -82,12 +84,15 @@ class CmsTextKeyController extends Controller {
 	 * @param  int  	$language_id (default: null)
 	 * @return void
 	 */
-	public function storeValue(TextKey $textKey, Request $request, $language_id = null)
+	private function storeValue($textKeyId, $value, $language_id = null)
 	{
-		$textValue = new TextValue($request->all());
-		$textValue->language_id = (isset($language_id)) ? $language_id : Config::get('language_id', 1);
+		$this->_textValueValidator->validateOrRespond(['value'=>$value], 'CmsTextKeyController@edit', [$textKeyId]);
 
-		$textKey->values()->save($textValue);
+
+
+		$language_id = (isset($language_id)) ? $language_id : Config::get('language_id', 1);
+
+		$textValue = TextValue::updateOrCreate(array('text_key_id' => $textKeyId, 'language_id' => $language_id), array('value' => $value));
 	}
 
 	/**
@@ -112,7 +117,7 @@ class CmsTextKeyController extends Controller {
 		$textKey 		= TextKey::findOrfail($id);
 		$categories 	= TextCategory::lists('title','id');
 		$category_id 	= $textKey->text_category_id;
-		$value 			= $textKey->values()->first()->value;
+		$value 			= (isset($textKey->values()->first()->value)) ? $textKey->values()->first()->value : null;
 
 		return view('cms.text_keys.edit', compact('textKey', 'category_id', 'value', 'categories'));
 	}
@@ -127,16 +132,18 @@ class CmsTextKeyController extends Controller {
 	{
 		$textKey = TextKey::findOrfail($id);
 
-		$this->updateCategory($textKey, $request->category_id);
-		$textKey->values()->first()->update(["value" => $request->value]);
+		$this->updateCategory($textKey, $request->text_category_id);
 
-		return redirect()->action('CmsTextKeyController@index');
+		$this->storeValue($textKey->id, $request->input('value'));
+
+		return redirect()->action('CmsTextKeyController@index')->withMessage( 'Saved Successfully' );
 	}
 
 	/**
-	 * Update the specified resource in storage.
+	 * Update the category of a TextKey
 	 *
-	 * @param  int  $id
+	 * @param  TextKey  $textKey
+	 * @param  int  $category_id
 	 * @return Response
 	 */
 	public function updateCategory(TextKey $textKey, $category_id)
@@ -157,7 +164,7 @@ class CmsTextKeyController extends Controller {
 	{
 		$textKey = TextKey::findOrfail($id);
 		
-		$textKey->values->first()->delete();
+		$textKey->values()->delete();
 		$textKey->delete();
 
 		return redirect()->action('CmsTextKeyController@index');

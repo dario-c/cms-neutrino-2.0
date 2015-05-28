@@ -9,7 +9,7 @@ class TextValue extends Model {
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['value'];
+	protected $fillable = ['value', 'language_id', 'text_key_id'];
 
 	/**
 	 * A TextValue has a TextKey (belongs to a TextKey)

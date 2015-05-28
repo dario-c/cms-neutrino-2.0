@@ -1,6 +1,8 @@
 @extends('cms.base')
 
 @section('content')
+	@include('partials.forms.flash_messages')
+
 	@if(isset($textKeys))
 
 	<div class="panel panel-default">

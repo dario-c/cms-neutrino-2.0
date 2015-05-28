@@ -1,7 +1,7 @@
 <!-- CATEGORY -->
 <div class="form-group">
 	{!! Form::label('category', "Category:") !!}
-	{!! Form::select('category_id', $categories, $category_id) !!}
+	{!! Form::select('text_category_id', $categories, $category_id) !!}
 </div>
 
 <!-- TITLE -->
