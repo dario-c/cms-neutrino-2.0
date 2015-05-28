@@ -58,36 +58,11 @@ class CmsUserController extends Controller {
 	 * @return Response
 	 */
 	public function store(Request $request)
-	{
-		$this->validateData($request->all(), $this->_userValidator, 'CmsUserController@create');
-
+	{		
+		$this->_userValidator->validateOrRespond($request->all(), 'CmsUserController@create'); 
 		User::create($request->all());
 
 		return redirect()->action('CmsUserController@index')->withMessage('User saved successfully!');
-	}
-
-	/**
-	 * Validate input and redirect if any errors
-	 *
-	 * @param array $inputs
-	 * @param Validator $validator
-	 * @param $string action
-	 * @param array $parameters
-	 * @return Response OR Null
-	 */
-	private function validateData(array $inputs, $validator, $action, array $parameters = array())
-	{
-		try 
-		{
-			$validator->validate( $inputs );
-		} 
-		catch ( ValidationException $e ) 
-		{
-			$response = redirect()->action($action, $parameters)->withErrors($e->get_errors())->withInput();
-			\Session::driver()->save();
-			$response->send();
-			exit();
-		}
 	}
 
 	/**
@@ -121,11 +96,12 @@ class CmsUserController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update(Requests\UserRequest $request, $id)
+	public function update(Request $request, $id)
 	{
 		$user = User::findOrFail($id);
 
-		$this->validateData($request->all(), $this->_userValidator, 'CmsUserController@edit', [$id]);
+
+		$this->_userValidator->validateOrRespond($request->all(), 'CmsUserController@edit', [$id]); 
 
 		$user->update($request->all());
 

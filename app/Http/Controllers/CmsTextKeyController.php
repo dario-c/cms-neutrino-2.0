@@ -67,37 +67,13 @@ class CmsTextKeyController extends Controller {
 	 */
 	public function store(Request $request)
 	{
-		$this->validateData($request->all(), $this->_textKeyValidator, 'CmsTextKeyController@create');
+		$this->_textKeyValidator->validateOrRespond($request->all(), 'CmsTextKeyController@create');
 				
 		$textKey = TextKey::create($request->all());
 
 		$this->storeValue($textKey->id, $request->input('value'));
 
 		return redirect()->action('CmsTextKeyController@index')->withMessage( 'Saved Successfully' );	
-	}
-
-	/**
-	 * Validate input and redirect if any errors
-	 *
-	 * @param array $inputs
-	 * @param Validator $validator
-	 * @param $string action
-	 * @param array $parameters
-	 * @return Response OR Null
-	 */
-	private function validateData(array $inputs, $validator, $action, array $parameters = array())
-	{
-		try 
-		{
-			$validator->validate( $inputs );
-		} 
-		catch ( ValidationException $e ) 
-		{
-			$response = redirect()->action($action, $parameters)->withErrors($e->get_errors())->withInput();
-			\Session::driver()->save();
-			$response->send();
-			exit();
-		}
 	}
 
 	/**
@@ -110,7 +86,9 @@ class CmsTextKeyController extends Controller {
 	 */
 	private function storeValue($textKeyId, $value, $language_id = null)
 	{
-		$this->validateData(['value'=>$value], $this->_textValueValidator, 'CmsTextKeyController@edit', [$textKeyId]);
+		$this->_textValueValidator->validateOrRespond(['value'=>$value], 'CmsTextKeyController@edit', [$textKeyId]);
+
+
 
 		$language_id = (isset($language_id)) ? $language_id : Config::get('language_id', 1);
 

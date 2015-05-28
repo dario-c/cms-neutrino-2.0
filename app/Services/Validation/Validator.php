@@ -37,5 +37,27 @@ abstract class Validator {
         //all good and shiny
         return true;
     }
- 
+
+    /**
+     * Validate input and redirect to given action if any errors
+     *
+     * @param array $inputs
+     * @param $string action
+     * @param array $parameters
+     * @return Response OR Null
+     */
+    public function validateOrRespond(array $inputs, $action, array $parameters = array()) 
+    {
+        try 
+        {
+            $this->validate( $inputs );
+        } 
+        catch ( ValidationException $e ) 
+        {
+            $response = redirect()->action($action, $parameters)->withErrors($e->get_errors())->withInput();
+            \Session::driver()->save();
+            $response->send();
+            exit();
+        }
+    }
 }
