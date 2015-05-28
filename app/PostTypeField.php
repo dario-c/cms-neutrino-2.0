@@ -15,4 +15,18 @@ class PostTypeField extends AbstractModel {
 	{
 		return (isset($this->parameters[$key])) ? $this->parameters[$key] : $default;
 	}
+	
+	public function save($postId, Request $request)
+	{
+		$fields = Component::findByTypeOrFail($this->type)->fields($this->id);
+		
+		foreach($fields as $field)
+		{
+			$postMeta = PostMeta::create(array(
+				'post_id'	=> $postId,
+				'key'		=> $field,
+				'value'		=> $request->input($field, '')
+			));
+		}
+	}
 }

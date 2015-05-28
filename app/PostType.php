@@ -49,6 +49,39 @@ class PostType extends AbstractModel {
     }
     
     /**
+     * Loop through the post type fields and process one by one through their Component.
+     * 
+     * @param array $requestData
+     * @return array
+     */
+    public function processFields(array $requestData)
+    {
+	    foreach($this->fields as $postTypeField)
+        {
+	        $requestData = Component::findByTypeOrFail($this->type)->process($postTypeField->id, $requestData);
+	    }
+	    
+	    return $requestData;
+    }
+    
+    /**
+     * Loop through the post type fields and get the rules one by one through their Component.
+     * 
+     * @return array
+     */
+    public function fieldRules()
+    {
+	    $rules = array();
+	    
+	    foreach($this->fields as $postTypeField)
+        {
+	        $rules = array_merge($rules, Component::findByTypeOrFail($this->type)->rules($postTypeField->id, $postTypeField->parameters));
+	    }
+	    
+	    return $rules;
+    }
+    
+    /**
      * Set fields as PostTypeField's.
      * 
      * @param array $fields

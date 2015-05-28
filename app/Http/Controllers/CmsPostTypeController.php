@@ -8,19 +8,27 @@ use Neutrino\User;
 use Neutrino\PostType;
 use Neutrino\Http\Requests;
 use Neutrino\Http\Controllers\Controller;
+use Neutrino\Services\Validation\PostValidator;
 
 use Illuminate\Http\Request;
 
 class CmsPostTypeController extends Controller {
 
 	/**
+	 * @var Neutrino\Services\Validation\PostValidator
+	 */
+	protected $_postValidator;
+	
+	/**
 	 * Create a new controller instance.
 	 *
+	 * @param PostValidator $postValidator
 	 * @return void
 	 */
-	public function __construct()
+	public function __construct(PostValidator $postValidator)
 	{
 		$this->middleware('auth');
+		$this->_postValidator = $postValidator; // to be created
 	}
 	
 	/**
@@ -59,24 +67,46 @@ class CmsPostTypeController extends Controller {
 	 */
 	public function store($postTypeName, Request $request)
 	{
-		$post = new Post($request->all());
+		$postType = PostType::findByNameOrFail($postTypeName);
+		
+		// process meta and validate post and its meta's
+		$this->validatePost($postType, $request);
+		
+		$post = $this->storePost($request->all())
+	
+		// Add post meta storing
+		$this->storeMetaFields($postType, $post->id, $request);
+
+		return redirect('cms/'.$postTypeName);
+	}
+	
+	public function validatePost(PostType $postType, Request $request)
+	{
+		// process meta
+		$requestData = $postType->processFields($request->all());
+
+		// validate post and it's meta
+		$this->_postValidator->addRules($postType->fieldRules());
+		$this->_postValidator->validateOrRespond($requestData, 'CmsPostController@create'); 
+	}
+	
+	public function storePost(array $requestData)
+	{
+		$post = new Post($requestData);
 		
 		$post->user_id = Auth::user()->id;
 		
 		$post->save();
-	
-		// Add post meta storing
-		/* ..
 		
-		$postMeta = new PostMeta();
-		$postMeta->post_id 	= $post->id;
-		$postMeta->key 		= 'post_video'; // post type field identifier
-		$postMeta->value 	= $value;
-		$postMeta->save();
+		return $post;
+	}
 		
-		*/
-
-		return redirect('cms/'.$postTypeName);
+	private function storeMetaFields(PostType $postType, $postId, Request $request)
+	{
+		foreach($postType->fields as $postTypeField)
+		{
+			$postTypeField->save($postId, $request);
+		}
 	}
 
 	/**
