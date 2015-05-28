@@ -8,8 +8,8 @@
                     "id": "_content",
                     "title": "Content",
                     "type": "text_area",
-                    "paramters": {
-                    	"required": 0
+                    "parameters": {
+                    	"required": 1
                     }
                 }
             ],
@@ -50,7 +50,7 @@
                     "id": "_content",
                     "title": "Content",
                     "type": "text_area",
-                    "paramters": {
+                    "parameters": {
                     	"required": 0
                     }
                 },

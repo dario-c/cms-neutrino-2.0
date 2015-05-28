@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 class Component extends AbstractModel {
 
 	private static $componentCollection;
+	private static $templatePath = 'cms/partials/components/';
 
     protected $fillable = array('type', 'template', 'class', 'resources');
     
@@ -45,5 +46,10 @@ class Component extends AbstractModel {
 	    }
 	    
 	    throw (new ModelNotFoundException)->setModel(get_called_class());
+	}
+	
+	public static function getTemplatePath()
+	{
+		return self::$templatePath;
 	}
 }

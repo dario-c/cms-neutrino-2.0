@@ -12,6 +12,21 @@ class PostType extends AbstractModel {
     protected $fillable = array('name', 'singular_name', 'slug', 'template_slug', 'fields', 'relation', 'parent');
     
     /**
+	 * Overwrite the default constructor
+	 *
+	 * @param  array  $attributes
+	 * @return void
+	 */
+    public function __construct(array $attributes = array())
+    {
+	    $this->setFields((isset($attributes['fields'])) ? $attributes['fields'] : array());
+	    
+		if(isset($attributes['fields'])) unset($attributes['fields']);
+	    
+	    parent::__construct($attributes);
+	}
+	
+    /**
      * Return fields for the authenticated user role 
      * 
      * @param int $pnRoleId (default: Role::USER_ROLE)
@@ -32,7 +47,32 @@ class PostType extends AbstractModel {
         
         return $fields;
     }
+    
+    /**
+     * Set fields as PostTypeField's.
+     * 
+     * @param array $fields
+     * @return void
+     */
+    private function setFields($fields)
+    {
+	   	$fieldsCollection = new Collection();
+	   	
+	   	foreach($fields as $field)
+	   	{
+		   	$fieldsCollection->add(new PostTypeField((is_object($field)) ? get_object_vars($field) : $field));
+	   	}
+	   	
+	    $this->setAttribute('fields', $fieldsCollection);
+    }
 
+	/**
+	 * Add Post Type to static collection.
+	 * 
+	 * @static
+	 * @param PostType $postType
+	 * @return void
+	 */
 	public static function addToCollection(PostType $postType)
 	{
 		self::$postTypeCollection = (self::$postTypeCollection instanceof Collection) ? self::$postTypeCollection : new Collection;
@@ -40,11 +80,23 @@ class PostType extends AbstractModel {
 		self::$postTypeCollection->add($postType);
 	}
 
+	/**
+	 * Get all Post Types from static collection.
+	 * 
+	 * @static
+	 * @return Collection
+	 */
 	public static function all()
 	{
 		return self::$postTypeCollection;
 	} 
 	
+	/**
+	 * Find Post Type by Name or Fail from static collection.
+	 * 
+	 * @static
+	 * @return PostType
+	 */
 	public static function findByNameOrFail($postTypeName)
 	{
 		foreach(self::$postTypeCollection as $item) 
@@ -55,7 +107,6 @@ class PostType extends AbstractModel {
 	        }
 	    }
 	    
-	    throw new NotFoundHttpException;
-	    //throw (new ModelNotFoundException)->setModel(get_called_class());
+	    throw new NotFoundHttpException; //throw (new ModelNotFoundException)->setModel(get_called_class());
 	}
 }

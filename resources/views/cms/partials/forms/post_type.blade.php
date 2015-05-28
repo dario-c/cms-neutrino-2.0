@@ -19,7 +19,7 @@
 
 @foreach ($postTypeFields as $postTypeField)
 
-    {% include '' ~ post_field.type ~ '/' ~ post_field.type ~ '.html' %}
+    @include($postTypeField->template)
 
 @endforeach
 

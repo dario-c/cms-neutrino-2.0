@@ -21,11 +21,11 @@ use Neutrino\Component;
  * ));
  */
 
-Component::register('text_field', 'text_field.blade.php', 'TextFieldComponent');
-Component::register('text_area', 'text_area.blade.php', 'TextAreaComponent');
-Component::register('select_box', 'select_box.blade.php', 'SelectBoxComponent');
-Component::register('url_field', 'url_field.blade.php', 'UrlFieldComponent');
-Component::register('image_selector', 'image_selector.blade.php', 'ImageSelectorComponent');
+Component::register('text_field', 'text_field', 'TextFieldComponent');
+Component::register('text_area', 'text_area', 'TextAreaComponent');
+Component::register('select_box', 'select_box', 'SelectBoxComponent');
+Component::register('url_field', 'url_field', 'UrlFieldComponent');
+Component::register('image_selector', 'image_selector', 'ImageSelectorComponent');
 
 
 
