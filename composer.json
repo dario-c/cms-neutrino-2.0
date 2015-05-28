@@ -14,7 +14,8 @@
 	},
 	"autoload": {
 		"classmap": [
-			"database"
+			"database",
+			"app/Components"
 		],
 		"psr-4": {
 			"Neutrino\\": "app/"
