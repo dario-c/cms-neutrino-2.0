@@ -1,7 +1,7 @@
 @extends('app')
 
 @section('content')
-	@include('partials.forms.errors')
+	@include('partials.forms.flash_messages')
 
 	{!! Form::open(['method' => 'POST', 'action' => 'CmsUserController@store']) !!}
 

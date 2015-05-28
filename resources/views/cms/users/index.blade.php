@@ -1,5 +1,5 @@
 @extends('app');
-@include('partials.forms.errors')
+@include('partials.forms.flash_messages')
 
 @section('content')
 	@unless ($users->isEmpty())
