@@ -87,9 +87,9 @@
                 {
                     $(this).parents('form:first').find('[name=state]').val(lstrState);
                 }
-                
-                $(this).parents('form:first').submit(); 
+                 
                 $(this).parents('form:first').find('[type=submit]').trigger('click'); // for form validation
+                //$(this).parents('form:first').submit();
             });
             
             $('#confirm-delete').on('show.bs.modal', function(e) {
