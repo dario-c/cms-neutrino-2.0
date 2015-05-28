@@ -69,14 +69,12 @@ class CmsTextKeyController extends Controller {
 	 */
 	public function store(Request $request)
 	{
-		echo "Store-----";
 
 		$this->validateData($request->all(), $this->_textKeyValidator, 'CmsTextKeyController@create');
 
 		$textKey = TextKey::create($request->all());
 
-		echo "-----TextKey has been created-----"; 
-		$this->storeValue($textKey->id, $request->input());
+		$this->storeValue($textKey->id, $request->input('value'));
 
 		return redirect()->action('CmsTextKeyController@index')->withMessage( 'Saved Successfully' );
 	}
@@ -97,7 +95,6 @@ class CmsTextKeyController extends Controller {
 		{
 			$errors = $e->get_errors();
 		
-			var_dump($errors);
 			redirect()->action($action, $parameters)->withErrors($errors)->send();
 			exit();
 		}
@@ -113,10 +110,7 @@ class CmsTextKeyController extends Controller {
 	 */
 	private function storeValue($textKeyId, $value, $language_id = null)
 	{
-		echo '-----in  storeValue-----';
-		var_dump($value);
-		$this->validateData($value, $this->_textValueValidator, 'CmsTextKeyController@edit', [$textKeyId]);
-
+		$this->validateData(['value'=>$value], $this->_textValueValidator, 'CmsTextKeyController@edit', [$textKeyId]);
 		$language_id = (isset($language_id)) ? $language_id : Config::get('language_id', 1);
 
 		$textValue = TextValue::updateOrCreate(array('text_key_id' => $textKeyId, 'language_id' => $language_id), array('value' => $value));
@@ -163,7 +157,7 @@ class CmsTextKeyController extends Controller {
 		$this->updateCategory($textKey, $request->text_category_id);
 
 
-		$this->storeValue($textKey->id, $request->input());
+		$this->storeValue($textKey->id, $request->input('value'));
 
 
 		return redirect()->action('CmsTextKeyController@index')->withMessage( 'Saved Successfully' );
