@@ -9,7 +9,7 @@ class TextKeyValidator extends Validator {
 	 */
 	public $rules = array(
 		'title' => array( 'required', 'alpha_dash', 'min:5', 'unique:text_keys' ),
-		'text_category_id' => array( 'required', 'numeric'),
+		'text_category_id' => array( 'required', 'numeric', 'exists:text_categories,id'),
 	);
  
 } 

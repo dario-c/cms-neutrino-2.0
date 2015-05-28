@@ -5,12 +5,12 @@ use Neutrino\TextKey;
 use Neutrino\TextValue;
 use Neutrino\TextCategory;
 use Neutrino\Http\Requests;
+use Illuminate\Http\Request;
 use Neutrino\Http\Controllers\Controller;
 use Neutrino\Exceptions\ValidationException;
 use Neutrino\Services\Validation\TextKeyValidator;
 use Neutrino\Services\Validation\TextValueValidator;
 
-use Illuminate\Http\Request;
 
 class CmsTextKeyController extends Controller {
 
@@ -31,7 +31,6 @@ class CmsTextKeyController extends Controller {
 	 */
 	public function __construct(TextKeyValidator $textKeyValidator, TextValueValidator $textValueValidator)
 	{
-		// TODO: Short?
 		$this->middleware('auth');
 		$this->_textKeyValidator = $textKeyValidator;
 		$this->_textValueValidator = $textValueValidator;
@@ -77,13 +76,16 @@ class CmsTextKeyController extends Controller {
 		return redirect()->action('CmsTextKeyController@index')->withMessage( 'Saved Successfully' );	
 	}
 
-
 	/**
-	 * Store a newly created resource in storage.
+	 * Validate input and redirect if any errors
 	 *
-	 * @return Response
+	 * @param array $inputs
+	 * @param Validator $validator
+	 * @param $string action
+	 * @param array $parameters
+	 * @return Response OR Null
 	 */
-	private function validateData($inputs, $validator, $action, array $parameters = array())
+	private function validateData(array $inputs, $validator, $action, array $parameters = array())
 	{
 		try 
 		{
@@ -160,9 +162,10 @@ class CmsTextKeyController extends Controller {
 	}
 
 	/**
-	 * Update the specified resource in storage.
+	 * Update the category of a TextKey
 	 *
-	 * @param  int  $id
+	 * @param  TextKey  $textKey
+	 * @param  int  $category_id
 	 * @return Response
 	 */
 	public function updateCategory(TextKey $textKey, $category_id)
@@ -183,7 +186,7 @@ class CmsTextKeyController extends Controller {
 	{
 		$textKey = TextKey::findOrfail($id);
 		
-		$textKey->values->first()->delete();
+		$textKey->values()->delete();
 		$textKey->delete();
 
 		return redirect()->action('CmsTextKeyController@index');

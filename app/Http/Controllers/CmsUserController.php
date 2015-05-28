@@ -4,12 +4,10 @@ use Auth;
 use Neutrino\User;
 use Neutrino\Role;
 use Neutrino\Http\Requests;
+use Illuminate\Http\Request;
 use Neutrino\Http\Controllers\Controller;
 use Neutrino\Exceptions\ValidationException;
 use Neutrino\Services\Validation\UserValidator;
-
-
-use Illuminate\Http\Request;
 
 class CmsUserController extends Controller {
 
@@ -69,11 +67,15 @@ class CmsUserController extends Controller {
 	}
 
 	/**
-	 * Store a newly created resource in storage.
+	 * Validate input and redirect if any errors
 	 *
-	 * @return Response
+	 * @param array $inputs
+	 * @param Validator $validator
+	 * @param $string action
+	 * @param array $parameters
+	 * @return Response OR Null
 	 */
-	private function validateData($inputs, $validator, $action, array $parameters = array())
+	private function validateData(array $inputs, $validator, $action, array $parameters = array())
 	{
 		try 
 		{
