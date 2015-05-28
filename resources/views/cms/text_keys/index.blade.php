@@ -57,54 +57,35 @@
 		<div class="col-xs-2">Category</div>
 	</div>
 </div>
-@foreach ($textKeys as $index => $textKey)
-	<div class="row list-item filterable">
-		<div class="col-xs-2">
-		    <span class="hide-in-grid">{{ $index }}</span>
-		</div>
-	
-		<div class="col-xs-4">
-			<strong class="pointer">{{ $textKey->title }}</strong>
-			<div class="list-item-actions">
 
+	@if (count($textKeys))
+		@foreach ($textKeys as $index => $textKey)
+			<div class="row list-item filterable">
+				<div class="col-xs-2">
+					<span class="hide-in-grid">{{ $index }}</span>
+				</div>
+			
+				<div class="col-xs-4">
+					<strong class="pointer">{{ $textKey->title }}</strong>
+					<div class="list-item-actions">
+						{!! Html::linkAction('CmsTextKeyController@edit', 'Edit', [$textKey->id]) !!} |
+						<a href="#">Delete ?</a>
+					</div>
+				</div>
+				 <div class="col-xs-4">{{ $textKey->valueForLanguage('1') }}</div>
+				 <div class="col-xs-2">{{ $textKey->category->title }}</div>
 			</div>
-		</div>
-	</div>
-
-@endforeach
-
-<br>
-<br>
-<br>
-<br>
-<br>
-
-
-	@if(isset($textKeys))
-
-	<div class="panel panel-default">
-		<table class="table">
-			<tr>
-				<th>Text Key</th>
-				<th>Text Value (English)</th>
-				<th>Category</th>
-			</tr>
-
-			@foreach ($textKeys as $textKey)
-			<tr>
-				<td>{{ $textKey->title }}
-					<br>
-					{!! Html::linkAction('CmsTextKeyController@edit', 'edit', [$textKey->id]) !!}
-					@include('cms.partials.forms.delete_text_key')
-					
-				</td>
-				<td>{{ $textKey->valueForLanguage('1') }}</td>
-				<td>{{ $textKey->category->title }} </td>
-			</tr>
-			@endforeach
-		</table>
-	</div>
+		@endforeach
 	@endif
+
+
+	@if(!isset($textKeys))
+		<div class="alert alert-warning" role="alert">
+			No results were found 
+		</div>
+	@endif
+		@include('cms.partials.forms.delete_text_key')
+
 	(hidden) {!! Html::linkAction('CmsTextKeyController@create', 'Create a new Text Key') !!}
 @stop
 
