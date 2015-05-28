@@ -1,4 +1,4 @@
-@extends('app');
+@extends('cms.base');
 
 @section('content')
 	@unless ($users->isEmpty())

@@ -19,7 +19,7 @@ class CmsController extends Controller {
 	 */
 	public function index()
 	{
-		return view('cms');
+		return view('cms.home');
 	}
 
 }
