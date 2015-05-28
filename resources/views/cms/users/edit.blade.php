@@ -1,6 +1,7 @@
 @extends('cms.base')
 
 @section('content')
+	@include('partials.forms.flash_messages')
 
 	{!! Form::model($user, ['method' => 'PATCH', 'action' => ['CmsUserController@update', $user->id]]) !!}
 	

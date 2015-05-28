@@ -2,6 +2,8 @@
 
 @section('content')
 
+@include('partials.forms.flash_messages')
+
 <div class="row">
 	<div class="col-xs-5">
 		<h1> Text Keys </h1>
@@ -76,6 +78,7 @@
 <br>
 <br>
 <br>
+
 
 	@if(isset($textKeys))
 
