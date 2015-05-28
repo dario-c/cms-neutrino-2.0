@@ -70,11 +70,13 @@ class CmsTextKeyController extends Controller {
 	public function store(Request $request)
 	{
 
-		$this->validateData($request->all(), $this->_textKeyValidator, 'CmsTextKeyController@create');
-
+		$validate = $this->validateData($request->all(), $this->_textKeyValidator, 'CmsTextKeyController@create');
+		if(gettype($validate) === 'object') { return $validate; }; //TODO: REMOVE!
+		
 		$textKey = TextKey::create($request->all());
 
-		$this->storeValue($textKey->id, $request->input('value'));
+		$validateValue = $this->storeValue($textKey->id, $request->input('value'));
+		if(gettype($validateValue) === 'object') { return $validateValue; }; //TODO: REMOVE!
 
 		return redirect()->action('CmsTextKeyController@index')->withMessage( 'Saved Successfully' );
 	}
@@ -94,9 +96,9 @@ class CmsTextKeyController extends Controller {
 		catch ( ValidationException $e ) 
 		{
 			$errors = $e->get_errors();
-		
-			redirect()->action($action, $parameters)->withErrors($errors)->send();
-			exit();
+
+			return redirect()->action($action, $parameters)->withErrors($errors)->withInput();
+			// TODO: Redirect directly from here instead of returning
 		}
 	}
 
@@ -110,7 +112,9 @@ class CmsTextKeyController extends Controller {
 	 */
 	private function storeValue($textKeyId, $value, $language_id = null)
 	{
-		$this->validateData(['value'=>$value], $this->_textValueValidator, 'CmsTextKeyController@edit', [$textKeyId]);
+		$validate = $this->validateData(['value'=>$value], $this->_textValueValidator, 'CmsTextKeyController@edit', [$textKeyId]);
+		if(gettype($validate) === 'object') { return $validate; }; //TODO: REMOVE!
+
 		$language_id = (isset($language_id)) ? $language_id : Config::get('language_id', 1);
 
 		$textValue = TextValue::updateOrCreate(array('text_key_id' => $textKeyId, 'language_id' => $language_id), array('value' => $value));
@@ -151,14 +155,12 @@ class CmsTextKeyController extends Controller {
 	 */
 	public function update($id, Request $request)
 	{
-
 		$textKey = TextKey::findOrfail($id);
 
 		$this->updateCategory($textKey, $request->text_category_id);
 
-
-		$this->storeValue($textKey->id, $request->input('value'));
-
+		$validate = $this->storeValue($textKey->id, $request->input('value'));
+		if(gettype($validate) === 'object') { return $validate; }; //TODO: REMOVE!
 
 		return redirect()->action('CmsTextKeyController@index')->withMessage( 'Saved Successfully' );
 	}
