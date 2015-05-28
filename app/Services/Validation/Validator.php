@@ -15,12 +15,30 @@ abstract class Validator {
      * @var Illuminate\Validation\Factory
      */
     protected $_validator;
- 
+
+    /**
+     * @var array()
+     */
+    protected $rules = array();
+     
+     /**
+      * Create a new Validator instance
+      *
+      * @return void
+      */
     public function __construct( IlluminateValidator $validator )
     {
         $this->_validator = $validator;
     }
- 
+    
+    /**
+     * Validate input and redirect to given action if any errors
+     *
+     * @param array $data
+     * @param array $rules
+     * @param array $custom_errors
+     * @return Boolean OR Error
+     */
     public function validate( array $data, array $rules = array(), array $custom_errors = array() )
     {
         if ( empty( $rules ) && ! empty( $this->rules ) && is_array( $this->rules ) ) {
@@ -46,7 +64,7 @@ abstract class Validator {
      * @param array $inputs
      * @param $string action
      * @param array $parameters
-     * @return Response OR Null
+     * @return Response OR void
      */
     public function validateOrRespond(array $inputs, $action, array $parameters = array()) 
     {
@@ -61,5 +79,16 @@ abstract class Validator {
             $response->send();
             exit();
         }
+    }
+
+    /**
+     * Add new rules to the validator
+     *
+     * @param array $rules
+     * @return void
+     */
+    public function addRules(array $rules)
+    {
+        $this->rules = array_merge($this->rules, $rules);
     }
 }
