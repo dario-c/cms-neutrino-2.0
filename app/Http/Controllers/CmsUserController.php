@@ -4,20 +4,28 @@ use Auth;
 use Neutrino\User;
 use Neutrino\Role;
 use Neutrino\Http\Requests;
-use Neutrino\Http\Controllers\Controller;
-
 use Illuminate\Http\Request;
+use Neutrino\Http\Controllers\Controller;
+use Neutrino\Exceptions\ValidationException;
+use Neutrino\Services\Validation\UserValidator;
 
 class CmsUserController extends Controller {
+
+	/**
+	 * @var Neutrino\Services\Validation\TextKeyValidator
+	 */
+	protected $_userValidator;
+
 
 	/**
 	 * Create a new controller instance.
 	 *
 	 * @return void
 	 */
-	public function __construct()
+	public function __construct(UserValidator $userValidator)
 	{
 		$this->middleware('auth');
+		$this->_userValidator = $userValidator;
 	}
 
 	/**
@@ -50,10 +58,11 @@ class CmsUserController extends Controller {
 	 * @return Response
 	 */
 	public function store(Request $request)
-	{
-		$user = User::create($request->all());
+	{		
+		$this->_userValidator->validateOrRespond($request->all(), 'CmsUserController@create'); 
+		User::create($request->all());
 
-		return redirect('cms/users');
+		return redirect()->action('CmsUserController@index')->withMessage('User saved successfully!');
 	}
 
 	/**
@@ -64,7 +73,7 @@ class CmsUserController extends Controller {
 	 */
 	public function show($id)
 	{
-		return redirect('cms/users/'.$id.'/edit');
+		return redirect()->action('CmsUserController@edit', [$id]);
 	}
 
 	/**
@@ -91,9 +100,12 @@ class CmsUserController extends Controller {
 	{
 		$user = User::findOrFail($id);
 
+
+		$this->_userValidator->validateOrRespond($request->all(), 'CmsUserController@edit', [$id]); 
+
 		$user->update($request->all());
 
-		return redirect('cms/users');
+		return redirect()->action('CmsUserController@index')->withMessage( 'Edited Successfully' );
 	}
 
 	/**
@@ -108,7 +120,6 @@ class CmsUserController extends Controller {
 
 		$user->delete();
 
-		return redirect('cms/users');
+		return redirect()->action('CmsUserController@index')->withMessage( 'Destroyed Successfully' );
 	}
-
 }

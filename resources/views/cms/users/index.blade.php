@@ -1,5 +1,7 @@
 @extends('cms.base');
 
+@include('partials.forms.flash_messages')
+
 @section('content')
 	@unless ($users->isEmpty())
 	<div class="panel panel-default">
