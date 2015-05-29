@@ -39,7 +39,7 @@ class CmsPostTypeController extends Controller {
 	public function index($postTypeName)
 	{
 		$postType = PostType::findByNameOrFail($postTypeName);
-		$posts 	  = Post::where('type', '=', $postType->name)->paginate(Config::get('posts_per_page', 20)); // needs to be config
+		$posts 	  = Post::where('type', '=', $postType->name)->where('state', '!=', Post::STATE_DELETED)->paginate(Config::get('posts_per_page', 20)); // needs to be config
 		
 		return $this->getView('index', compact('posts', 'postType'), $postType->singular_name);
 	}
@@ -72,12 +72,13 @@ class CmsPostTypeController extends Controller {
 		// process meta and validate post and its meta's
 		$this->validatePost($postType, $request);
 		
+		// Add post 
 		$post = $this->storePost($request->all());
 	
 		// Add post meta storing
 		$this->storeMetaFields($postType, $post->id, $request);
 
-		return redirect('cms/'.$postTypeName);
+		return redirect()->action('CmsPostTypeController@index', ['post_type' => $postTypeName])->withMessage( 'Saved Successfully' );
 	}
 	
 	/**
@@ -88,14 +89,14 @@ class CmsPostTypeController extends Controller {
 	 * @param Request $request
 	 * @return void
 	 */
-	public function validatePost(PostType $postType, Request $request)
+	public function validatePost(PostType $postType, Request $request, $action = 'CmsPostTypeController@create', array $parameters = array())
 	{
 		// process meta
 		$requestData = $postType->processFields($request->all());
 
 		// validate post and it's meta
 		$this->_postValidator->addRules($postType->fieldRules());
-		$this->_postValidator->validateOrRespond($requestData, 'CmsPostController@create'); 
+		$this->_postValidator->validateOrRespond($requestData, $action, array_merge(['post_type' => $postType->name], $parameters)); 
 	}
 	
 	/**
@@ -104,9 +105,9 @@ class CmsPostTypeController extends Controller {
 	 * @param array $requestData
 	 * @return Post
 	 */
-	public function storePost(array $requestData)
+	public function storePost(array $requestData, $id = null)
 	{
-		$post = new Post($requestData);
+		$post = (isset($id)) ? Post::findOrFail($id)->fill($requestData) : new Post($requestData);
 		
 		$post->user_id = Auth::user()->id;
 		
@@ -166,15 +167,18 @@ class CmsPostTypeController extends Controller {
 	 */
 	public function update($postTypeName, $id, Request $request)
 	{		
-		$postType 	= PostType::findByNameOrFail($postTypeName);
-		$post 		= Post::findOrFail($id);
-
-		$post->update($request->all());
-
-		// Add post meta storing
-		// ..
+		$postType = PostType::findByNameOrFail($postTypeName);
 		
-		return redirect('cms/'.$postTypeName);
+		// process meta and validate post and its meta's
+		$this->validatePost($postType, $request, 'CmsPostTypeController@edit', ['id' => $id]);
+		
+		// Update post
+		$post = $this->storePost($request->all(), $id);
+	
+		// Update post meta storing
+		$this->storeMetaFields($postType, $post->id, $request);
+		
+		return redirect()->action('CmsPostTypeController@index', ['post_type' => $postTypeName])->withMessage( 'Saved Successfully' );
 	}
 
 	/**
@@ -188,12 +192,11 @@ class CmsPostTypeController extends Controller {
 		$postType 	= PostType::findByNameOrFail($postTypeName);
 		$post 		= Post::findOrFail($id);
 
-		$post->delete();
+		$post->state = Post::STATE_DELETED;
 		
-		// delete post meta
-		// ..
-
-		return redirect('cms/'.$postTypeName);
+		$post->save();
+		
+		return redirect()->action('CmsPostTypeController@index', ['post_type' => $postTypeName])->withMessage( 'Deleted Successfully' );
 	}
 	
 	/**

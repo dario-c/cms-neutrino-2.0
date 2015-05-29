@@ -38,20 +38,7 @@
 	        @endif
 		</div>
 	
-		<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <h4>Confirm your action</h4>
-                        Are you sure you want to delete this?
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                        <a href="#" class="btn btn-danger danger">Delete</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+		@include('cms.partials.modals.confirm_delete')
         
         <script type="text/javascript" src="{{ asset('assets/cms/js/libraries.js') }}"></script>
         <script type="text/javascript">
@@ -93,7 +80,7 @@
             });
             
             $('#confirm-delete').on('show.bs.modal', function(e) {
-                $(this).find('.danger').attr('href', $(e.relatedTarget).data('href'));
+                $(this).find('#confirm-delete-form').attr('action', $(e.relatedTarget).data('href'));
             });
             
             $('input.filter').on('keyup', function() {

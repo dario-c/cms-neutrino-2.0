@@ -29,7 +29,7 @@ class RelateLanguagesAndValues extends Migration {
 	{
 		Schema::table('text_values', function(Blueprint $table)
 		{
-			$table->dropForeign(['language_id']);
+			$table->dropForeign('text_values_language_id_foreign');
 			$table->dropColumn('language_id');
 		});
 	}

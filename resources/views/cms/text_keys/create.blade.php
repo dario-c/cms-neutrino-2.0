@@ -1,7 +1,8 @@
 @extends('cms.base')
 
 @section('content')
-	@include('partials.forms.flash_messages')
+	
+	@include('cms.partials.forms.flash_messages')
 
 	{!! Form::open(['method' => 'POST', 'action' => 'CmsTextKeyController@store']) !!}
 

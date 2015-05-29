@@ -9,6 +9,7 @@ class PostValidator extends Validator {
 	 */
 	protected $rules = array(
 		'title' => array( 'required' ),
-		'slug'	=> array( 'required' )
+		'slug'	=> array( 'required' ),
+		'state'	=> array( 'numeric' )
 	);
 } 
