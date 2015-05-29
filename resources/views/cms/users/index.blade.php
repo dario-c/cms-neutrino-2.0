@@ -1,6 +1,6 @@
 @extends('cms.base');
 
-@include('partials.forms.flash_messages')
+@include('cms.partials.forms.flash_messages')
 
 @section('content')
 	@unless ($users->isEmpty())

@@ -4,6 +4,8 @@
 
 	<h1>Edit {{ ucwords($postType->singular_name) }}</h1>
 	
+	@include('cms.partials.forms.flash_messages')
+	
 	{!! Form::model($post, ['method' => 'PATCH', 'action' => array('CmsPostTypeController@update', $postType->name, $post->id)]) !!}
 
 		@include('cms.partials.forms.post_type', ['submitText' => 'Save'])
