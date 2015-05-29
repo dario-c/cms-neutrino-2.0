@@ -73,20 +73,16 @@ body {
   height: 100%;
   /* IMPORTANT!!! stretches viewport to 100% */
 }
+.main-content {
+  margin-top: 76px;
+}
 .main-content > div {
   padding: 30px;
-}
-.main-content.row {
-  overflow: hidden;
-}
-.main-content.row > [class*="col-"] {
-  margin-bottom: -99999px;
-  padding-bottom: 99999px;
 }
 /* BEGIN TOP BAR */
 .top-bar {
   background: #000;
-  color: #EDEDED;
+  color: #ededed;
   font-weight: bold;
   position: fixed;
   text-transform: uppercase;
@@ -97,8 +93,7 @@ body {
   display: inline-block;
   margin: 20px;
 }
-.col-sm-7 {
-  color: #EDEDED;
+.top-bar .greeting {
   padding: 28px;
 }
 .top-bar .btn-logout {
@@ -107,14 +102,9 @@ body {
   line-height: 60px;
   width: 100%;
 }
-.top-bar-spacer {
-  display: block;
-  height: 76px;
-}
 /* END TOP BAR */
 .menu-bar {
-  background: #EDEDED;
-  padding: 20px;
+  background: #ededed;
 }
 .list-container .row {
   border-bottom: 1px solid #ededed;
@@ -133,7 +123,7 @@ body {
   font-size: 13px;
 }
 .list-container.grid-view .hide-in-grid {
-  display: none !important;
+  display: none;
 }
 .list-container.grid-view .row {
   width: 31%;

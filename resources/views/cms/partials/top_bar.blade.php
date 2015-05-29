@@ -3,7 +3,7 @@
         <img class="logo" src="{{ asset('assets/cms/images/logo-caviar.png') }}" alt="CAVIAR" />
     </div>
     @unless (Auth::guest())
-    <div class="col-sm-7 hidden-xs text-right">
+    <div class="col-sm-7 hidden-xs text-right greeting">
         Hi, {{ Auth::user()->name }}
     </div>
     <div class="col-sm-2 col-xs-5">
@@ -11,5 +11,3 @@
     </div>  
     @endunless
 </div>
-
-<div class="top-bar-spacer"></div>
