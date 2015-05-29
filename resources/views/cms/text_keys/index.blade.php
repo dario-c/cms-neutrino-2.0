@@ -2,7 +2,7 @@
 
 @section('content')
 
-@include('partials.forms.flash_messages')
+@include('cms.partials.forms.flash_messages')
 
 <div class="row">
 	<div class="col-xs-5">
