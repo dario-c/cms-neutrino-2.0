@@ -22,4 +22,10 @@ class Post extends Model {
 		return $this->belongsTo('Neutrino\User');
 	}
 
+	public function getMeta($key)
+	{
+		$postMetaCollection = PostMeta::where('post_id', $this->id)->where('key', $key)->get();
+		
+		return (isset($postMetaCollection->first()->value)) ? $postMetaCollection->first()->value : null;
+	}
 }
