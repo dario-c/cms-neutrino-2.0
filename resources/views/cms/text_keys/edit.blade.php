@@ -1,6 +1,8 @@
 @extends('cms.base')
 
 @section('content')
+	
+	<h1>Edit Text Key</h1>
 
 	@include('cms.partials.forms.flash_messages')
 

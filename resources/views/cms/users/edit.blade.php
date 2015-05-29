@@ -2,6 +2,8 @@
 
 @section('content')
 
+	<h1>Edit User</h1>
+
 	@include('cms.partials.forms.flash_messages')
 
 	{!! Form::model($user, ['method' => 'PATCH', 'action' => ['CmsUserController@update', $user->id]]) !!}
