@@ -36,14 +36,14 @@ class BladeServiceProvider extends ServiceProvider
     {
 	    preg_match('/\@textkey\((.+)\)/', $view, $matches);
         	
-		$values = explode(',', $matches[1]);
-		
+        $values = (substr(trim($matches[1]), 0, 1) == '"') ? str_getcsv($matches[1], ',', '"') : str_getcsv($matches[1], ',', "'");
+	
 		if(!is_array($values) || count($values) < 2 || count($values) > 3) 
 		{
 			throw new FatalErrorException('Invalid use of @textkey function pass 2 or 3 parameters.', -1, -1, __FILE__, __LINE__);
 		}
 		
-		return $this->trimQuotes($values);
+		return $this->trimSlashes($values);
     }
     
     /**
@@ -53,11 +53,11 @@ class BladeServiceProvider extends ServiceProvider
      * @param array $values
      * @return array
      */
-    private function trimQuotes($values)
+    private function trimSlashes($values)
     {
 		foreach($values as $index => $value)
 		{
-			$values[$index] = preg_replace('/^([\'"])(.*)\\1$/', '\\2', trim($value));
+			$values[$index] = stripslashes($value); //preg_replace('/^([\'"])(.*)\\1$/', '\\2', trim($value));
 		}
 		
 		return $values;
