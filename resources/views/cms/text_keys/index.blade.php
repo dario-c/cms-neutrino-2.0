@@ -10,12 +10,13 @@
 	</div>
 	
 	<div class="col-xs-7">
-		<a class="btn btn-success pull-right" href="#">Add new (?)</a>
+		{!! Html::linkAction('CmsTextKeyController@create', 'Add new', array(), array('class' => 'btn btn-success pull-right')) !!}
 	</div>
 </div>
 
 <div class="row">
 	<div class="col-xs-12">
+		
 		<form class="pull-right" role="search">
 		   <div class="input-group">
 				<div class="inner-addon right-addon">
@@ -45,9 +46,7 @@
 	</div>
 </div>
 
-<!-- TODO: REMOVE HR! -->
-<hr>
-<!-- TODO: REMOVE HR! -->
+<hr />
 
 <div class="list-container">
 	<div class="row list-header hide-in-grid">
@@ -58,36 +57,32 @@
 	</div>
 </div>
 
-	@if (count($textKeys))
-		@foreach ($textKeys as $index => $textKey)
-			<div class="row list-item filterable">
-				<div class="col-xs-2">
-					<span class="hide-in-grid">{{ $index }}</span>
-				</div>
-			
-				<div class="col-xs-4">
-					<strong class="pointer">{{ $textKey->title }}</strong>
-					<div class="list-item-actions">
-						{!! Html::linkAction('CmsTextKeyController@edit', 'Edit', [$textKey->id]) !!} |
-						<a href="#">Delete ?</a>
-					</div>
-				</div>
-				 <div class="col-xs-4">{{ $textKey->valueForLanguage('1') }}</div>
-				 <div class="col-xs-2">{{ $textKey->category->title }}</div>
+@if (count($textKeys))
+	@foreach ($textKeys as $index => $textKey)
+		<div class="row list-item filterable">
+			<div class="col-xs-2">
+				<span class="hide-in-grid">{{ $index }}</span>
 			</div>
-		@endforeach
-	@endif
-
-
-	@if(!isset($textKeys))
-		<div class="alert alert-warning" role="alert">
-			No results were found 
+			<div class="col-xs-4">
+				<strong class="pointer">{{ $textKey->title }}</strong>
+				<div class="list-item-actions">
+					{!! Html::linkAction('CmsTextKeyController@edit', 'Edit', [$textKey->id]) !!} |
+					<a data-href="delete/{{ $textKey->id }}/" data-toggle="modal" data-target="#confirm-delete" href="#">Delete</a>
+					<!-- @include('cms.partials.forms.delete_text_key') -->
+				</div>
+			</div>
+			<div class="col-xs-4">{{ $textKey->valueForLanguage('1') }}</div>
+			<div class="col-xs-2">{{ $textKey->category->title }}</div>
 		</div>
-	@endif
-		@include('cms.partials.forms.delete_text_key')
+	@endforeach
+@else
+	<div class="alert alert-warning" role="alert">
+		No results were found 
+	</div>
+@endif
 
-	(hidden) {!! Html::linkAction('CmsTextKeyController@create', 'Create a new Text Key') !!}
 @stop
 
 
+ 
 
