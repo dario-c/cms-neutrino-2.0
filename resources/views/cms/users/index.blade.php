@@ -56,30 +56,29 @@
 		<div class="col-xs-4">Email</div>
 		<div class="col-xs-2">Role</div>
 	</div>
-</div>
 
-@if (count($users))
-	@foreach ($users as $index => $user)
-		<div class="row list-item filterable">
-			<div class="col-xs-2">
-				<span class="hide-in-grid">{{ $index }}</span>
-			</div>
-			<div class="col-xs-4">
-				<strong class="pointer">{{ $user->name }}</strong>
-
-				<div class="list-item-actions">
-					{!! Html::linkAction('CmsUserController@edit', 'Edit', [$user->id]) !!} |
-					<a data-href="delete/{{ $user->id }}/" data-toggle="modal" data-target="#confirm-delete" href="#">Delete</a>
+	@if (count($users))
+		@foreach ($users as $index => $user)
+			<div class="row list-item filterable">
+				<div class="col-xs-2">
+					<span class="hide-in-grid">{{ $index }}</span>
 				</div>
-			</div>
-			<div class="col-xs-4">{{ $user->email }}</div>
-			<div class="col-xs-2">{{ $user->role->name }}</div>
-		</div>
-	@endforeach
-@else
-	<div class="alert alert-warning" role="alert">
-		No results were found 
-	</div>
-@endif
+				<div class="col-xs-4">
+					<strong class="pointer">{{ $user->name }}</strong>
 
+					<div class="list-item-actions">
+						{!! Html::linkAction('CmsUserController@edit', 'Edit', [$user->id]) !!} |
+						<a data-href="delete/{{ $user->id }}/" data-toggle="modal" data-target="#confirm-delete" href="#">Delete</a>
+					</div>
+				</div>
+				<div class="col-xs-4">{{ $user->email }}</div>
+				<div class="col-xs-2">{{ $user->role->name }}</div>
+			</div>
+		@endforeach
+	@else
+		<div class="alert alert-warning" role="alert">
+			No results were found 
+		</div>
+	@endif
+</div>
 @stop

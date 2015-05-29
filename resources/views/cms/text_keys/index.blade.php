@@ -55,30 +55,30 @@
 		<div class="col-xs-4">Value (English)</div>
 		<div class="col-xs-2">Category</div>
 	</div>
-</div>
 
-@if (count($textKeys))
-	@foreach ($textKeys as $index => $textKey)
-		<div class="row list-item filterable">
-			<div class="col-xs-2">
-				<span class="hide-in-grid">{{ $index }}</span>
-			</div>
-			<div class="col-xs-4">
-				<strong class="pointer">{{ $textKey->title }}</strong>
-				<div class="list-item-actions">
-					{!! Html::linkAction('CmsTextKeyController@edit', 'Edit', [$textKey->id]) !!} |
-					<a data-href="delete/{{ $textKey->id }}/" data-toggle="modal" data-target="#confirm-delete" href="#">Delete</a>
-					<!-- @include('cms.partials.forms.delete_text_key') -->
+	@if (count($textKeys))
+		@foreach ($textKeys as $index => $textKey)
+			<div class="row list-item filterable">
+				<div class="col-xs-2">
+					<span class="hide-in-grid">{{ $index }}</span>
 				</div>
+				<div class="col-xs-4">
+					<strong class="pointer">{{ $textKey->title }}</strong>
+					<div class="list-item-actions">
+						{!! Html::linkAction('CmsTextKeyController@edit', 'Edit', [$textKey->id]) !!} |
+						<a data-href="delete/{{ $textKey->id }}/" data-toggle="modal" data-target="#confirm-delete" href="#">Delete</a>
+						<!-- @include('cms.partials.forms.delete_text_key') -->
+					</div>
+				</div>
+				<div class="col-xs-4">{{ $textKey->valueForLanguage('1') }}</div>
+				<div class="col-xs-2">{{ $textKey->category->title }}</div>
 			</div>
-			<div class="col-xs-4">{{ $textKey->valueForLanguage('1') }}</div>
-			<div class="col-xs-2">{{ $textKey->category->title }}</div>
-		</div>
-	@endforeach
-@else
+		@endforeach
+	@else
 	<div class="alert alert-warning" role="alert">
 		No results were found 
 	</div>
+</div>
 @endif
 
 @stop
