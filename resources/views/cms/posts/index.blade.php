@@ -45,15 +45,7 @@
            
 <hr />
 
-@if(Session::has('deleted'))
-<!-- TODO: Do we need this? -->
-
-<div class="alert alert-success alert-dismissible" role="alert">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    Post has successfully been deleted
-</div>
-
-@endif
+@include('cms.partials.forms.flash_messages')
 
 <div class="list-container">
     <div class="row list-header hide-in-grid">
