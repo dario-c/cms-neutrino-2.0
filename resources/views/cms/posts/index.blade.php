@@ -7,43 +7,11 @@
     </div>
 
     <div class="col-xs-7">    
-        <!--<form class="pull-right" role="search">
-           <div class="input-group">
-                <div class="inner-addon right-addon">
-                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                    <input type="text" class="form-control filter" placeholder="Search for...">
-                </div>
-            </div>
-        </form>
-        
-        <div class="btn-group pull-right" style="margin-right: 20px;">
-            <a href="javascript:void(0);" id="list" class="change-grid btn btn-default active">
-                <span class="glyphicon glyphicon-th-list"></span>
-            </a>
-            <a href="javascript:void(0);" id="grid" class="change-grid btn btn-default">
-                <span class="glyphicon glyphicon-th"></span>
-            </a>
-        </div>-->
         <a class="btn btn-success pull-right" href="{{ action('CmsPostTypeController@create', [$postType->name]) }}">Add new</a>
     </div>
 </div>
 
 <div class="row">
-    <!--<div class="col-xs-7">
-        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#filter-container" aria-expanded="false" aria-controls="collapseExample">
-            Filters
-            <i class="glyphicon glyphicon-triangle-bottom"></i>
-        </button>
-        2 selected
-    </div>
-    <div class="col-xs-5 text-right">
-        Sort by:
-        <select name="sort-by" class="">
-            <option value="alpha">Alphabetical</option>
-            <option value="date">Date</option>
-            <option value="other">Other</option>
-        </select>
-    </div>-->
     <div class="col-xs-12">
         
         <form class="pull-right" role="search">
@@ -74,46 +42,11 @@
         </div>
     </div>
 </div>
-
-<!-- TODO: WHERE IS THIS???? -->
-<div class="collapse panel panel-default" id="filter-container">
-    <div class="panel-body row">
-        <div class="col-sm-4">
-            <h5>Filter on Location</h5>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" value="">
-                        Amsterdam
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" value="">
-                        Los Angeles
-                    </label>
-                </div> 
-        </div>
-        <div class="col-sm-4">
-            <h5>Filter on category</h5>
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" value="">
-                    Branded Content
-                </label>
-            </div>
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" value="">
-                    Digital
-                </label>
-            </div> 
-        </div>
-    </div>
-</div>
            
 <hr />
 
 @if(Session::has('deleted'))
+<!-- TODO: Do we need this? -->
 
 <div class="alert alert-success alert-dismissible" role="alert">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
