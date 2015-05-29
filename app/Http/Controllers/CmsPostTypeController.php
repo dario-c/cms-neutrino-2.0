@@ -81,6 +81,14 @@ class CmsPostTypeController extends Controller {
 		return redirect()->action('CmsPostController@index', ['post_type' => $postTypeName])->withMessage( 'Saved Successfully' );
 	}
 	
+	/**
+	 * Process the meta fields, then get the rules for the post fields and add them to the validator.
+	 * Then validate the post and post meta and redirect when it fails
+	 * 
+	 * @param PostType $postType
+	 * @param Request $request
+	 * @return void
+	 */
 	public function validatePost(PostType $postType, Request $request, $action = 'CmsPostController@create', array $parameters = array())
 	{
 		// process meta
@@ -91,6 +99,12 @@ class CmsPostTypeController extends Controller {
 		$this->_postValidator->validateOrRespond($requestData, $action, array_merge(['post_type' => $postType->name], $parameters)); 
 	}
 	
+	/**
+	 * Store the post (create or update).
+	 * 
+	 * @param array $requestData
+	 * @return Post
+	 */
 	public function storePost(array $requestData, $id = null)
 	{
 		$post = (isset($id)) ? Post::findOrFail($id)->fill($requestData) : new Post($requestData);
@@ -101,7 +115,15 @@ class CmsPostTypeController extends Controller {
 		
 		return $post;
 	}
-		
+	
+	/**
+	 * Store the meta fields by post id.
+	 * 
+	 * @param PostType $postType
+	 * @param int $postId
+	 * @param Request $request
+	 * @return void
+	 */
 	private function storeMetaFields(PostType $postType, $postId, Request $request)
 	{
 		foreach($postType->fields as $postTypeField)

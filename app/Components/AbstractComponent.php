@@ -8,7 +8,7 @@ abstract class AbstractComponent implements ComponentContract {
 	
 	/**
 	 * Get Component Fields.
-	 * When a component exists of multiple fields, an affix can be added to the $fieldName.
+	 * When a component consists of multiple fields, an affix can be added to the $fieldName.
 	 * 
 	 * @param string $fieldName
 	 * @return array
