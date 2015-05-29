@@ -5,21 +5,12 @@
             "singular_name": "page",
             "fields": [
                 {
-                    "id": "post_content",
-                    "title": "Page Content",
-                    "type": "content_editor"
-                },
-                {
-                    "id": "post_summary",
-                    "title": "Page Summary",
-                    "type": "paragraph",
-                    "required": 0
-                },
-                {
-                    "id": "post_meta",
-                    "title": "Page Meta Tags",
-                    "type": "meta_tags",
-                    "roles": [1,2,3,4]
+                    "id": "_content",
+                    "title": "Content",
+                    "type": "text_area",
+                    "parameters": {
+                    	"required": 1
+                    }
                 }
             ],
             "slug": "page",
@@ -30,28 +21,22 @@
             "singular_name": "location",
             "fields": [
                 {
-                    "id": "post_content",
-                    "title": "Location Content",
-                    "type": "paragraph"
-                },
-                {
-                    "id": "post_summary",
-                    "title": "Location Summary",
-                    "type": "paragraph",
-                    "required": 0
+                    "id": "_address",
+                    "title": "Address",
+                    "type": "text_field"
                 }
             ],
             "slug": "location",
-            "template_slug": "location"
+            "parent": "location"
         },
         {
             "name": "directors",
             "singular_name": "director",
             "fields": [
                 {
-                    "id": "post_content",
-                    "title": "Director Biography",
-                    "type": "content_editor"
+                    "id": "biography",
+                    "title": "Short Biography",
+                    "type": "text_area"
                 }
             ],
             "slug": "director",
@@ -62,18 +47,25 @@
             "singular_name": "project",
             "fields": [
                 {
-                    "id": "post_content",
-                    "title": "Project Content",
-                    "type": "content_editor"
+                    "id": "_content",
+                    "title": "Content",
+                    "type": "text_area",
+                    "parameters": {
+                    	"required": 0
+                    }
                 },
                 {
-                    "id": "post_image",
-                    "title": "Project Featured Image",
-                    "type": "image_selector"
+                    "id": "_featured_image",
+                    "title": "Featured Image",
+                    "type": "image_selector",
+                    "parameters": {
+	                    "file_types": ["jpg","gif","png"],
+	                    "required": 0
+                    }
                 },
                 {
-                    "id": "post_category",
-                    "title": "Select a Category",
+                    "id": "_category",
+                    "title": "Category",
                     "type": "select_box",
                     "source": [
                         {
@@ -88,46 +80,22 @@
                     ]
                 },
                 {
-                    "id": "project_digital",
-                    "title": "Digital Details",
-                    "type": "group_start",
-                    "listen_to": "post_category",
-                    "listen_value": "1"  
-                },
-                {
-                    "id": "location_id",
-                    "title": "Select a location",
+                    "id": "_location_id",
+                    "title": "Location",
                     "type": "relation",
                     "multiple": false,
                     "post_type": "locations"
                 },
                 {
-                    "id": "director_id",
-                    "title": "Select Director(s)",
+                    "id": "_director_id",
+                    "title": "Director(s)",
                     "type": "relation",
                     "multiple": true,
                     "post_type": "directors"
-                },
-                {
-                    "type": "group_end"  
                 }
             ],
             "slug": "project",
             "template_slug": "project"
-        },
-        {
-            "name": "contacts",
-            "singular_name": "contact",
-            "fields": [
-                {
-                    "id": "post_content",
-                    "title": "Short Biography",
-                    "type": "paragraph"
-                }
-            ],
-            "slug": "director",
-            "template_slug": "director",
-            "parent": "locations"
         }
     ]
 }
