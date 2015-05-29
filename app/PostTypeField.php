@@ -23,9 +23,10 @@ class PostTypeField extends AbstractModel {
 		
 		foreach($fields as $field)
 		{
-			$postMeta = PostMeta::create(array(
+			$postMeta = PostMeta::updateOrCreate(array(
 				'post_id'	=> $postId,
-				'key'		=> $field,
+				'key'		=> $field 
+			), array(
 				'value'		=> $request->input($field, '')
 			));
 		}

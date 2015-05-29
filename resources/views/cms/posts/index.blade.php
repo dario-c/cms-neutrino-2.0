@@ -138,7 +138,7 @@
             <span class="list-image"><img class="pointer" src="http://placehold.it/400x300" /></span>
         </div>
         <div class="col-xs-4">
-            <strong class="pointer">{{ $post->title }} [{{ $post->state }}]</strong>
+            <strong class="pointer">{{ $post->title }} [{{ $post->stateTitle() }}]</strong>
             <div class="list-item-actions">
                 <a href="/cms/{{ $postType->name }}/{{ $post->id }}/edit/">Edit</a> | 
                 <a href="#">Preview</a> | 
