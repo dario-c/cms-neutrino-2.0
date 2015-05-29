@@ -78,7 +78,7 @@ class CmsPostTypeController extends Controller {
 		// Add post meta storing
 		$this->storeMetaFields($postType, $post->id, $request);
 
-		return redirect()->action('CmsPostController@index', ['post_type' => $postTypeName])->withMessage( 'Saved Successfully' );
+		return redirect()->action('CmsPostTypeController@index', ['post_type' => $postTypeName])->withMessage( 'Saved Successfully' );
 	}
 	
 	/**
@@ -89,7 +89,7 @@ class CmsPostTypeController extends Controller {
 	 * @param Request $request
 	 * @return void
 	 */
-	public function validatePost(PostType $postType, Request $request, $action = 'CmsPostController@create', array $parameters = array())
+	public function validatePost(PostType $postType, Request $request, $action = 'CmsPostTypeController@create', array $parameters = array())
 	{
 		// process meta
 		$requestData = $postType->processFields($request->all());
@@ -170,7 +170,7 @@ class CmsPostTypeController extends Controller {
 		$postType = PostType::findByNameOrFail($postTypeName);
 		
 		// process meta and validate post and its meta's
-		$this->validatePost($postType, $request, 'CmsPostController@edit', ['id' => $id]);
+		$this->validatePost($postType, $request, 'CmsPostTypeController@edit', ['id' => $id]);
 		
 		// Update post
 		$post = $this->storePost($request->all(), $id);
@@ -178,7 +178,7 @@ class CmsPostTypeController extends Controller {
 		// Update post meta storing
 		$this->storeMetaFields($postType, $post->id, $request);
 		
-		return redirect()->action('CmsPostController@index', ['post_type' => $postTypeName])->withMessage( 'Saved Successfully' );
+		return redirect()->action('CmsPostTypeController@index', ['post_type' => $postTypeName])->withMessage( 'Saved Successfully' );
 	}
 
 	/**
@@ -196,7 +196,7 @@ class CmsPostTypeController extends Controller {
 		
 		$post->save();
 		
-		return redirect('cms/'.$postTypeName);
+		return redirect()->action('CmsPostTypeController@index', ['post_type' => $postTypeName])->withMessage( 'Deleted Successfully' );
 	}
 	
 	/**

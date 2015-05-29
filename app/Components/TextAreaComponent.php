@@ -9,7 +9,7 @@ class TextAreaComponent extends AbstractComponent {
      * @param array $parameters (default: array())
      * @return array
      */
-    public function getRulesFromParameters(array $parameters = array())
+    protected function getRulesFromParameters(array $parameters = array())
     {
       	return array(
             (isset($parameters['required']) && $parameters['required'] == false) ? null : 'required',
