@@ -1,8 +1,9 @@
 @extends('cms.base');
 
+@include('cms.partials.forms.flash_messages')
+
 @section('content')
 
-@include('cms.partials.forms.flash_messages')
 	
 
 <div class="row">

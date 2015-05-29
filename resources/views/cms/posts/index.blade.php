@@ -64,11 +64,11 @@
             <span class="list-image"><img class="pointer" src="http://placehold.it/400x300" /></span>
         </div>
         <div class="col-xs-4">
-            <strong class="pointer">{{ $post->title }} [{{ $post->state }}]</strong>
+            <strong class="pointer">{{ $post->title }} [{{ $post->stateTitle() }}]</strong>
             <div class="list-item-actions">
-                <a href="edit/{{ $post->post_id }}/">Edit</a> | 
+                <a href="{{ action('CmsPostTypeController@edit', [$postType->name, $post->id]) }}">Edit</a> | 
                 <a href="#">Preview</a> | 
-                <a data-href="delete/{{ $post->post_id }}/" data-toggle="modal" data-target="#confirm-delete" href="#">Delete</a>
+                <a data-href="{{ action('CmsPostTypeController@destroy', [$postType->name, $post->id]) }}" data-toggle="modal" data-target="#confirm-delete" href="#">Delete</a>
             </div>
         </div>
         <div class="col-xs-2 hide-in-grid">{{ $post->slug }}</div>

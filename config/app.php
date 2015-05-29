@@ -177,7 +177,7 @@ return [
 		 * Custom Service Providers...
 		 */
 		'Neutrino\Providers\PostTypeServiceProvider',
-
+		'Neutrino\Providers\ComponentServiceProvider',
 	],
 
 	/*

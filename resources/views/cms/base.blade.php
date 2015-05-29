@@ -38,20 +38,7 @@
 	        @endif
 		</div>
 	
-		<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <h4>Confirm your action</h4>
-                        Are you sure you want to delete this?
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                        <a href="#" class="btn btn-danger danger">Delete</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+		@include('cms.partials.modals.confirm_delete')
         
         <script type="text/javascript" src="{{ asset('assets/cms/js/libraries.js') }}"></script>
         <script type="text/javascript">
@@ -63,18 +50,18 @@
                 }
             });
             
-            $('[name=post_title]').on('blur', function() {
-                var lstrPostTitle = convertToPermalink($(this).val());
+            $('.sluggable').on('blur', function() {
+                var lstrPostSlug = convertToPermalink($(this).val());
                 
-                if(lstrPostTitle != '')
+                if(lstrPostSlug != '')
                 {
-                    $('.current-slug').html(lstrPostTitle);
-                    $('[name=post_slug]').val(lstrPostTitle);
+                    $('.current-slug').html(lstrPostSlug);
+                    $('[name=slug]').val(lstrPostSlug);
                     $('.slug-group').removeClass('hide');
                 }
             });
             
-            $('[name=post_title]').trigger('blur');
+            $('.sluggable').trigger('blur');
             
             $('.form-validation').each(function() {
                 $(this).formValidation();
@@ -85,15 +72,15 @@
                 
                 if(lstrState)
                 {
-                    $(this).parents('form:first').find('[name=post_state]').val(lstrState);
+                    $(this).parents('form:first').find('[name=state]').val(lstrState);
                 }
-                
-                $(this).parents('form:first').submit(); 
+                 
                 $(this).parents('form:first').find('[type=submit]').trigger('click'); // for form validation
+                //$(this).parents('form:first').submit();
             });
             
             $('#confirm-delete').on('show.bs.modal', function(e) {
-                $(this).find('.danger').attr('href', $(e.relatedTarget).data('href'));
+                $(this).find('#confirm-delete-form').attr('action', $(e.relatedTarget).data('href'));
             });
             
             $('input.filter').on('keyup', function() {

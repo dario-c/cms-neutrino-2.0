@@ -88,8 +88,6 @@ class CmsTextKeyController extends Controller {
 	{
 		$this->_textValueValidator->validateOrRespond(['value'=>$value], 'CmsTextKeyController@edit', [$textKeyId]);
 
-
-
 		$language_id = (isset($language_id)) ? $language_id : Config::get('language_id', 1);
 
 		$textValue = TextValue::updateOrCreate(array('text_key_id' => $textKeyId, 'language_id' => $language_id), array('value' => $value));

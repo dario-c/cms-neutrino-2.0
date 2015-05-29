@@ -21,8 +21,9 @@ class CreateTextValuesTable extends Migration {
 			$table->timestamps();
 
 			$table->foreign('text_key_id')
-				->references('id')
-				->on('text_keys');
+				  ->references('id')
+				  ->on('text_keys')
+				  ->onDelete('cascade');
 		});
 	}
 
