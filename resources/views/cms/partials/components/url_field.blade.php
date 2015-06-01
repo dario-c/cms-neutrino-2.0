@@ -1,5 +1,9 @@
 <div class="form-group">
-	{!! Form::url($postTypeField->id.'_url', (isset($post)) ? $post->getMeta($postTypeField->id_url) : null, array_filter([ 
+	{!! Form::label($postTypeField->id, $postTypeField->title.(($postTypeField->parameter('required') == true) ? ' *' : '' )) !!}
+
+
+
+	{!! Form::url($postTypeField->id, (isset($post)) ? $post->getMeta($postTypeField->id) : null, array_filter([ 
 		'class' 					=> 'form-control', 
 		'placeholder'				=> 'http://example.com',
 		
