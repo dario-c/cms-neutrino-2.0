@@ -11,12 +11,19 @@ class BladeServiceProvider extends ServiceProvider
         /* @textkey($key, $default, [$category]) */
         \Blade::extend(function($view, $compiler)
         {
-	        // get values from pattern
-        	/*$values = $this->getTextKeyValues($view);
-						
-			$textKey = TextKey::findOrAutoCreate($values[0], $values[1], (isset($values[2])) ? $values[2] : null);
+	        preg_match_all('/\@textkey\((.+)\)/', $view, $matches, PREG_SET_ORDER);
+	        
+	        foreach($matches as $match)
+	        {
+		        $values  = $this->getTextKeyValues($match[1]);
+		        
+		        $textKey = TextKey::findOrAutoCreate($values[0], $values[1], (isset($values[2])) ? $values[2] : null);
         	
-        	return preg_replace("/(?<!\w)@textkey(\s*\(.*)\)/", ($textKey != null) ? $textKey->values->first()->value : 'hello', $view);*/
+				$replace = ($textKey != null) ? $textKey->values->first()->value : $values[1];
+				
+				$view 	 = str_ireplace($match[0], $replace, $view);
+	        }
+			
         	return $view;
         });
     }
@@ -33,11 +40,9 @@ class BladeServiceProvider extends ServiceProvider
      * @param string $view
      * @return array
      */
-    private function getTextKeyValues($view)
-    {
-	    preg_match('/\@textkey\((.+)\)/', $view, $matches);
-        	
-        $values = (substr(trim($matches[1]), 0, 1) == '"') ? str_getcsv($matches[1], ',', '"') : str_getcsv($matches[1], ',', "'");
+    private function getTextKeyValues($match)
+    {        	
+        $values = (substr(trim($match), 0, 1) == '"') ? str_getcsv($match, ',', '"') : str_getcsv($match, ',', "'");
 	
 		if(!is_array($values) || count($values) < 2 || count($values) > 3) 
 		{
