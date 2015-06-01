@@ -15,7 +15,7 @@ class BladeServiceProvider extends ServiceProvider
 	        
 	        foreach($matches as $match)
 	        {
-		        $values  = $this->getTextKeyValues($match[0]);
+		        $values  = $this->getTextKeyValues($match[1]);
 		        
 		        $textKey = TextKey::findOrAutoCreate($values[0], $values[1], (isset($values[2])) ? $values[2] : null);
         	
