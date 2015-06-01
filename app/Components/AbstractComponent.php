@@ -51,7 +51,7 @@ abstract class AbstractComponent implements ComponentContract {
       
       	foreach($fields as $field)
         {
-          	$rules[$field] = array_filter($this->getRulesFromParameters($parameters)); // not sure yet to use implode('|', array_filter($this->getRulesFromParameters($parameters)))
+          	$rules[$field] = array_filter($this->getRulesFromParameters($field, $parameters)); // not sure yet to use implode('|', array_filter($this->getRulesFromParameters($parameters)))
         }
       
       	return $rules;
@@ -60,13 +60,32 @@ abstract class AbstractComponent implements ComponentContract {
     /**
      * Get rules from parameters.
      * 
+     * @param string $field
      * @param array $parameters (default: array())
      * @return array
      */
-    protected function getRulesFromParameters(array $parameters = array())
+    protected function getRulesFromParameters($field, array $parameters = array())
     {
 	    return array(
             (isset($parameters['required']) && $parameters['required'] == false) ? null : 'required'
         );
     }
+    
+    /**
+     * Check if string ends with the given substring
+     * 
+     * @param string $haystack
+     * @param string $needle
+     * @param boolean $case (default: true)
+     * @return boolean
+     */
+    protected function stringEndsWith($haystack, $needle, $case = true) 
+    {
+    	if($case) 
+    	{
+        	return (strcmp(substr($haystack, strlen($haystack) - strlen($needle)), $needle) === 0);
+    	}
+    
+		return (strcasecmp(substr($haystack, strlen($haystack) - strlen($needle)), $needle) === 0);
+	}
 }
