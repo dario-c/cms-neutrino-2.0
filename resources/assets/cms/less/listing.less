@@ -1,0 +1,47 @@
+.list-container {
+    .row {
+        border-bottom: 1px solid @light-grey;
+        margin: 0;
+        padding: 10px 0;
+    }
+
+    .list-header { font-weight: bold; }
+
+    .list-item-actions { font-size: 13px; }
+    
+    .list-image { 
+        display:inline
+    }
+
+    .list-image img { 
+        max-width: 75%;
+        max-height: 50px; 
+        float: right; 
+    }
+
+
+    &.grid-view {
+        .hide-in-grid { display: none; }
+        
+        .row { 
+            width: 31%;
+            float: left;
+            margin: 0 1%;
+        }
+
+        .list-item {
+            > div { width: 100% }
+
+            .list-image { 
+                display:block;
+                .cf;
+
+                img { 
+                    max-width: 100%;
+                    max-height: none;
+                    margin-bottom: 10px;
+                }
+            }
+        }
+    }
+}

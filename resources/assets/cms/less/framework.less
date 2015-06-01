@@ -2,35 +2,16 @@ html, body {
     height: 100%; /* IMPORTANT!!! stretches viewport to 100% */
 }
 
-// MOVE TO UTILS //
-@grey: #EDEDED;
-
-
-
-.main-content {
-    margin-top: 76px;
-    // overflow: hidden; 
-
-    > div { padding: 30px; }
-    
-     > [class*="col-"] {
-        // margin-bottom: -99999px;
-        // padding-bottom: 99999px;
-    }
-}
-
-
-
-/* BEGIN TOP BAR */
+/* TOP BAR */
 .top-bar { 
-    background: #000;
-    color: @grey;
-    font-weight: bold;
-    position: fixed;
-    text-transform: uppercase;
     width: 100%;
+    position: fixed;
+    background: @top-bar-bgcolor;
+    color: @top-bar-color;
+    font-weight: bold;
+    text-transform: uppercase;
     z-index: 99;
-    
+
     .logo {
         display: inline-block;
         margin: 20px;
@@ -45,5 +26,17 @@ html, body {
         width: 100%;
     }
 }
-/* END TOP BAR */
 
+/* AUTH CUSTOMIZATION */
+.auth {
+    margin-top: 176px;
+}
+
+/* MAIN-CONTENT */
+.main-content {
+    margin-top: 76px;
+    > div { padding: 30px; }
+}
+
+/* MENU BAR */
+.menu-bar { background: @light-grey; }
