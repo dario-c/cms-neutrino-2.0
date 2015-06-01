@@ -17,6 +17,14 @@
                     "title": "Action",
                     "type": "action_field",
                     "parameters": {
+                        "required": 0
+                   }
+                },
+                {
+                    "id": "_url",
+                    "title": "Url",
+                    "type": "url_field",
+                    "parameters": {
                     	"required": 0
                    }
                 }
