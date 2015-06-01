@@ -6,7 +6,7 @@
 	
 	@include('cms.partials.forms.flash_messages')
 	
-	{!! Form::model($post, ['method' => 'PATCH', 'action' => array('CmsPostTypeController@update', $postType->name, $post->id)]) !!}
+	{!! Form::model($post, ['method' => 'PATCH', 'action' => array('CmsPostTypeController@update', $postType->name, $post->id), 'class' => 'form-validation']) !!}
 
 		@include('cms.partials.forms.post_type', ['submitText' => 'Save'])
 	

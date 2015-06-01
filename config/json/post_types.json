@@ -11,6 +11,14 @@
                     "parameters": {
                     	"required": 1
                     }
+                },
+                {
+                    "id": "_action",
+                    "title": "Action",
+                    "type": "action_field",
+                    "parameters": {
+                    	"required": 0
+                   }
                 }
             ],
             "slug": "page",

@@ -26,3 +26,4 @@ Component::register('text_area', 'text_area', 'TextAreaComponent');
 Component::register('select_box', 'select_box', 'SelectBoxComponent');
 Component::register('url_field', 'url_field', 'UrlFieldComponent');
 Component::register('image_selector', 'image_selector', 'ImageSelectorComponent');
+Component::register('action_field', 'action_field', 'ActionFieldComponent');

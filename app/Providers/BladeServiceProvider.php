@@ -12,11 +12,12 @@ class BladeServiceProvider extends ServiceProvider
         \Blade::extend(function($view, $compiler)
         {
 	        // get values from pattern
-        	$values = $this->getTextKeyValues($view);
+        	/*$values = $this->getTextKeyValues($view);
 						
 			$textKey = TextKey::findOrAutoCreate($values[0], $values[1], (isset($values[2])) ? $values[2] : null);
         	
-        	return preg_replace("/(?<!\w)@textkey(\s*\(.*)\)/", ($textKey != null) ? $textKey->values->first()->value : 'hello', $view);
+        	return preg_replace("/(?<!\w)@textkey(\s*\(.*)\)/", ($textKey != null) ? $textKey->values->first()->value : 'hello', $view);*/
+        	return $view;
         });
     }
 
