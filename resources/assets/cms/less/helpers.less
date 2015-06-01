@@ -54,3 +54,15 @@
 .popover-custom-content {
     display: none;
 }
+
+/* Clearfix */
+.cf {  
+    &:before, &:after {
+    content: "";
+    display: table;
+  }
+
+  &:after {
+    clear:both;
+  }
+}
