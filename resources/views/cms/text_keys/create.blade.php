@@ -6,7 +6,7 @@
 
 	@include('cms.partials.forms.flash_messages')
 
-	{!! Form::open(['method' => 'POST', 'action' => 'CmsTextKeyController@store'], ['class' => 'form-validation']) !!}
+	{!! Form::open(['method' => 'POST', 'action' => 'CmsTextKeyController@store', 'class' => 'form-validation']) !!}
 
 		@include('cms.partials.forms.text_keys',
 		[

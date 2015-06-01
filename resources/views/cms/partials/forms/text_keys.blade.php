@@ -8,8 +8,10 @@
 <div class="form-group">
 	{!! Form::label('title', "Key:") !!}
 	{!! Form::text('title', null, [
-		'required' 	=> 'required',
-		'class'		=> 'form-control'
+		'required'      => 'required',
+		'class'		=> 'form-control',
+		'data-fv-notempty'			=> 'true',
+		'data-fv-notempty-message' 	=> 'This field is required, cannot be left empty'
 	]) !!}
 </div>
 
@@ -18,7 +20,10 @@
 	{!! Form::label('value', "Value:") !!}
 	{!! Form::text('value', $value, [
 		'required'	=> 'required',
-		'class'		=> 'form-control'
+		'class'		=> 'form-control',
+		'data-fv-notempty'			=> 'true',
+		'data-fv-notempty-message' 	=> 'This field is required, cannot be left empty'
+
 	]) !!}
 </div>
 

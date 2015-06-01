@@ -6,7 +6,7 @@
 
 	@include('cms.partials.forms.flash_messages')
 
-	{!! Form::model($textKey, ['method' => 'PATCH', 'action' => ['CmsTextKeyController@update', $textKey->id]]) !!}
+	{!! Form::model($textKey, ['method' => 'PATCH', 'action' => ['CmsTextKeyController@update', $textKey->id], 'class' => 'form-validation']) !!}
 
 		@include('cms.partials.forms.text_keys', ['submitText' => 'Edit Text Key'])
 	
