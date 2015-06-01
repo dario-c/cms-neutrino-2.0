@@ -61,7 +61,7 @@
     <div class="row list-item filterable">
         <div class="col-xs-2">
             <span class="hide-in-grid">{{ $index }}</span>
-            <span class="list-image"><img class="pointer" src="http://placehold.it/400x300" /></span>
+            <div class="list-image"><img class="pointer" src="http://placehold.it/400x300" /></div>
         </div>
         <div class="col-xs-4">
             <strong class="pointer">{{ $post->title }} [{{ $post->stateTitle() }}]</strong>
