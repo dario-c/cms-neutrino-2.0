@@ -24,7 +24,8 @@ use Neutrino\Component;
 Component::register('text_field', 'text_field', 'TextFieldComponent');
 Component::register('text_area', 'text_area', 'TextAreaComponent');
 Component::register('text_editor', 'text_editor', 'TextEditorComponent', array(
-	'text_editor.js'
+	'text_editor.js' 	=> 'script',
+	'text_editor.css'	=> 'style' 
 ));
 Component::register('select_box', 'select_box', 'SelectBoxComponent');
 Component::register('url_field', 'url_field', 'UrlFieldComponent');

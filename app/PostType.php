@@ -49,6 +49,64 @@ class PostType extends AbstractModel {
     }
     
     /**
+     * Get all (unique) resources for the post type fields.
+     * 
+     * @return array
+     */
+    public function getScripts()
+    {
+	    return $this->getResourcesByType('script');
+	}
+	
+	/**
+     * Get all (unique) resources for the post type fields.
+     * 
+     * @return array
+     */
+    public function getStyles()
+    {
+	    return $this->getResourcesByType('style');
+	}
+	 
+	/**
+     * Get all (unique) resources for the post type fields.
+     * 
+     * @return array
+     */
+     private function getResourcesByType($type)
+     { 
+	    $resources = array();
+	    
+	    foreach($this->fields as $postTypeField)
+        {
+	        $resources = array_merge($resources, Component::findByTypeOrFail($postTypeField->type)->resources);
+	    }
+
+	    return $this->prepareResources($type, $resources);
+    }
+    
+    /**
+     * Add assets path to resource by type.
+     * 
+     * @param array $resources (default: array())
+     * @return array
+     */
+    private function prepareResources($type, array $resources = array())
+    {
+	    $return = array();
+	    
+	    foreach($resources as $filename => $filetype)
+	    {
+		    if($type == $filetype)
+		    {
+		    	$return[] = ($type == 'script') ? asset('assets/cms/js/components/'.$filename) : asset('assets/cms/css/components/'.$filename);
+		    }
+	    }
+	    
+	    return $return;
+    }
+    
+    /**
      * Loop through the post type fields and process one by one through their Component.
      * 
      * @param array $requestData

@@ -10,6 +10,14 @@
         <link type="text/css" rel="stylesheet" href="{{ asset('assets/cms/css/libraries.css') }}" />
         <link type="text/css" rel="stylesheet" href="{{ asset('assets/cms/css/app.css') }}" />
         
+        @if (isset($postType))
+        
+			@foreach ($postType->getStyles() as $filename)
+	        <link type="text/css" rel="stylesheet" href="{{ $filename }}" />
+	        @endforeach
+        
+        @endif
+        
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 		<!--[if lt IE 9]>
@@ -160,13 +168,13 @@
             }
         </script>
         
-        {{-- % for filename in component_js_files %}
-        <script type="text/javascript" src="{{ filename }}"></script>
-        {% endfor % --}}
+        @if (isset($postType))
         
-        {{-- % for resource in Resource.getScripts() %}
-        <script type="text/javascript" src="{{ asset_path }}/js/{{ resource }}"></script>
-        {% endfor --}}
+			@foreach ($postType->getScripts() as $filename)
+	        <script type="text/javascript" src="{{ $filename }}"></script>
+	        @endforeach
+        
+        @endif
         
     </body>
 </html>
