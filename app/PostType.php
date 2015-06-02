@@ -49,7 +49,7 @@ class PostType extends AbstractModel {
     }
     
     /**
-     * Get all (unique) resources for the post type fields.
+     * Get all (unique) script resources for the post type fields.
      * 
      * @return array
      */
@@ -59,7 +59,7 @@ class PostType extends AbstractModel {
 	}
 	
 	/**
-     * Get all (unique) resources for the post type fields.
+     * Get all (unique) style resources for the post type fields.
      * 
      * @return array
      */
