@@ -25,7 +25,8 @@ class UrlFieldComponent extends AbstractComponent {
 	protected function getRulesFromParameters($field, array $parameters = array())
 	{
 		return array(
-			(isset($parameters['required']) && $parameters['required'] == false) ? null : 'required', 'url'
+			(isset($parameters['required']) && $parameters['required'] == false) ? null : 'required',
+			'url'
 		);
 	}
 
