@@ -28,5 +28,7 @@
 {!! Form::hidden('type', $postType->name) !!}
 {!! Form::hidden('state') !!}
 
-<button type="button" class="btn btn-default btn-submit" post-state="0">Save as Draft</button>
-<button type="button" class="btn btn-success btn-submit" post-state="1">Publish</button>
+<div class="btn-toolbar text-right">
+	<button type="button" class="btn btn-default btn-submit" post-state="0">Save as Draft</button>
+	<button type="button" class="btn btn-success btn-submit" post-state="1">Publish</button>
+</div>

@@ -35,8 +35,12 @@ elixir(function(mix) {
 	    'libraries/bootstrap.min.js',
 	    'libraries/form-validation.min.js',
 	    'libraries/form-validation-bootstrap.min.js',
+	    'libraries/bootstrap-wysiwyg.min.js',
 	    'libraries/jquery.hotkeys.min.js'
     ], 'public/assets/cms/js/libraries.js');
+    
+    mix.copy('resources/assets/cms/js/components', 'public/assets/cms/js/components');
+    mix.copy('resources/assets/cms/css/components', 'public/assets/cms/css/components');
     
     mix.copy('resources/assets/cms/images', 'public/assets/cms/images');
     mix.copy('resources/assets/cms/fonts', 'public/assets/cms/fonts');

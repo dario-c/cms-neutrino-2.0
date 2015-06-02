@@ -10,6 +10,8 @@
         <link type="text/css" rel="stylesheet" href="{{ asset('assets/cms/css/libraries.css') }}" />
         <link type="text/css" rel="stylesheet" href="{{ asset('assets/cms/css/app.css') }}" />
         
+        @yield('styles')
+        
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 		<!--[if lt IE 9]>
@@ -160,13 +162,7 @@
             }
         </script>
         
-        {{-- % for filename in component_js_files %}
-        <script type="text/javascript" src="{{ filename }}"></script>
-        {% endfor % --}}
-        
-        {{-- % for resource in Resource.getScripts() %}
-        <script type="text/javascript" src="{{ asset_path }}/js/{{ resource }}"></script>
-        {% endfor --}}
+		@yield('scripts')
         
     </body>
 </html>
