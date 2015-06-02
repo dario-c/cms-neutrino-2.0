@@ -1,10 +1,12 @@
 @extends('cms.base')
 
 @section('content')
-	
+
+	<h1>Edit User</h1>
+
 	@include('cms.partials.forms.flash_messages')
 
-	{!! Form::model($user, ['method' => 'PATCH', 'action' => ['CmsUserController@update', $user->id]]) !!}
+	{!! Form::model($user, ['method' => 'PATCH', 'action' => ['CmsUserController@update', $user->id], 'class' =>'form-validation']) !!}
 	
 		@include('cms.partials.forms.user', ['submitText' => 'Edit'])
 

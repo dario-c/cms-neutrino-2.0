@@ -7,43 +7,11 @@
     </div>
 
     <div class="col-xs-7">    
-        <!--<form class="pull-right" role="search">
-           <div class="input-group">
-                <div class="inner-addon right-addon">
-                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                    <input type="text" class="form-control filter" placeholder="Search for...">
-                </div>
-            </div>
-        </form>
-        
-        <div class="btn-group pull-right" style="margin-right: 20px;">
-            <a href="javascript:void(0);" id="list" class="change-grid btn btn-default active">
-                <span class="glyphicon glyphicon-th-list"></span>
-            </a>
-            <a href="javascript:void(0);" id="grid" class="change-grid btn btn-default">
-                <span class="glyphicon glyphicon-th"></span>
-            </a>
-        </div>-->
         <a class="btn btn-success pull-right" href="{{ action('CmsPostTypeController@create', [$postType->name]) }}">Add new</a>
     </div>
 </div>
 
 <div class="row">
-    <!--<div class="col-xs-7">
-        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#filter-container" aria-expanded="false" aria-controls="collapseExample">
-            Filters
-            <i class="glyphicon glyphicon-triangle-bottom"></i>
-        </button>
-        2 selected
-    </div>
-    <div class="col-xs-5 text-right">
-        Sort by:
-        <select name="sort-by" class="">
-            <option value="alpha">Alphabetical</option>
-            <option value="date">Date</option>
-            <option value="other">Other</option>
-        </select>
-    </div>-->
     <div class="col-xs-12">
         
         <form class="pull-right" role="search">
@@ -74,41 +42,6 @@
         </div>
     </div>
 </div>
-
-<div class="collapse panel panel-default" id="filter-container">
-    <div class="panel-body row">
-        <div class="col-sm-4">
-            <h5>Filter on Location</h5>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" value="">
-                        Amsterdam
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" value="">
-                        Los Angeles
-                    </label>
-                </div> 
-        </div>
-        <div class="col-sm-4">
-            <h5>Filter on category</h5>
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" value="">
-                    Branded Content
-                </label>
-            </div>
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" value="">
-                    Digital
-                </label>
-            </div> 
-        </div>
-    </div>
-</div>
            
 <hr />
 
@@ -128,7 +61,7 @@
     <div class="row list-item filterable">
         <div class="col-xs-2">
             <span class="hide-in-grid">{{ $index }}</span>
-            <span class="list-image"><img class="pointer" src="http://placehold.it/400x300" /></span>
+            <div class="list-image"><img class="pointer" src="http://placehold.it/400x300" /></div>
         </div>
         <div class="col-xs-4">
             <strong class="pointer">{{ $post->title }} [{{ $post->stateTitle() }}]</strong>
