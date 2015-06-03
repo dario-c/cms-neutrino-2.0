@@ -37,7 +37,8 @@ class DropdownFieldComponent extends AbstractComponent {
 	private function rulesExistingOptions(array $parameters)
 	{
 		return array(
-				(isset($parameters['required']) && $parameters['required'] == false) ? null : 'required', 'exists:'.$parameters['table']
+				(isset($parameters['required']) && $parameters['required'] == false) ? null : 'required',
+				'exists:'.$parameters['table']
 			);
 	}
 }
