@@ -51,7 +51,8 @@
                     "type": "dropdown_field",
                     "parameters": {
                     	"required": 1,
-                        "source": "Language"
+                        "source": "Language",
+                        "table": "languages,id"
                    }
                 }
             ],
