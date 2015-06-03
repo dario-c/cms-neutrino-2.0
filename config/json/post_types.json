@@ -20,7 +20,15 @@
                     	"required": 1
                     }
                 },
-
+				{
+                    "id": "_image",
+                    "title": "Image",
+                    "type": "image_selector",
+                    "parameters": {
+                    	"required": 1,
+                    	"extensions": ["jpg", "jpeg", "gif", "png"]
+                    }
+                },
                 {
                     "id": "_action",
                     "title": "Action",

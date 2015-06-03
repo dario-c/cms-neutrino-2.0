@@ -29,5 +29,8 @@ Component::register('text_editor', 'text_editor', 'TextEditorComponent', array(
 ));
 Component::register('select_box', 'select_box', 'SelectBoxComponent');
 Component::register('url_field', 'url_field', 'UrlFieldComponent');
-Component::register('image_selector', 'image_selector', 'ImageSelectorComponent');
+Component::register('image_selector', 'image_selector', 'ImageSelectorComponent', array(
+	'image_selector.js' 	=> 'script',
+	'image_selector.css'	=> 'style' 
+));
 Component::register('action_field', 'action_field', 'ActionFieldComponent');
