@@ -20,7 +20,6 @@
                     	"required": 1
                     }
                 },
-
                 {
                     "id": "_action",
                     "title": "Action",
@@ -42,8 +41,17 @@
                     "title": "Selection",
                     "type": "dropdown_field",
                     "parameters": {
-                    	"required": 1,
+                        "required": 1,
                         "source": {"": "Please Select", "1": "Option 1", "2": "Option 2"}
+                   }
+                },
+                {
+                    "id": "_language_dropdown",
+                    "title": "Language",
+                    "type": "dropdown_field",
+                    "parameters": {
+                    	"required": 1,
+                        "source": "Language"
                    }
                 }
             ],
