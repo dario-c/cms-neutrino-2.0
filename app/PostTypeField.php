@@ -1,5 +1,6 @@
 <?php namespace Neutrino;
 
+use Neutrino\Language;
 use Neutrino\AbstractModel;
 use Illuminate\Http\Request;
 
@@ -16,7 +17,16 @@ class PostTypeField extends AbstractModel {
 	{
 		return (isset($this->parameters[$key])) ? $this->parameters[$key] : $default;
 	}
-	
+		
+	public function source()
+	{
+
+		$source = $this->parameter('source', array());
+		$source = (is_array($source)) ? $source : self::getOptionsList($this->parameters['source']);
+
+		return $source;
+	}
+
 	public function save($postId, Request $request)
 	{
 		$fields = Component::findByTypeOrFail($this->type)->getClass()->fields($this->id);
@@ -31,4 +41,12 @@ class PostTypeField extends AbstractModel {
 			));
 		}
 	}
+
+	private function getOptionsList($modelName, $attribute='title')
+	{
+		$modelList = "Neutrino\\$modelName::lists";
+
+		return (call_user_func("$modelList", $attribute, 'id'));
+	}
+	
 }
