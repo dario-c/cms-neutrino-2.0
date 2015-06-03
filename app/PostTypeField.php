@@ -44,7 +44,7 @@ class PostTypeField extends AbstractModel {
 	{
 		$modelList = "Neutrino\\$modelName::lists";
 
-		return (call_user_func("$modelList", $attribute));
+		return (call_user_func("$modelList", $attribute, 'id'));
 	}
 	
 }
