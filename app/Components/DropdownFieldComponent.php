@@ -11,7 +11,7 @@ class DropdownFieldComponent extends AbstractComponent {
 	protected function getRulesFromParameters($field, array $parameters = array())
 	{
 		return array(
-			(isset($parameters['required']) && $parameters['required'] == false) ? null : 'required',
+			(isset($parameters['required']) && $parameters['required'] == false) ? null : 'required'
 		);
 	}
 }
