@@ -42,7 +42,8 @@
                     "title": "Selection",
                     "type": "dropdown_field",
                     "parameters": {
-                    	"required": 0
+                    	"required": 0,
+                        "source": {"": "Please Select", "1": "Option 1", "2": "Option 2"}
                    }
                 }
             ],
