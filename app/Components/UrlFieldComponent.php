@@ -26,7 +26,8 @@ class UrlFieldComponent extends AbstractComponent {
 	{
 		return array(
 			(isset($parameters['required']) && $parameters['required'] == false) ? null : 'required',
-			'url'
+			'url',
+			(isset($parameters['contains'])) ? "regex:/".preg_quote( $parameters['contains'], ".")."/" : null
 		);
 	}
 

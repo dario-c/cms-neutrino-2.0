@@ -37,13 +37,22 @@
                    }
                 },
                 {
+                    "id": "_url_facebook",
+                    "title": "Facebook",
+                    "type": "url_field",
+                    "parameters": {
+                        "required": 0,
+                        "contains": "facebook.com"
+                   }
+                },
+                {
                     "id": "_dropdown",
                     "title": "Selection",
                     "type": "dropdown_field",
                     "parameters": {
                         "required": 1,
                         "source": {"": "Please Select", "1": "Option 1", "2": "Option 2"}
-                   }
+                    }
                 },
                 {
                     "id": "_language_dropdown",
@@ -53,7 +62,7 @@
                     	"required": 1,
                         "source": "Language",
                         "table": "languages,id"
-                   }
+                    }
                 }
             ],
             "slug": "page",
