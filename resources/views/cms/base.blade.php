@@ -41,6 +41,11 @@
 		</div>
 	
 		@include('cms.partials.modals.confirm_delete')
+		
+		<!-- SHOW ENQUEUED VIEWS -->
+		@foreach (Neutrino\Resource::getViews() as $view)
+			@include($view)
+		@endforeach
         
         <script type="text/javascript" src="{{ asset('assets/cms/js/libraries.js') }}"></script>
         <script type="text/javascript">
@@ -161,6 +166,16 @@
                 return pstrValue.replace(/[^a-z0-9]+/gi, '-').replace(/^-*|-*$/g, '').toLowerCase();
             }
         </script>
+        
+        <!-- SHOW ENQUEUED STYLES (NEED TO BE AFTER VIEWS) -->
+        @foreach (Neutrino\Resource::getStyles() as $style)
+			<link type="text/css" rel="stylesheet" href="{{ asset('assets/cms/css/' . $style) }}" />
+		@endforeach
+		
+        <!-- SHOW ENQUEUED SCRIPTS -->
+        @foreach (Neutrino\Resource::getScripts() as $script)
+			<script type="text/javascript" src="{{ asset('assets/cms/js/' . $script) }}"></script>
+		@endforeach
         
 		@yield('scripts')
         
