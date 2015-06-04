@@ -80,7 +80,6 @@ class PostType extends AbstractModel {
         {
 	        $requestData = Component::findByTypeOrFail($postTypeField->type)->getClass()->process($postTypeField->id, $requestData);
 	    }
-	    
 	    return $requestData;
     }
     

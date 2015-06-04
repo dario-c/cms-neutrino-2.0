@@ -178,6 +178,9 @@ class CmsPostTypeController extends Controller {
 	public function update($postTypeName, $id, Request $request)
 	{		
 		$postType = PostType::findByNameOrFail($postTypeName);
+
+		// process the request for all components
+		$request = $this->processRequest($postType, $request);
 		
 		// process meta and validate post and its meta's
 		$this->validatePost($postType, $request, 'CmsPostTypeController@edit', ['id' => $id]);
