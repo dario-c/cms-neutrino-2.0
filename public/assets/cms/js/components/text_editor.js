@@ -1,6 +1,8 @@
 (function($) { 
   
-    $('.text-editor').each(function() {
+    var $textEditor = $('.text-editor');
+    
+    $textEditor.each(function() {
 	    
         $(this).wysiwyg({
             hotKeys: {
@@ -15,14 +17,14 @@
         $('<textarea class="hide" name="' + $(this).attr('name') + '">' + $(this).html() + '</textarea>').insertAfter($(this));
     });
     
-    $('.text-editor').on('keyup', function() {
+    $textEditor.on('keyup', function() {
 	    
         $('textarea[name=' + $(this).attr('name') + ']').val($(this).html());
     });
     
     $('.btn-toolbar [data-edit]').on('click', function() {
 	    
-        $('.text-editor').trigger('keyup');
+        $textEditor.trigger('keyup');
     });
     
 })(jQuery);
