@@ -50,14 +50,14 @@
                     "title": "Selection",
                     "type": "dropdown_field",
                     "parameters": {
-                        "required": 1,
+                        "required": 0,
                         "source": {"": "Please Select", "1": "Option 1", "2": "Option 2"}
                    }
                 },
                 {
-                    "id": "_select_box",
+                    "id": "_checkbox",
                     "title": "Select",
-                    "type": "select_box",
+                    "type": "checkbox",
                     "parameters": {
                     	"required": 0,
                         "source": {"banana": "banana", "apple": "apple", "orange": "orange"}

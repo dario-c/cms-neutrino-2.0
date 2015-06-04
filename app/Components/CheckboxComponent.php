@@ -1,6 +1,6 @@
 <?php namespace Neutrino\Components;
 	
-class SelectBoxComponent extends AbstractComponent {
+class CheckboxComponent extends AbstractComponent {
 
 	/**
 	 * Process (modify) the fields before they are stored.
