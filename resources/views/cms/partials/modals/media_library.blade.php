@@ -11,7 +11,7 @@
                 </ul>
                 <div class="modal-overflow">
                     <div class="tab-content">
-                        <div class="tab-pane" id="upload">
+                        <div class="tab-pane" id="upload" bt_controller="UploadController" bt_ready="initialize">
 
                             <div class="upload">
                                 <!-- Drop Zone -->
@@ -31,7 +31,7 @@
                                 </div> 
                             </div>             
                         </div>
-                        <div class="tab-pane active in" id="library">
+                        <div class="tab-pane active in" id="library" bt_controller="MediaLibaryController" bt_ready="initialize">
                             <div class="file-info-container pull-right">                                
                                 <dl class="file-info hidden">
                                     <dd><img class="file-info-image" src="{{ asset('/images/placeholders/image.png') }}" alt="Alt" /></dd>
