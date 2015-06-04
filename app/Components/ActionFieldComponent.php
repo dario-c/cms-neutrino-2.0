@@ -1,23 +1,23 @@
 <?php namespace Neutrino\Components;
-	
+    
 class ActionFieldComponent extends AbstractComponent {
-	
-	protected $field = array('_name', '_url');
+    
+    protected $field = array('_name', '_url');
     
     /**
-  	 * Process (modify) the fields before they are stored.
-  	 * 
-  	 * @param string $fieldName
-  	 * @param array $requestParameters
-  	 * @return array
-  	 */
-  	public function process($fieldName, array $requestParameters)
+     * Process (modify) the fields before they are stored.
+     * 
+     * @param string $fieldName
+     * @param array $requestParameters
+     * @return array
+     */
+    public function process($fieldName, array $requestParameters)
     {
-	    $urlField = $fieldName.'_url';
-	    
-	    $requestParameters[$urlField] = $this->addScheme($requestParameters[$urlField]);
-	    
-      	return $requestParameters;
+        $urlField = $fieldName.'_url';
+        
+        $requestParameters[$urlField] = $this->addScheme($requestParameters[$urlField]);
+        
+        return $requestParameters;
     }
     
     /**
@@ -29,16 +29,16 @@ class ActionFieldComponent extends AbstractComponent {
      */
     protected function getRulesFromParameters($field, array $parameters = array())
     {
-	    if($this->stringEndsWith($field, '_url'))
-	    {
-			return array(
-				(isset($parameters['required']) && $parameters['required'] == false) ? null : 'required',
-				'url'
-			);    
-	    }
-	    
-	    // else rules for _name
-      	return array(
+        if($this->stringEndsWith($field, '_url'))
+        {
+            return array(
+                (isset($parameters['required']) && $parameters['required'] == false) ? null : 'required',
+                'url'
+            );    
+        }
+        
+        // else rules for _name
+        return array(
             (isset($parameters['required']) && $parameters['required'] == false) ? null : 'required'
         );
     }
@@ -51,7 +51,7 @@ class ActionFieldComponent extends AbstractComponent {
      * @return string
      */
     private function addScheme($url, $scheme = 'http://')
-	{
-	  return (parse_url($url, PHP_URL_SCHEME) === null) ? $scheme . $url : $url;
-	}
+    {
+      return (parse_url($url, PHP_URL_SCHEME) === null) ? $scheme . $url : $url;
+    }
 }
