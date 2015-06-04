@@ -78,7 +78,7 @@
                     "title": "Select",
                     "type": "radio_button",
                     "parameters": {
-                        "required": 0,
+                        "required": 1,
                         "source": {"banana": "banana", "apple": "apple", "orange": "orange"}
                     }
                 }
