@@ -69,6 +69,9 @@ class CmsPostTypeController extends Controller {
 	{
 		$postType = PostType::findByNameOrFail($postTypeName);
 		
+		// process the request for all components
+		$request = $this->processRequest($postType, $request);
+		
 		// process meta and validate post and its meta's
 		$this->validatePost($postType, $request);
 		
@@ -81,6 +84,16 @@ class CmsPostTypeController extends Controller {
 		return redirect()->action('CmsPostTypeController@index', ['post_type' => $postTypeName])->withMessage( 'Saved Successfully' );
 	}
 	
+	public function processRequest(PostType $postType, Request $request)
+	{
+		// process meta
+		$requestData = $postType->processFields($request->all());
+		
+		$request->merge($requestData);
+		
+		return $request;
+	}
+		
 	/**
 	 * Process the meta fields, then get the rules for the post fields and add them to the validator.
 	 * Then validate the post and post meta and redirect when it fails
@@ -89,14 +102,11 @@ class CmsPostTypeController extends Controller {
 	 * @param Request $request
 	 * @return void
 	 */
-	public function validatePost(PostType $postType, Request $request, $action = 'CmsPostTypeController@create', array $parameters = array())
+	private function validatePost(PostType $postType, Request $request, $action = 'CmsPostTypeController@create', array $parameters = array())
 	{
-		// process meta
-		$requestData = $postType->processFields($request->all());
-
 		// validate post and it's meta
 		$this->_postValidator->addRules($postType->fieldRules());
-		$this->_postValidator->validateOrRespond($requestData, $action, array_merge(['post_type' => $postType->name], $parameters)); 
+		$this->_postValidator->validateOrRespond($request->all(), $action, array_merge(['post_type' => $postType->name], $parameters)); 
 	}
 	
 	/**
@@ -105,7 +115,7 @@ class CmsPostTypeController extends Controller {
 	 * @param array $requestData
 	 * @return Post
 	 */
-	public function storePost(array $requestData, $id = null)
+	private function storePost(array $requestData, $id = null)
 	{
 		$post = (isset($id)) ? Post::findOrFail($id)->fill($requestData) : new Post($requestData);
 		
