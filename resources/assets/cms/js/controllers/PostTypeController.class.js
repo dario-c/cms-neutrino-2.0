@@ -2,11 +2,23 @@ function PostTypeController($scope, BT)
 {
 	var self = this;
 	
+	/*
+	 * On initialize trigger create slug for post type forms
+	 *
+	 * @param object poElement
+	 * @return void
+	 */
 	this.initialize = function(poElement)
 	{
 		BT.trigger('createSlug', poElement);
 	}
 	
+	/*
+	 * Handle custom submit for post types, different states (publish, save as draft, update, etc.)
+	 *
+	 * @param object poElement
+	 * @return void
+	 */
 	this.submit = function(poElement)
 	{
         var lstrState = poElement.attr('post-state');
@@ -18,9 +30,14 @@ function PostTypeController($scope, BT)
         }
          
         loForm.find('[type=submit]').trigger('click'); // for form validation
-        //$(this).parents('form:first').submit();
 	}
-		
+	
+	/*
+	 * Create a slug on blur for the given post_title
+	 *
+	 * @param object poElement
+	 * @return void
+	 */	
 	this.createSlug = function(poElement)
 	{
 		var lstrPostSlug = convertToPermalink(poElement.val());
@@ -33,6 +50,12 @@ function PostTypeController($scope, BT)
         }
 	}
 	
+	/*
+	 * Create a slug from string
+	 *
+	 * @param string pstrValue
+	 * @return string
+	 */
 	function convertToPermalink(pstrValue) 
 	{
         return pstrValue.replace(/[^a-z0-9]+/gi, '-').replace(/^-*|-*$/g, '').toLowerCase();

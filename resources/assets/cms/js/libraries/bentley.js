@@ -50,6 +50,11 @@ function BentleyJS()
     	self.refresh();
 	}
 	
+	/*
+	 * Refresh events and filters
+	 *
+	 * @return void
+	 */
 	this.refresh = function()
 	{
 		$.each(self.events, function(pnIndex, pstrEvent) 
@@ -60,6 +65,13 @@ function BentleyJS()
 		applyFilters();
 	}
 	
+	/*
+	 * Trigger an event by method in given scope, default scope is the app scope
+	 *
+	 * @param string pstrMethod
+	 * @param object poScope
+	 * @return void
+	 */
 	this.trigger = function(pstrMethod, poScope)
 	{
 		var loScope = (poScope) ? poScope : self.appScope;
@@ -75,6 +87,12 @@ function BentleyJS()
 		});
 	}
 	
+	/*
+	 * Get an controller
+	 *
+	 * @param string pstrController
+	 * @return object (Controller Class)
+	 */
 	this.controller = function(pstrController)
 	{
     	try 
@@ -97,6 +115,9 @@ function BentleyJS()
 	
 	/**
 	 * Applies the given event inside the app scope
+	 *
+	 * @param string pstrEvent
+	 * @return void
 	 */
 	function applyEvents(pstrEvent)
 	{
@@ -125,6 +146,11 @@ function BentleyJS()
 		});
 	}
 	
+	/*
+	 * Applies filter to the elements with filter attribute
+	 *
+	 * @return void
+	 */
 	function applyFilters()
 	{
 		self.appScope.find('[bt_filter]').each(function()
@@ -152,6 +178,12 @@ function BentleyJS()
 		});
 	}
 	
+	/*
+	 * Trigger bt_ready events after onload
+	 * This can be used to initialize sliders or other js dependencies on load
+	 *
+	 * @return void
+	 */
 	function triggerReady()
 	{
 		self.appScope.find('[bt_ready]').each(function()
@@ -182,6 +214,15 @@ function BentleyJS()
 		});
 	}
 	
+	/*
+	 * Call a method on a given controller
+	 *
+	 * @param string pstrControllerName
+	 * @param string pstrMethod
+	 * @param object poScope
+	 * @param object poElement
+	 * @return void
+	 */
 	function callControllerMethod(pstrControllerName, pstrMethod, poScope, poElement)
 	{
 		loadController(['controllers/' + pstrControllerName + '.class'], function()
@@ -198,6 +239,14 @@ function BentleyJS()
 		});
 	}
 	
+	/*
+	 * Lazy load a controller and execute the given callback, can be non-async
+	 *
+	 * @param array paFiles
+	 * @param function pfCallback
+	 * @param boolean pbAsync (default: true)
+	 * @return void
+	 */
 	function loadController(paFiles, pfCallback, pbAsync)
 	{
 		$.each(paFiles, function(pnIndex, pstrControllerFileName)
@@ -257,11 +306,17 @@ function BentleyJS()
 	    finally { return; }
 	}
 	
+	/*
+	 * Check if jQuery is available, if not throw error
+	 */
 	if(!window.jQuery) 
 	{
 		throw 'To use BentleyJS, jQuery needs to be loaded first.';
 	}
 	
+	/*
+	 * Call constructer on dom ready
+	 */
 	$(function()
 	{
 		__construct();

@@ -1,5 +1,10 @@
 function BodyController($scope, BT)
 {
+	/*
+	 * Initialize things we need onload for the whole body
+	 *
+	 * @return void
+	 */
 	this.initialize = function()
 	{
 		initPopOvers();
@@ -8,6 +13,11 @@ function BodyController($scope, BT)
 		initFormValidation();
 	}
 	
+	/*
+	 * Initialize custom popover handling
+	 *
+	 * @return void
+	 */
 	function initPopOvers()
 	{
 		$scope.find("[data-toggle=popover]").popover({
@@ -18,6 +28,11 @@ function BodyController($scope, BT)
         });
 	}
 	
+	/*
+	 * Initalizing delete modal handling
+	 *
+	 * @return void
+	 */
 	function initDeleteModal()
 	{
 		$scope.find('#confirm-delete').on('show.bs.modal', function(e) 
@@ -26,6 +41,11 @@ function BodyController($scope, BT)
         });
 	}
 	
+	/*
+	 * Initialize Grid handling for every list in the CMS
+	 *
+	 * @return void
+	 */
 	function initGridHandling()
 	{
 		$scope.find('.change-grid').on('click', function()
@@ -37,6 +57,11 @@ function BodyController($scope, BT)
         });
 	}
 	
+	/*
+	 * Initialize Form validation for every form with class .form-validation
+	 *
+	 * @return void
+	 */
 	function initFormValidation()
 	{
 		$('.form-validation').each(function() 
