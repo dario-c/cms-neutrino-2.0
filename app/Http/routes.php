@@ -24,6 +24,8 @@ Route::get('cms', 'CmsController@index');
 Route::resource('cms/users', 'CmsUserController');
 Route::resource('cms/text-keys', 'CmsTextKeyController');
 
+// CMS Partials
+Route::get('cms/partials/media/files', 'CmsMediaFilesController@index');
 
 // CMS Post Type routing
 Route::get('cms/{post_type}', 'CmsPostTypeController@index');

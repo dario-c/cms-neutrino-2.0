@@ -19,7 +19,7 @@ function MediaLibraryController($scope, BT)
 	this.refresh = function(container)
 	{
 		$.ajax({
-			url: '/cms/partial/media/files/',
+			url: '/cms/partials/media/files/',
 			success: function(data) {
 				container.html(data);
 				
