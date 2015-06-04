@@ -41,11 +41,7 @@
 		</div>
 	
 		@include('cms.partials.modals.confirm_delete')
-		
-		<!-- SHOW ENQUEUED VIEWS -->
-		@foreach (Neutrino\Resource::getViews() as $view)
-			@include($view)
-		@endforeach
+		@include('cms.partials.modals.media_library')
         
         <script type="text/javascript" src="{{ asset('assets/cms/js/libraries.js') }}"></script>
         <script type="text/javascript">

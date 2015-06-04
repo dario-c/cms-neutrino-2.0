@@ -22,5 +22,3 @@
         </div>
     </div>
 </div>
-
-{{ Neutrino\Resource::enqueueView('cms.partials.modals.media_library') }}
