@@ -1,13 +1,8 @@
 <div class="form-group">
-	{!! Form::label($postTypeField->id, $postTypeField->title.(($postTypeField->parameter('required') == true) ? ' *' : '' )) !!}
-	
-	{!! Form::checkbox('agree', 'yes', null, [
-		'class' 					=> 'form-control'
-	]) !!}
-	{!! Form::label('Agree!')!!}
-	
-	{!! Form::checkbox('agree', 'yes', null, [
-		'class' 					=> 'form-control'
-	]) !!}
-	{!! Form::label('Agree!')!!}
+	<br>
+	@foreach($postTypeField->source() as $index => $value)
+		{!! Form::label($postTypeField->id.'[]',' ') !!}
+		{!! Form::checkbox($postTypeField->id.'[]', $index, $value,[]) !!}
+		{{ $index }}
+	@endforeach
 </div>
