@@ -28,6 +28,7 @@ Component::register('text_editor', 'text_editor', 'TextEditorComponent', array(
 	'text_editor.css'	=> 'style' 
 ));
 Component::register('checkbox', 'checkbox', 'CheckboxComponent');
+Component::register('radio_button', 'checkbox', 'RadioButtonComponent');
 Component::register('url_field', 'url_field', 'UrlFieldComponent');
 Component::register('dropdown_field', 'dropdown_field', 'DropdownFieldComponent');
 Component::register('image_selector', 'image_selector', 'ImageSelectorComponent');
