@@ -39,7 +39,8 @@ elixir(function(mix) {
 	    'libraries/form-validation.min.js',
 	    'libraries/form-validation-bootstrap.min.js',
 	    'libraries/bootstrap-wysiwyg.min.js',
-	    'libraries/jquery.hotkeys.min.js'
+	    'libraries/jquery.hotkeys.min.js',
+	    'libraries/simple-ajax-uploader.min.js'
     ], 'public/assets/cms/js/libraries.js');
     
     // copy scripts
