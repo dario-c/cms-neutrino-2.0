@@ -72,16 +72,6 @@
             
         </script>
         
-        <!-- SHOW ENQUEUED STYLES (NEED TO BE AFTER VIEWS) -->
-        @foreach (Neutrino\Resource::getStyles() as $style)
-			<link type="text/css" rel="stylesheet" href="{{ asset('assets/cms/css/' . $style) }}" />
-		@endforeach
-		
-        <!-- SHOW ENQUEUED SCRIPTS -->
-        @foreach (Neutrino\Resource::getScripts() as $script)
-			<script type="text/javascript" src="{{ asset('assets/cms/js/' . $script) }}"></script>
-		@endforeach
-        
 		@yield('scripts')
         
     </body>

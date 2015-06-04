@@ -1,6 +1,6 @@
 <div id="image-select-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="image-select-modal" aria-hidden="true">
     <div class="modal-dialog modal-lg">
-        <div class="modal-content" bt_controller="MediaLibaryController" bt_ready="initialize">
+        <div class="modal-content" bt_controller="MediaLibraryController" bt_ready="initialize">
             <div class="modal-body">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">Media library</h4>
@@ -34,7 +34,7 @@
                         <div class="tab-pane active in" id="library">
                             <div class="file-info-container pull-right">                                
                                 <dl class="file-info hidden">
-                                    <dd><img class="file-info-image" src="{{ asset('/images/placeholders/image.png') }}" alt="Alt" /></dd>
+                                    <dd><img class="file-info-image" src="{{ asset('assets/cms/images/placeholders/image.png') }}" alt="Alt" /></dd>
                                     
                                     <dt>Filename:</dt>
                                     <dd class="file-info-filename">-</dd>
@@ -78,6 +78,3 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
-{{ Neutrino\Resource::enqueueScript('cms-uploader.js') }}
-{{ Neutrino\Resource::enqueueScript('cms-media-library.js') }}
