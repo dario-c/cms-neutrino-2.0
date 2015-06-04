@@ -11,7 +11,8 @@ class CheckboxComponent extends AbstractComponent {
 	 */
 	public function process($fieldName, array $requestParameters)
 	{		
-		$requestParameters[$fieldName] = implode(',', $requestParameters[$fieldName]);
+		if(isset($requestParameters[$fieldName])) $requestParameters[$fieldName] = implode(',', $requestParameters[$fieldName]);
+
 		return $requestParameters;
 	}
 	
