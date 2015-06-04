@@ -1,6 +1,6 @@
 <?php namespace Neutrino\Components;
 	
-class DropdownFieldComponent extends AbstractComponent {
+class SelectBoxComponent extends AbstractComponent {
 	
 	/**
 	 * Overwrite getRulesFromParameters function.
