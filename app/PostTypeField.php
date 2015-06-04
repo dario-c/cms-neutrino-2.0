@@ -20,7 +20,6 @@ class PostTypeField extends AbstractModel {
 		
 	public function source()
 	{
-
 		$source = $this->parameter('source', array());
 		$source = (is_array($source)) ? $source : self::getOptionsList($this->parameters['source']);
 

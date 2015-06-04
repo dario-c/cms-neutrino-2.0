@@ -59,7 +59,8 @@
                     "title": "Select",
                     "type": "select_box",
                     "parameters": {
-                    	"required": 1
+                    	"required": 0,
+                        "source": {"banana": "banana", "apple": "apple", "orange": "orange"}
                     }
                 },
                 {
