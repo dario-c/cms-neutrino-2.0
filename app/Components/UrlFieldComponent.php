@@ -27,7 +27,7 @@ class UrlFieldComponent extends AbstractComponent {
 		return array(
 			(isset($parameters['required']) && $parameters['required'] == false) ? null : 'required',
 			'url',
-			(isset($parameters['contains'])) ? "regex:/".preg_quote( $parameters['contains'], ".")."/" : null
+			(isset($parameters['contains'])) ? "regex:/^$|".preg_quote( $parameters['contains'], ".")."/" : null
 		);
 	}
 
@@ -40,6 +40,6 @@ class UrlFieldComponent extends AbstractComponent {
 	 */
 	private function addScheme($url, $scheme = 'http://')
 	{
-	return (parse_url($url, PHP_URL_SCHEME) === null) ? $scheme . $url : $url;
+		return (parse_url($url, PHP_URL_SCHEME) === null && strlen($url) > 0) ? $scheme . $url : $url;
 	}
 }
