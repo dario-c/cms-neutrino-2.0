@@ -72,6 +72,15 @@
                         "source": "Language",
                         "table": "languages,id"
                     }
+                },
+                {
+                    "id": "_radio_button",
+                    "title": "Select",
+                    "type": "radio_button",
+                    "parameters": {
+                        "required": 1,
+                        "source": {"banana": "banana", "apple": "apple", "orange": "orange"}
+                    }
                 }
             ],
             "slug": "page",
