@@ -74,9 +74,9 @@
         </div>
         <div class="col-xs-2">
             <div class="list-item-actions">
-                <a class="btn btn-warning" title="Edit" href="{{ action('CmsPostTypeController@edit', [$postType->name, $post->id]) }}"><span class="glyphicon glyphicon-edit"></span></a>
-                <a class="btn btn-success" title="Preview" href="#"><span class="glyphicon glyphicon-eye-open"></span></a>
-                <a class="btn btn-danger"  title="Delete" data-href="{{ action('CmsPostTypeController@destroy', [$postType->name, $post->id]) }}" data-toggle="modal" data-target="#confirm-delete" href="#"><span class="glyphicon glyphicon-trash"></span></a>
+                <a class="btn" title="Edit" href="{{ action('CmsPostTypeController@edit', [$postType->name, $post->id]) }}"><span class="glyphicon glyphicon-pencil"></span></a>
+                <a class="btn" title="Preview" href="#"><span class="glyphicon glyphicon-eye-open"></span></a>
+                <a class="btn"  title="Delete" data-href="{{ action('CmsPostTypeController@destroy', [$postType->name, $post->id]) }}" data-toggle="modal" data-target="#confirm-delete" href="#"><span class="glyphicon glyphicon-trash"></span></a>
             </div>
             <i class="glyphicon glyphicon-move pull-right"></i>
         </div>
