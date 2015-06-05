@@ -51,9 +51,10 @@
 <div class="list-container">
 	<div class="row list-header hide-in-grid">
 		<div class="col-xs-2">#</div>
-		<div class="col-xs-4">Text Key</div>
-		<div class="col-xs-4">Value (English)</div>
+		<div class="col-xs-3">Text Key</div>
+		<div class="col-xs-3">Value (English)</div>
 		<div class="col-xs-2">Category</div>
+		<div class="col-xs-2">Tools</div>
 	</div>
 
 	@if (count($textKeys))
@@ -62,16 +63,17 @@
 				<div class="col-xs-2">
 					<span class="hide-in-grid">{{ $index }}</span>
 				</div>
-				<div class="col-xs-4">
+				<div class="col-xs-3">
 					<strong class="pointer">{{ $textKey->title }}</strong>
+				</div>
+				<div class="col-xs-3">{{ $textKey->valueForLanguage('1') }}</div>
+				<div class="col-xs-2">{{ $textKey->category->title }}</div>
+				<div class="col-xs-2">
 					<div class="list-item-actions">
-						{!! Html::linkAction('CmsTextKeyController@edit', 'Edit', [$textKey->id]) !!} |
-						<a data-href="delete/{{ $textKey->id }}/" data-toggle="modal" data-target="#confirm-delete" href="#">Delete</a>
-						<!-- @include('cms.partials.forms.delete_text_key') -->
+					    <a class="btn" title="Edit" href="{{ action('CmsTextKeyController@edit', [$textKey->id]) }}"><span class="glyphicon glyphicon-pencil"></span></a>
+					    <a class="btn"  title="Delete" data-href="{{ action('CmsTextKeyController@destroy', [$textKey->id]) }}" data-toggle="modal" data-target="#confirm-delete" href="#"><span class="glyphicon glyphicon-trash"></span></a>
 					</div>
 				</div>
-				<div class="col-xs-4">{{ $textKey->valueForLanguage('1') }}</div>
-				<div class="col-xs-2">{{ $textKey->category->title }}</div>
 			</div>
 		@endforeach
 	@else

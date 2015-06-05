@@ -53,9 +53,10 @@
 <div class="list-container">
 	<div class="row list-header hide-in-grid">
 		<div class="col-xs-2">#</div>
-		<div class="col-xs-4">Name</div>
-		<div class="col-xs-4">Email</div>
+		<div class="col-xs-3">Name</div>
+		<div class="col-xs-3">Email</div>
 		<div class="col-xs-2">Role</div>
+		<div class="col-xs-2">Tools</div>
 	</div>
 
 	@if (count($users))
@@ -64,16 +65,17 @@
 				<div class="col-xs-2">
 					<span class="hide-in-grid">{{ $index }}</span>
 				</div>
-				<div class="col-xs-4">
+				<div class="col-xs-3">
 					<strong class="pointer">{{ $user->name }}</strong>
-
+				</div>
+				<div class="col-xs-3">{{ $user->email }}</div>
+				<div class="col-xs-2">{{ $user->role->name }}</div>
+				<div class="col-xs-2">
 					<div class="list-item-actions">
-						{!! Html::linkAction('CmsUserController@edit', 'Edit', [$user->id]) !!} |
-						<a data-href="delete/{{ $user->id }}/" data-toggle="modal" data-target="#confirm-delete" href="#">Delete</a>
+					    <a class="btn" title="Edit" href="{{ action('CmsUserController@edit', [$user->id]) }}"><span class="glyphicon glyphicon-pencil"></span></a>
+					    <a class="btn"  title="Delete" data-href="{{ action('CmsUserController@destroy', [$user->id]) }}" data-toggle="modal" data-target="#confirm-delete" href="#"><span class="glyphicon glyphicon-trash"></span></a>
 					</div>
 				</div>
-				<div class="col-xs-4">{{ $user->email }}</div>
-				<div class="col-xs-2">{{ $user->role->name }}</div>
 			</div>
 		@endforeach
 	@else
