@@ -50,10 +50,11 @@
 <div class="list-container">
     <div class="row list-header hide-in-grid">
         <div class="col-xs-2">#</div>
-        <div class="col-xs-4">Title</div>
+        <div class="col-xs-2">Title</div>
         <div class="col-xs-2">Slug</div>
         <div class="col-xs-2">Updated at</div>
         <div class="col-xs-2">Author</div>
+        <div class="col-xs-2">Tools</div>
     </div>
     
     @foreach ($posts as $index => $post)
@@ -63,18 +64,20 @@
             <span class="hide-in-grid">{{ $index }}</span>
             <div class="list-image"><img class="pointer" src="http://placehold.it/400x300" /></div>
         </div>
-        <div class="col-xs-4">
+        <div class="col-xs-2">
             <strong class="pointer">{{ $post->title }} [{{ $post->stateTitle() }}]</strong>
-            <div class="list-item-actions">
-                <a href="{{ action('CmsPostTypeController@edit', [$postType->name, $post->id]) }}">Edit</a> | 
-                <a href="#">Preview</a> | 
-                <a data-href="{{ action('CmsPostTypeController@destroy', [$postType->name, $post->id]) }}" data-toggle="modal" data-target="#confirm-delete" href="#">Delete</a>
-            </div>
         </div>
         <div class="col-xs-2 hide-in-grid">{{ $post->slug }}</div>
         <div class="col-xs-2 hide-in-grid">{{ $post->updated_at }}</div>
         <div class="col-xs-2 hide-in-grid">
             {{-- $post->user->user_name --}}
+        </div>
+        <div class="col-xs-2">
+            <div class="list-item-actions">
+                <a class="btn btn-warning" title="Edit" href="{{ action('CmsPostTypeController@edit', [$postType->name, $post->id]) }}"><span class="glyphicon glyphicon-edit"></span></a>
+                <a class="btn btn-success" title="Preview" href="#"><span class="glyphicon glyphicon-eye-open"></span></a>
+                <a class="btn btn-danger"  title="Delete" data-href="{{ action('CmsPostTypeController@destroy', [$postType->name, $post->id]) }}" data-toggle="modal" data-target="#confirm-delete" href="#"><span class="glyphicon glyphicon-trash"></span></a>
+            </div>
             <i class="glyphicon glyphicon-move pull-right"></i>
         </div>
     </div>
