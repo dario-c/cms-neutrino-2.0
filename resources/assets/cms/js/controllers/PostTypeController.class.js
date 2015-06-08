@@ -21,15 +21,15 @@ function PostTypeController($scope, BT)
 	 */
 	this.submit = function(poElement)
 	{
-        var lstrState = poElement.attr('post-state');
-        var loForm	  = poElement.parents('form:first');
-        
-        if(lstrState)
-        {
-            loForm.find('[name=state]').val(lstrState);
-        }
-         
-        loForm.find('[type=submit]').trigger('click'); // for form validation
+		var lstrState = poElement.attr('post-state');
+		var loForm	  = poElement.parents('form:first');
+		
+		if(lstrState)
+		{
+			loForm.find('[name=state]').val(lstrState);
+		}
+		 
+		loForm.find('[type=submit]').trigger('click'); // for form validation
 	}
 	
 	/*
@@ -41,13 +41,13 @@ function PostTypeController($scope, BT)
 	this.createSlug = function(poElement)
 	{
 		var lstrPostSlug = convertToPermalink(poElement.val());
-                
-        if(lstrPostSlug != '')
-        {
-            $scope.find('.current-slug').html(lstrPostSlug);
-            $scope.find('[name=slug]').val(lstrPostSlug);
-            $scope.find('.slug-group').removeClass('hide');
-        }
+				
+		if(lstrPostSlug != '')
+		{
+			$scope.find('.current-slug').html(lstrPostSlug);
+			$scope.find('[name=slug]').val(lstrPostSlug);
+			$scope.find('.slug-group').removeClass('hide');
+		}
 	}
 	
 	/*
@@ -58,6 +58,6 @@ function PostTypeController($scope, BT)
 	 */
 	function convertToPermalink(pstrValue) 
 	{
-        return pstrValue.replace(/[^a-z0-9]+/gi, '-').replace(/^-*|-*$/g, '').toLowerCase();
-    }
+		return pstrValue.replace(/[^a-z0-9]+/gi, '-').replace(/^-*|-*$/g, '').toLowerCase();
+	}
 }

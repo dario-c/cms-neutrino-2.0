@@ -47,7 +47,7 @@ function BentleyJS()
 	
 	function initialize()
 	{
-    	self.refresh();
+		self.refresh();
 	}
 	
 	/*
@@ -95,7 +95,7 @@ function BentleyJS()
 	 */
 	this.controller = function(pstrController)
 	{
-    	try 
+		try 
 		{
 			var lstrControllerName 	= escapeBeforeEval($(this).parents('[bt_controller]:first').attr('bt_controller'));
 			
@@ -133,10 +133,10 @@ function BentleyJS()
 				
 				try 
 				{
-    				var lstrControllerName 	= escapeBeforeEval(loScope.attr('bt_controller'));
-    				
-    				return callControllerMethod(lstrControllerName, lstrExpression, loScope, loElement);
-   				} 
+					var lstrControllerName 	= escapeBeforeEval(loScope.attr('bt_controller'));
+					
+					return callControllerMethod(lstrControllerName, lstrExpression, loScope, loElement);
+				} 
 				catch(poError) 
 				{ 
 					self.log(lstrExpression + ' not exists in controller: ' + lstrControllerName);
@@ -253,29 +253,29 @@ function BentleyJS()
 		{
 			var lbScriptLoaded 	= false,
 				loScript 		= document.getElementsByTagName('script')[0],
-		        loNewScript 	= document.createElement('script');
+				loNewScript 	= document.createElement('script');
 		
-		    // IE
-		    loNewScript.onreadystatechange = function () 
-		    {
-		        if (loNewScript.readyState === 'loaded' || loNewScript.readyState === 'complete') 
-		        {
-		            if(!lbScriptLoaded) pfCallback();
-		            
-		            lbScriptLoaded = true;
-		        }
-		    };
+			// IE
+			loNewScript.onreadystatechange = function () 
+			{
+				if (loNewScript.readyState === 'loaded' || loNewScript.readyState === 'complete') 
+				{
+					if(!lbScriptLoaded) pfCallback();
+					
+					lbScriptLoaded = true;
+				}
+			};
 		
-		    // others
-		    loNewScript.onload = function () 
-		    {
-			    if(!lbScriptLoaded)	pfCallback();
-			    
-			    lbScriptLoaded = true;
-		    };
+			// others
+			loNewScript.onload = function () 
+			{
+				if(!lbScriptLoaded)	pfCallback();
+				
+				lbScriptLoaded = true;
+			};
 		
-		    loNewScript.src = self.basePath + pstrControllerFileName + '.js';
-		    loScript.parentNode.insertBefore(loNewScript, loScript);
+			loNewScript.src = self.basePath + pstrControllerFileName + '.js';
+			loScript.parentNode.insertBefore(loNewScript, loScript);
 		});
 	}
 	
@@ -300,10 +300,10 @@ function BentleyJS()
 	{
 		try 
 		{
-            console.log(pstrMessage);
-       	}
-	    catch (e) {}
-	    finally { return; }
+			console.log(pstrMessage);
+		}
+		catch (e) {}
+		finally { return; }
 	}
 	
 	/*

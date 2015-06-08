@@ -21,11 +21,11 @@ function BodyController($scope, BT)
 	function initPopOvers()
 	{
 		$scope.find("[data-toggle=popover]").popover({
-            html : true,
-            content: function() {
-              return $(this).find('.popover-custom-content').html();
-            }
-        });
+			html : true,
+			content: function() {
+			  return $(this).find('.popover-custom-content').html();
+			}
+		});
 	}
 	
 	/*
@@ -37,8 +37,8 @@ function BodyController($scope, BT)
 	{
 		$scope.find('#confirm-delete').on('show.bs.modal', function(e) 
 		{
-            $(this).find('#confirm-delete-form').attr('action', $(e.relatedTarget).data('href'));
-        });
+			$(this).find('#confirm-delete-form').attr('action', $(e.relatedTarget).data('href'));
+		});
 	}
 	
 	/*
@@ -49,12 +49,12 @@ function BodyController($scope, BT)
 	function initGridHandling()
 	{
 		$scope.find('.change-grid').on('click', function()
-        {
-            $('.change-grid').removeClass('active');
-            $(this).addClass('active');
-            
-            $('.list-container').toggleClass('grid-view', ($(this).attr('id') == 'grid'));
-        });
+		{
+			$('.change-grid').removeClass('active');
+			$(this).addClass('active');
+			
+			$('.list-container').toggleClass('grid-view', ($(this).attr('id') == 'grid'));
+		});
 	}
 	
 	/*
@@ -66,7 +66,7 @@ function BodyController($scope, BT)
 	{
 		$('.form-validation').each(function() 
 		{
-            $(this).formValidation();
-        });
+			$(this).formValidation();
+		});
 	}
 }

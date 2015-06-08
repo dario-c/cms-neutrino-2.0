@@ -52,9 +52,14 @@ function BentleyJS()
 	
 	function initialize()
 	{
-    	self.refresh();
+		self.refresh();
 	}
 	
+	/*
+	 * Refresh events and filters
+	 *
+	 * @return void
+	 */
 	this.refresh = function()
 	{
 		$.each(self.events, function(pnIndex, pstrEvent) 
@@ -65,6 +70,13 @@ function BentleyJS()
 		applyFilters();
 	}
 	
+	/*
+	 * Trigger an event by method in given scope, default scope is the app scope
+	 *
+	 * @param string pstrMethod
+	 * @param object poScope
+	 * @return void
+	 */
 	this.trigger = function(pstrMethod, poScope)
 	{
 		var loScope = (poScope) ? poScope : self.appScope;
@@ -80,9 +92,15 @@ function BentleyJS()
 		});
 	}
 	
+	/*
+	 * Get an controller
+	 *
+	 * @param string pstrController
+	 * @return object (Controller Class)
+	 */
 	this.controller = function(pstrController)
 	{
-    	try 
+		try 
 		{
 			var lstrControllerName 	= escapeBeforeEval($(this).parents('[bt_controller]:first').attr('bt_controller'));
 			
@@ -102,6 +120,9 @@ function BentleyJS()
 	
 	/**
 	 * Applies the given event inside the app scope
+	 *
+	 * @param string pstrEvent
+	 * @return void
 	 */
 	function applyEvents(pstrEvent)
 	{
@@ -117,10 +138,10 @@ function BentleyJS()
 				
 				try 
 				{
-    				var lstrControllerName 	= escapeBeforeEval(loScope.attr('bt_controller'));
-    				
-    				return callControllerMethod(lstrControllerName, lstrExpression, loScope, loElement);
-   				} 
+					var lstrControllerName 	= escapeBeforeEval(loScope.attr('bt_controller'));
+					
+					return callControllerMethod(lstrControllerName, lstrExpression, loScope, loElement);
+				} 
 				catch(poError) 
 				{ 
 					self.log(lstrExpression + ' not exists in controller: ' + lstrControllerName);
@@ -130,6 +151,11 @@ function BentleyJS()
 		});
 	}
 	
+	/*
+	 * Applies filter to the elements with filter attribute
+	 *
+	 * @return void
+	 */
 	function applyFilters()
 	{
 		self.appScope.find('[bt_filter]').each(function()
@@ -157,6 +183,12 @@ function BentleyJS()
 		});
 	}
 	
+	/*
+	 * Trigger bt_ready events after onload
+	 * This can be used to initialize sliders or other js dependencies on load
+	 *
+	 * @return void
+	 */
 	function triggerReady()
 	{
 		self.appScope.find('[bt_ready]').each(function()
@@ -187,6 +219,15 @@ function BentleyJS()
 		});
 	}
 	
+	/*
+	 * Call a method on a given controller
+	 *
+	 * @param string pstrControllerName
+	 * @param string pstrMethod
+	 * @param object poScope
+	 * @param object poElement
+	 * @return void
+	 */
 	function callControllerMethod(pstrControllerName, pstrMethod, poScope, poElement)
 	{
 		loadController(['controllers/' + pstrControllerName + '.class'], function()
@@ -203,35 +244,43 @@ function BentleyJS()
 		});
 	}
 	
+	/*
+	 * Lazy load a controller and execute the given callback, can be non-async
+	 *
+	 * @param array paFiles
+	 * @param function pfCallback
+	 * @param boolean pbAsync (default: true)
+	 * @return void
+	 */
 	function loadController(paFiles, pfCallback, pbAsync)
 	{
 		$.each(paFiles, function(pnIndex, pstrControllerFileName)
 		{
 			var lbScriptLoaded 	= false,
 				loScript 		= document.getElementsByTagName('script')[0],
-		        loNewScript 	= document.createElement('script');
+				loNewScript 	= document.createElement('script');
 		
-		    // IE
-		    loNewScript.onreadystatechange = function () 
-		    {
-		        if (loNewScript.readyState === 'loaded' || loNewScript.readyState === 'complete') 
-		        {
-		            if(!lbScriptLoaded) pfCallback();
-		            
-		            lbScriptLoaded = true;
-		        }
-		    };
+			// IE
+			loNewScript.onreadystatechange = function () 
+			{
+				if (loNewScript.readyState === 'loaded' || loNewScript.readyState === 'complete') 
+				{
+					if(!lbScriptLoaded) pfCallback();
+					
+					lbScriptLoaded = true;
+				}
+			};
 		
-		    // others
-		    loNewScript.onload = function () 
-		    {
-			    if(!lbScriptLoaded)	pfCallback();
-			    
-			    lbScriptLoaded = true;
-		    };
+			// others
+			loNewScript.onload = function () 
+			{
+				if(!lbScriptLoaded)	pfCallback();
+				
+				lbScriptLoaded = true;
+			};
 		
-		    loNewScript.src = self.basePath + pstrControllerFileName + '.js';
-		    loScript.parentNode.insertBefore(loNewScript, loScript);
+			loNewScript.src = self.basePath + pstrControllerFileName + '.js';
+			loScript.parentNode.insertBefore(loNewScript, loScript);
 		});
 	}
 	
@@ -256,17 +305,23 @@ function BentleyJS()
 	{
 		try 
 		{
-            console.log(pstrMessage);
-       	}
-	    catch (e) {}
-	    finally { return; }
+			console.log(pstrMessage);
+		}
+		catch (e) {}
+		finally { return; }
 	}
 	
+	/*
+	 * Check if jQuery is available, if not throw error
+	 */
 	if(!window.jQuery) 
 	{
 		throw 'To use BentleyJS, jQuery needs to be loaded first.';
 	}
 	
+	/*
+	 * Call constructer on dom ready
+	 */
 	$(function()
 	{
 		__construct();
