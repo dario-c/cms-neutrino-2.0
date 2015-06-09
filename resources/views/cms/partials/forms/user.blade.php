@@ -2,10 +2,12 @@
 <div class="form-group">
 	{!! Form::label('name', "Name:") !!}
 	{!! Form::text('name', null, [
-		'required'					=> 'required',
 		'class'						=> 'form-control',
+
+		'required'					=> 'required',
 		'data-fv-notempty'			=> 'true',
-		'data-fv-notempty-message' 	=> 'This field is required, cannot be left empty'
+		'data-fv-notempty-message' 	=> 'This field is required, cannot be left empty',
+		'data-fv-trigger'			=> 'blur'
 	]) !!}
 </div>
 
@@ -14,8 +16,9 @@
 <div class="form-group">
 	{!! Form::label('email', "Email:") !!}
 	{!! Form::email('email', null, [
-		'required'					=> 'required',
 		'class'						=> 'form-control',
+
+		'required'					=> 'required',
 		'data-fv-notempty'			=> 'true',
 		'data-fv-notempty-message' 	=> 'This field is required, cannot be left empty',
 		'data-fv-emailaddress'		=> 'true',
@@ -29,10 +32,13 @@
 <div class="form-group">
 	{!! Form::label('password', "Password:") !!}
 	{!! Form::password('password',[
-		'required'					=> $passwordRequired,
 		'class'						=> 'form-control',
+		'placeholder'				=> $passwordPlaceholder,
+		
+		'required'					=> $passwordRequired,
 		'data-fv-notempty'			=> $passwordRequired,
-		'data-fv-notempty-message' 	=> 'This field is required, cannot be left empty'
+		'data-fv-notempty-message' 	=> 'This field is required, cannot be left empty',
+		'data-fv-trigger'			=> 'blur'
 	]) !!}
 </div>
 

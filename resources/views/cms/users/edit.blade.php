@@ -8,7 +8,11 @@
 
 	{!! Form::model($user, ['method' => 'PATCH', 'action' => ['CmsUserController@update', $user->id], 'class' =>'form-validation']) !!}
 	
-		@include('cms.partials.forms.user', ['submitText' => 'Edit', 'passwordRequired' => 'false'])
+		@include('cms.partials.forms.user', [
+			'submitText' => 'Edit',
+			'passwordRequired' => 'false',
+			'passwordPlaceholder' => 'Type to change the user\'s password'
+		])
 
 	{!! Form::close() !!}	
 

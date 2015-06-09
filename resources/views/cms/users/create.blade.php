@@ -9,7 +9,11 @@
 
 	{!! Form::open(['method' => 'POST', 'action' => 'CmsUserController@store', 'class' =>'form-validation']) !!}
 
-		@include('cms.partials.forms.user', ['submitText' => 'Register', 'passwordRequired' => 'true'])
+		@include('cms.partials.forms.user', [
+			'submitText' => 'Register',
+			'passwordRequired' => 'true',
+			'passwordPlaceholder' => ''
+		])
 	
 	{!! Form::close() !!}
 
