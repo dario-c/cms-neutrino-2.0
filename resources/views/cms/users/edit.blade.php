@@ -8,7 +8,7 @@
 
 	{!! Form::model($user, ['method' => 'PATCH', 'action' => ['CmsUserController@update', $user->id], 'class' =>'form-validation']) !!}
 	
-		@include('cms.partials.forms.user', ['submitText' => 'Edit'])
+		@include('cms.partials.forms.user', ['submitText' => 'Edit', 'passwordRequired' => 'false'])
 
 	{!! Form::close() !!}	
 

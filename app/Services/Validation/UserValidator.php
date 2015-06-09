@@ -26,14 +26,12 @@ class UserValidator extends Validator {
 			$array['name']		= array( 'required', 'min:3', 'unique:users,name,'.$id );
 			$array['email'] 	= array( 'required', 'email', 'unique:users,email,'.$id );
 			$array['password'] 	= array( 'null_or_min:6' );
-
 		} 
 		else 
 		{
 			$array['name']  	= array( 'required', 'min:3', 'unique:users,name' );
 			$array['email'] 	= array( 'required', 'email', 'unique:users,email' );
 			$array['password'] 	= array( 'required', 'min:6' );
-
 		}
 
 		self::addRules($array);
