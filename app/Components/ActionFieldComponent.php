@@ -13,10 +13,13 @@ class ActionFieldComponent extends AbstractComponent {
      */
     public function process($fieldName, array $requestParameters)
     {
-        $urlField = $fieldName.'_url';
-        
-        $requestParameters[$urlField] = $this->addScheme($requestParameters[$urlField]);
-        
+        $subFields = array(
+            'name' => $requestParameters[$fieldName.'_name'],
+            'url'  => $this->addScheme($requestParameters[$fieldName.'_url'])
+        );
+
+        $requestParameters[$fieldName] = json_encode($subFields);
+
         return $requestParameters;
     }
     
