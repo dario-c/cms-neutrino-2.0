@@ -1,7 +1,11 @@
 <div class="form-group">
 	{!! Form::label($postTypeField->id.'_name', $postTypeField->title.(($postTypeField->parameter('required') == true) ? ' *' : '' )) !!}
+
+	<?php
+		$values = (isset($post)) ? json_decode($post->getMeta($postTypeField->id)) : null;
+	?>
 	
-	{!! Form::text($postTypeField->id.'_name', (isset($post)) ? json_decode($post->getMeta($postTypeField->id))->name : null, array_filter([ 
+	{!! Form::text($postTypeField->id.'_name', (isset($post)) ? $values->name : null, array_filter([ 
 		'class' 					=> 'form-control', 
 		'placeholder'				=> 'Title of the action',
 		
@@ -12,7 +16,7 @@
 </div>
 
 <div class="form-group">
-	{!! Form::url($postTypeField->id.'_url', (isset($post)) ? json_decode($post->getMeta($postTypeField->id))->url : null, array_filter([ 
+	{!! Form::url($postTypeField->id.'_url', (isset($post)) ? $values->url : null, array_filter([ 
 		'class' 					=> 'form-control', 
 		'placeholder'				=> 'http://example.com',
 		
