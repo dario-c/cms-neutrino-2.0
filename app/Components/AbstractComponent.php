@@ -88,4 +88,16 @@ abstract class AbstractComponent implements ComponentContract {
     
 		return (strcasecmp(substr($haystack, strlen($haystack) - strlen($needle)), $needle) === 0);
 	}
+
+	/**
+	 * Add scheme url if not exists
+	 * 
+	 * @param string $url
+	 * @param string $scheme (default: 'http://')
+	 * @return string
+	 */
+	protected function addScheme($url, $scheme = 'http://')
+	{
+		return (parse_url($url, PHP_URL_SCHEME) === null && strlen($url) > 0) ? $scheme . $url : $url;
+	}
 }

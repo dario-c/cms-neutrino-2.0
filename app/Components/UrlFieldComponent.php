@@ -30,16 +30,4 @@ class UrlFieldComponent extends AbstractComponent {
 			(isset($parameters['contains'])) ? "regex:/^$|".preg_quote( $parameters['contains'], ".")."/" : null
 		);
 	}
-
-	/**
-	 * Add scheme url if not exists
-	 * 
-	 * @param string $url
-	 * @param string $scheme (default: 'http://')
-	 * @return string
-	 */
-	private function addScheme($url, $scheme = 'http://')
-	{
-		return (parse_url($url, PHP_URL_SCHEME) === null && strlen($url) > 0) ? $scheme . $url : $url;
-	}
 }

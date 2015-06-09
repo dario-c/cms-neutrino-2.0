@@ -45,16 +45,4 @@ class ActionFieldComponent extends AbstractComponent {
             (isset($parameters['required']) && $parameters['required'] == false) ? null : 'required'
         );
     }
-    
-    /**
-     * Add scheme url if not exists
-     * 
-     * @param string $url
-     * @param string $scheme (default: 'http://')
-     * @return string
-     */
-    private function addScheme($url, $scheme = 'http://')
-    {
-      return (parse_url($url, PHP_URL_SCHEME) === null) ? $scheme . $url : $url;
-    }
 }
