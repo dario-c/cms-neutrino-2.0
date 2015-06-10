@@ -16,13 +16,14 @@ Route::get('/', 'HomeController@index');
 
 // CMS routing
 Route::get('cms', 'CmsController@index');
-// Route::get('cms/users', 'CmsUserController@index');
-// Route::get('cms/users/create', 'CmsUserController@create');
-// Route::get('cms/users/{id}/edit', 'CmsUserController@edit');
-// Route::get('cms/users/{id}/update', 'CmsUserController@update');
 
 Route::resource('cms/users', 'CmsUserController');
+
 Route::resource('cms/text-keys', 'CmsTextKeyController');
+
+// EMAIL MOCKUP ROUTE
+Route::get('cms/email', 'CmsEmailController@create');
+Route::post('cms/email', 'CmsEmailController@send');
 
 
 // CMS Post Type routing
@@ -39,3 +40,4 @@ Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
 ]);
+
