@@ -3,7 +3,7 @@
 @section('content')                    
 <div class="row">
     <div class="col-xs-5">
-        <h1>{{ $postType->name }}</h1>
+        <h1>{{ ucfirst($postType->name) }}</h1>
     </div>
 
     <div class="col-xs-7">    
