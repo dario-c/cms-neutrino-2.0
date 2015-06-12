@@ -1,12 +1,10 @@
 @extends('cms.base')
 
-@include('cms.partials.forms.flash_messages')
-
 @section('content')
 
 <div class="row">
 	<div class="col-xs-5">
-		<h1> Text Keys </h1>
+		<h1>Text Keys</h1>
 	</div>
 	
 	<div class="col-xs-7">
@@ -47,6 +45,8 @@
 </div>
 
 <hr />
+
+@include('cms.partials.forms.flash_messages')
 
 <div class="list-container">
 	<div class="row list-header hide-in-grid">
