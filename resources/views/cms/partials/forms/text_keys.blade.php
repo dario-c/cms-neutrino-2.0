@@ -1,3 +1,7 @@
+<div class="btn-toolbar text-right">
+	<button type="button" class="btn btn-success btn-submit">{{$submitText}}</button>
+</div>
+
 <!-- CATEGORY -->
 <div class="form-group">
 	{!! Form::label('category', "Category:") !!}
@@ -25,10 +29,4 @@
 		'data-fv-notempty-message' 	=> 'This field is required, cannot be left empty'
 
 	]) !!}
-</div>
-
-
-<!-- SUBMIT -->
-<div class="form-group">
-	{!! Form::submit($submitText, ['class' => 'btn btn-info']) !!}
 </div>
