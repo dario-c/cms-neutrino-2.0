@@ -14,8 +14,8 @@ function UploadController($scope, BT)
         uploadButton:       '.btn-upload',
         uploadContainer:    '.upload-container',
         uploadItems:        '.list-group',
-        upload_url:         '/cms/upload-handler/', // server side handler
-        progress_url:       '/cms/upload-progress/' // server side handler
+        upload_url:         '/cms/upload-handler', // server side handler
+        progress_url:       '/cms/upload-progress' // server side handler
     };
 	
 	this.initialize = function(poElement)
@@ -36,6 +36,9 @@ function UploadController($scope, BT)
             
             var uploader = new ss.SimpleUpload({
                 button: $uploadButton,
+                customHeaders: {
+	                'X-CSRF-Token' : $('meta[name="_token"]').attr('content')
+                },
                 debug: settings.debug,
                 dropzone: $dropZone,
                 dragClass: 'drop',
@@ -43,7 +46,9 @@ function UploadController($scope, BT)
                 progressUrl: settings.progress_url,
                 responseType: 'json',
                 name: settings.filename,
+                noParams: true,
                 multiple: true,
+                multipart: true,
                 maxUploads: settings.maxUploads,
                 maxSize: 1024 * settings.maxSize,
                 accept: (settings.filetype.length > 0) ? settings.filetype + '/*' : '',
@@ -97,7 +102,7 @@ function UploadController($scope, BT)
                     uploadStatusHandler($uploadItem, (response != false));
                     updateFilename($uploadItem, response);
                     
-                    cmsMediaLibrary.refresh($('#image-select-modal:visible').find('.media-library-container'));
+                    // cmsMediaLibrary.refresh($('#image-select-modal:visible').find('.media-library-container'));
                 }
             });
             

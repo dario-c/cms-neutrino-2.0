@@ -11,6 +11,14 @@
 |
 */
 
+Route::filter('csrf', function()
+{
+   $token = Request::ajax() ? Request::header('X-CSRF-Token') : Input::get('_token');
+   if (Session::token() != $token) {
+      throw new Illuminate\Session\TokenMismatchException;
+   }
+});
+
 // Frontend Routing
 Route::get('/', 'HomeController@index');
 
@@ -23,6 +31,10 @@ Route::get('cms', 'CmsController@index');
 
 Route::resource('cms/users', 'CmsUserController');
 Route::resource('cms/text-keys', 'CmsTextKeyController');
+
+// CMS Upload handling
+Route::post('cms/upload-handler/', 'CmsUploadController@store');
+Route::any('cms/upload-progress/', 'CmsUploadController@progress');
 
 // CMS Partials
 Route::get('cms/partials/media/files', 'CmsMediaFilesController@index');
