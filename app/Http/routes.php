@@ -11,6 +11,7 @@
 |
 */
 
+// custom csrf check for ajax
 Route::filter('csrf', function()
 {
    $token = Request::ajax() ? Request::header('X-CSRF-Token') : Input::get('_token');
