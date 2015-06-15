@@ -16,7 +16,7 @@ class ValidatorExtended extends IlluminateValidator {
 	{
 		parent::__construct( $translator, $data, $rules, $messages, $customAttributes );
  
-		$this->_set_custom_stuff();
+		$this->_set_custom_properties();
 	}
  
 	/**
@@ -24,7 +24,7 @@ class ValidatorExtended extends IlluminateValidator {
 	 *
 	 * @return void
 	 */
-	protected function _set_custom_stuff()
+	protected function _set_custom_properties()
 	{
 		//setup our custom error messages
 		$this->setCustomMessages( $this->_custom_messages );

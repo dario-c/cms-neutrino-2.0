@@ -19,21 +19,12 @@ class UserValidator extends Validator {
 	 */
 	public function setRules($id = null)
 	{
-		$array = [];
+		$rules = [];
 
-		if(isset($id))
-		{
-			$array['name']		= array( 'required', 'min:3', 'unique:users,name,'.$id );
-			$array['email'] 	= array( 'required', 'email', 'unique:users,email,'.$id );
-			$array['password'] 	= array( 'null_or_min:6' );
-		} 
-		else 
-		{
-			$array['name']  	= array( 'required', 'min:3', 'unique:users,name' );
-			$array['email'] 	= array( 'required', 'email', 'unique:users,email' );
-			$array['password'] 	= array( 'required', 'min:6' );
-		}
+		$rules['name']		= array( 'required', 'min:3', (isset($id)) ? 'unique:users,name,'.$id : 'unique:users,name');
+		$rules['email'] 	= array( 'required', 'email', (isset($id)) ? 'unique:users,email,'.$id : 'unique:users,email');
+		$rules['password'] 	= array( (isset($id)) ? null : 'required', 'null_or_min:6' );
 
-		self::addRules($array);
+		self::addRules($rules);
 	}
 } 
