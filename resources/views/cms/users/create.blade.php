@@ -12,7 +12,7 @@
 		</div>
 
 		@include('cms.partials.forms.user', [
-			'passwordRequired'		=> 'true',
+			'passwordRequired'		=> true,
 			'passwordPlaceholder'	=> ''
 		])
 

@@ -15,7 +15,7 @@
 		</div>
 
 		@include('cms.partials.forms.user', [
-			'passwordRequired'		=> 'false',
+			'passwordRequired'		=> false,
 			'passwordPlaceholder'	=> 'Type to change the user\'s password'
 		])
 

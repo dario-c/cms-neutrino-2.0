@@ -1,6 +1,6 @@
 <!-- NAME -->
 <div class="form-group">
-	{!! Form::label('name', "Name:") !!}
+	{!! Form::label('name', 'Name *') !!}
 	{!! Form::text('name', null, [
 		'class'						=> 'form-control',
 
@@ -14,7 +14,7 @@
 
 <!-- EMAIL -->
 <div class="form-group">
-	{!! Form::label('email', "Email:") !!}
+	{!! Form::label('email', 'Email *') !!}
 	{!! Form::email('email', null, [
 		'class'						=> 'form-control',
 
@@ -30,13 +30,13 @@
 
 <!-- PASSWORD -->
 <div class="form-group">
-	{!! Form::label('password', "Password:") !!}
+	{!! Form::label('password', 'Password'.(($passwordRequired) ? ' *' : '' )) !!}
 	{!! Form::password('password',[
 		'class'						=> 'form-control',
 		'placeholder'				=> $passwordPlaceholder,
 		
-		'required'					=> $passwordRequired,
-		'data-fv-notempty'			=> $passwordRequired,
+		'required'					=> ($passwordRequired) ? 'true' : 'false',
+		'data-fv-notempty'			=> ($passwordRequired) ? 'true' : 'false',
 		'data-fv-notempty-message' 	=> 'This field is required, cannot be left empty',
 		'data-fv-trigger'			=> 'blur'
 	]) !!}
@@ -46,12 +46,12 @@
 <!-- ROLE -->
 @if(Auth::user()->isAdmin() )
 	<div class="form-group">
-		{!! Form::label('role', "Role:") !!}
+		{!! Form::label('role', 'Role *') !!}
 		{!! Form::select('role_id', $roles, null,['class' => 'form-control']) !!}
 	</div>
 @elseif(isset($user))
 	<div class="form-group">
-		{!! Form::label('role', "Role:") !!}
+		{!! Form::label('role', 'Role') !!}
 		{{ $user->role->name }}
 	</div>
 @endif
