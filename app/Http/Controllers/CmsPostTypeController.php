@@ -105,7 +105,7 @@ class CmsPostTypeController extends Controller {
 	private function validatePost(PostType $postType, Request $request, $action = 'CmsPostTypeController@create', array $parameters = array())
 	{
 		// validate post and it's meta
-		$postId = $parameters['id'];
+		$postId = (isset($parameters['id'])) ? $parameters['id'] : null;
 		$this->_postValidator->setRules($postId);
 		$this->_postValidator->addRules($postType->fieldRules());
 		$this->_postValidator->validateOrRespond($request->all(), $action, array_merge(['post_type' => $postType->name], $parameters)); 
