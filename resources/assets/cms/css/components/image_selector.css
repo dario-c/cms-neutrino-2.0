@@ -1,0 +1,7 @@
+.form-group .image-preview {
+    border-radius: 3px;
+    float: left;
+    margin-right: 20px;
+}
+
+.image-selector footer a { margin-left: 10px; }
