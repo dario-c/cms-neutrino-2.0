@@ -8,8 +8,7 @@ class ValidatorExtended extends IlluminateValidator {
  
 	private $_custom_messages = array(
 		"alpha_dash_spaces" => "The :attribute may only contain letters, spaces, and dashes.",
-		"alpha_num_spaces" => "The :attribute may only contain letters, numbers, and spaces.",
-		"null_or_min" => "The :attribute is too short"
+		"alpha_num_spaces" => "The :attribute may only contain letters, numbers, and spaces."
 	);
  
 	public function __construct( $translator, $data, $rules, $messages = array(), $customAttributes = array() )
@@ -64,6 +63,8 @@ class ValidatorExtended extends IlluminateValidator {
 	 */
 	protected function validateNullOrMin( $attribute, $value, $minimum )
 	{
+		$this->setCustomMessages(["null_or_min" => "The :attribute is too short, it should be at least $minimum[0] characters long"]);
+
 		return (bool) (strlen($value) == 0 || strlen($value) >= $minimum[0]) ? true : false;
 	}
  
