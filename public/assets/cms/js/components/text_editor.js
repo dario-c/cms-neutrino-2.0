@@ -1,7 +1,22 @@
 (function($) { 
   
     var $textEditor = $('.text-editor');
+	var initialHeight, lineHeight = 0;
     
+    var getInitialHeights = function() {
+    	var padding = $textEditor.innerHeight() - $textEditor.height();
+
+    	lineHeight = parseInt($textEditor.css('line-height'));
+    	initialHeight = $textEditor.height() - padding - lineHeight;
+    };
+
+	var setHeight = function() {
+    	$(this).height( initialHeight );
+    	$(this).height( this.scrollHeight + lineHeight);
+    };
+
+    getInitialHeights();
+
     $textEditor.each(function() {
 	    
         $(this).wysiwyg({
@@ -17,6 +32,8 @@
         $('<textarea class="hide" name="' + $(this).attr('name') + '">' + $(this).html() + '</textarea>').insertAfter($(this));
     });
     
+    $textEditor.on('keydown', setHeight);
+
     $textEditor.on('keyup', function() {
 	    
         $('textarea[name=' + $(this).attr('name') + ']').val($(this).html());

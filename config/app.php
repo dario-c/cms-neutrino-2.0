@@ -179,6 +179,7 @@ return [
 		'Neutrino\Providers\BladeServiceProvider',
 		'Neutrino\Providers\PostTypeServiceProvider',
 		'Neutrino\Providers\ComponentServiceProvider',
+		'Neutrino\Services\Validation\ValidationExtensionServiceProvider',
 	],
 
 	/*
