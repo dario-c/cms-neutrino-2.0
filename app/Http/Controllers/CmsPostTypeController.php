@@ -102,10 +102,11 @@ class CmsPostTypeController extends Controller {
 	 * @param Request $request
 	 * @return void
 	 */
-	private function validatePost(PostType $postType, Request $request, $action = 'CmsPostTypeController@create', array $parameters = array(), $id = null)
+	private function validatePost(PostType $postType, Request $request, $action = 'CmsPostTypeController@create', array $parameters = array())
 	{
 		// validate post and it's meta
-		$this->_postValidator->setRules($id);
+		$postId = $parameters['id'];
+		$this->_postValidator->setRules($postId);
 		$this->_postValidator->addRules($postType->fieldRules());
 		$this->_postValidator->validateOrRespond($request->all(), $action, array_merge(['post_type' => $postType->name], $parameters)); 
 	}
@@ -184,7 +185,7 @@ class CmsPostTypeController extends Controller {
 		$request = $this->processRequest($postType, $request);
 		
 		// process meta and validate post and its meta's
-		$this->validatePost($postType, $request, 'CmsPostTypeController@edit', ['id' => $id], $id);
+		$this->validatePost($postType, $request, 'CmsPostTypeController@edit', ['id' => $id]);
 		
 		// Update post
 		$post = $this->storePost($request->all(), $id);
