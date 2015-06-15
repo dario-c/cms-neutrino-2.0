@@ -55,9 +55,3 @@
 		{{ $user->role->name }}
 	</div>
 @endif
-
-
-<!-- SUBMIT -->
-<div class="form-group">
-	{!! Form::submit($submitText, ['class' => 'btn btn-info']) !!}
-</div>

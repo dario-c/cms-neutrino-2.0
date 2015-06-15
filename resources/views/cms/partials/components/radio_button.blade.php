@@ -8,13 +8,14 @@
 				if(isset($post)) $fill = (strpos($post->getMeta($postTypeField->id), $value) !== false) ? true : false;
 			?>
 
-			{!! Form::label($postTypeField->id.'[]',$index, ['class' => 'selection-label']) !!}
 			{!! Form::radio($postTypeField->id.'[]', $index, $fill,
 				[
+					'id'						=> $postTypeField->id.'_'.$index,
 					'required'					=> ($postTypeField->parameter('required') == true) ? 'required' : null, 
 					'data-fv-notempty'			=> ($postTypeField->parameter('required') == true) ? 'true' : null,
 					'data-fv-notempty-message' 	=> ($postTypeField->parameter('required') == true) ? 'Please select an option' : null,
 			]) !!}
+			{!! Form::label($postTypeField->id.'_'.$index, $index, ['class' => 'selection-label']) !!}
 		@endforeach
 	</div>
 </div>
