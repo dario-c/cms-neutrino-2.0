@@ -19,19 +19,11 @@ class PostValidator extends Validator {
 	 */
 	public function setRules($id = null)
 	{
-		$array = [];
+		$rules = [];
 
-		if(isset($id))
-		{
-			$array['title'] = array( 'required', 'unique:posts,title,'.$id );
-			$array['slug'] 	= array( 'required', 'unique:posts,slug,'.$id );
-		} 
-		else 
-		{
-			$array['title'] = array( 'required', 'unique:posts,title' );
-			$array['slug'] 	= array( 'required', 'unique:posts,slug' );
-		}
+		$rules['title'] = array( 'required', (isset($id)) ? 'unique:posts,title,'.$id : 'unique:posts,title');
+		$rules['slug'] 	= array( 'required', (isset($id)) ? 'unique:posts,slug,'.$id  : 'unique:posts,slug' );
 
-		self::addRules($array);
+		self::addRules($rules);
 	}
 } 
