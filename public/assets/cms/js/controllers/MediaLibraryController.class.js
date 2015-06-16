@@ -50,7 +50,7 @@ function MediaLibraryController($scope, BT)
 	{
 		element.on('show.bs.modal', function(e)
 		{
-			var container  = $(this).find('.media-library-container');
+			var container = $(this).find('.media-library-container');
 		
 			self.refresh(container);
 		});
@@ -58,7 +58,7 @@ function MediaLibraryController($scope, BT)
 	
 	function setFileInfo($selectedItem)
 	{
-		var $fileInfo		= $('#image-select-modal:visible .file-info');
+		var $fileInfo = $('#image-select-modal:visible .file-info');
 			
 		$fileInfo.find('.file-info-image').attr('src', $selectedItem.attr('file_thumb'));
 		$fileInfo.find('.file-info-filename').html($selectedItem.attr('file_name'));

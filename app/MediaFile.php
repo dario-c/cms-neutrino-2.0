@@ -15,5 +15,5 @@ class MediaFile extends Model {
 	{
 		return ''; // stub
 	}
-
+	
 }

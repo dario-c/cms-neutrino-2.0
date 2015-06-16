@@ -14,7 +14,7 @@ class ImageSelectorComponent extends AbstractComponent {
       	return array(
             (isset($parameters['required']) && $parameters['required'] == false) ? null : 'required',
             'integer',
-        	'exists:media_files,file_id'
+        	'exists:media_files,id'
         );
     }
 }
