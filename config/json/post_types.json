@@ -114,9 +114,10 @@
                 {
                     "id": "_pages",
                     "title": "Page(s)",
-                    "type": "relation",
+                    "type": "post_relation",
                     "parameters": {
-                        "multiple": true,
+                        "required": 0,
+                        "multiple": 1,
                         "source": "pages"
                     }
                 }
