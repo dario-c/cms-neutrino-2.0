@@ -46,12 +46,28 @@
                    }
                 },
                 {
+                    "id": "_page_by",
+                    "title": "Director",
+                    "type": "post_relation",
+                    "parameters": {
+                        "required": 0,
+                        "multiple": 0,
+                        "source": {
+                            "type": "relation",
+                            "data": {"related_post": "directors"}
+                        }
+                    }
+                },
+                {
                     "id": "_select_box",
                     "title": "Selection",
                     "type": "select_box",
                     "parameters": {
                         "required": 0,
-                        "source": {"": "Please Select", "1": "Option 1", "2": "Option 2"}
+                        "source": {
+                            "type": "given",
+                            "data": {"": "Please Select", "1": "Option 1", "2": "Option 2"}
+                        }
                    }
                 },
                 {
@@ -60,7 +76,10 @@
                     "type": "checkbox",
                     "parameters": {
                     	"required": 0,
-                        "source": {"banana": "banana", "apple": "apple", "orange": "orange"}
+                        "source": {
+                            "type": "given",
+                            "data": {"banana": "banana", "apple": "apple", "orange": "orange"}
+                        }
                     }
                 },
                 {
@@ -68,9 +87,14 @@
                     "title": "Language",
                     "type": "select_box",
                     "parameters": {
-                    	"required": 1,
-                        "source": "Language",
-                        "table": "languages,id"
+                    	"required": 0,
+                        "source": {
+                            "type": "model",
+                            "data": {
+                                "model_name": "Language",
+                                "table": "languages,id"
+                            }
+                        }
                     }
                 },
                 {
@@ -78,8 +102,11 @@
                     "title": "Select",
                     "type": "radio_button",
                     "parameters": {
-                        "required": 1,
-                        "source": {"banana": "banana", "apple": "apple", "orange": "orange"}
+                        "required": 0,
+                        "source": {
+                            "type": "given",
+                            "data": {"banana": "banana", "apple": "apple", "orange": "orange"}
+                        }
                     }
                 }
             ],
@@ -109,16 +136,6 @@
                     "type": "text_area",
                     "parameters": {
                         "required": 0
-                    }
-                },
-                {
-                    "id": "_pages",
-                    "title": "Page(s)",
-                    "type": "post_relation",
-                    "parameters": {
-                        "required": 0,
-                        "multiple": 1,
-                        "source": "pages"
                     }
                 }
             ],
