@@ -24,41 +24,44 @@ class Media {
      * 
      * @param integer $id
      * @param string $option (default: '')
+     * @param string $default (default: '')
      * @return string
      */
-    public function getLink($id, $option = '')
+    public function getLink($id, $option = '', $default = '')
     {
 	    $object = $this->getObjectById($id);
 	    
 	    // option will be in next branch (image on the fly resizing)
 	    
-        return (isset($object)) ? $object->link : '';
+        return (isset($object)) ? $object->link : $default;
     }
     
     /**
      * Get name of a media object by id.
      * 
      * @param integer $id
+     * @param string $default (default: '')
      * @return string
      */
-    public function getName($id)
+    public function getName($id, $default = '')
     {
 	    $object = $this->getObjectById($id);
 	    
-        return (isset($object)) ? $object->name : '';
+        return (isset($object)) ? $object->name : $default;
     }
     
     /**
      * Get caption of a media object by id.
      * 
      * @param integer $id
+     * @param string $default (default: '')
      * @return string
      */
-    public function getCaption($id)
+    public function getCaption($id, $default = '')
     {
 	    $object = $this->getObjectById($id);
 	    
-        return (isset($object)) ? $object->caption : '';
+        return (isset($object)) ? $object->caption : $default;
     }
     
     /**
