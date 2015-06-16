@@ -182,6 +182,7 @@ return [
 		'Neutrino\Providers\PostTypeServiceProvider',
 		'Neutrino\Providers\ComponentServiceProvider',
 		'Neutrino\Providers\MediaServiceProvider',
+		'Neutrino\Services\Validation\ValidationExtensionServiceProvider',
 	],
 
 	/*
