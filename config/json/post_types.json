@@ -110,6 +110,15 @@
                     "parameters": {
                         "required": 0
                     }
+                },
+                {
+                    "id": "_pages",
+                    "title": "Page(s)",
+                    "type": "relation",
+                    "parameters": {
+                        "multiple": true,
+                        "source": "pages"
+                    }
                 }
             ],
             "slug": "director",
