@@ -1,12 +1,17 @@
 <?php namespace Neutrino\Http\Controllers;
 	
 use Image;
+use Config;
+use Neutrino\MediaFile;
 use Neutrino\Http\Requests;
 use Illuminate\Http\Request;
 use Neutrino\Http\Controllers\Controller;
 
 class CmsUploadController extends Controller {
-
+	
+	private $uploadPath = '';
+	private $uploadUrl	= '';
+	
 	/**
 	 * Create a new controller instance.
 	 *
@@ -15,6 +20,9 @@ class CmsUploadController extends Controller {
 	public function __construct()
 	{
 		$this->middleware('auth');
+		
+		$this->uploadPath 	= public_path().'/uploads/';
+		$this->uploadUrl	= url().'/uploads/';
 	}
 
 	/**
@@ -27,9 +35,8 @@ class CmsUploadController extends Controller {
 		$file = $request->file('uploadfile');
 		
 		$uniqueFileName = $this->getUniqueFilename(preg_replace('/\s+/', '_', urldecode($file->getClientOriginalName())));
-		$destination 	= public_path().'/uploads/'.$uniqueFileName;
 		
-		return $this->handleImage($file, $destination);
+		return $this->handleImage($file, $uniqueFileName);
 	}
 	
 	/**
@@ -76,7 +83,7 @@ class CmsUploadController extends Controller {
         $newFilename   = $fileName;
         $pathParts     = pathinfo($fileName);
         
-        while(file_exists(public_path().'/uploads/'.$newFilename))
+        while(file_exists($this->uploadPath.$newFilename))
         {
             $newFilename = $pathParts['filename'].'_'.$index.'.'.$pathParts['extension'];
             $index++;
@@ -93,7 +100,7 @@ class CmsUploadController extends Controller {
      * @param string $destination
      * @return Response
      */
-    private function handleImage($file, $destination)
+    private function handleImage($file, $filename)
 	{
 		try
 		{
@@ -106,13 +113,13 @@ class CmsUploadController extends Controller {
 			$image = Image::make($file);
 			
 			$this->validateImage($image);
-			$this->saveImageOnDisk($image, $destination);
-			$this->addImageToDatabase($image, $destination);
+			$this->saveImageOnDisk($image, $filename);
+			$this->addImageToDatabase($image, $filename);
 			
 			// put back memory limit
 			ini_set('memory_limit', $memoryLimit);
 			
-			return response()->json(['success' => true, 'msg' => 'OK', 'filename' => basename($destination)]);
+			return response()->json(['success' => true, 'msg' => 'OK', 'filename' => basename($filename)]);
 		}
 		catch(Exception $e)
 		{
@@ -130,9 +137,16 @@ class CmsUploadController extends Controller {
 	private function validateImage($image)
 	{
 		// check mime type
+		if(!stristr($image->mime(), 'image'))
+		{
+			throw new BaseException('Unsafe file, please try to upload a correct file');
+		}
+		
 		// check file size
-		// check other things if needed
-		// else throw error
+		if($image->filesize() > Config::get('max_file_size', 5000000))
+		{
+			throw new BaseException('File is too big, please upload a smaller file');
+		}
 	}
 	
 	/**
@@ -142,14 +156,14 @@ class CmsUploadController extends Controller {
 	 * @param string $destination
 	 * @return void
 	 */
-	private function saveImageOnDisk($image, $destination)
+	private function saveImageOnDisk($image, $filename)
 	{
 		$image->resize(1920, 1920, function ($constraint) {
 		    $constraint->aspectRatio();
 		    $constraint->upsize();
 		});
 		
-		$image->save($destination, 80);
+		$image->save($this->uploadPath.$filename, 80);
 	}
 	
 	/**
@@ -159,10 +173,19 @@ class CmsUploadController extends Controller {
 	 * @param string $destination
 	 * @return Response
 	 */
-	private function addImageToDatabase($image, $destination)
+	private function addImageToDatabase($image, $filename)
 	{
-		// save to database
+		$mediaFile = MediaFile::create(array(
+			'name'		=> basename($filename),
+			'link'		=> $this->uploadUrl.$filename,
+			'type'		=> 'image',
+			'width'		=> $image->width(),
+			'height'	=> $image->height(),
+			'caption'	=> pathinfo($filename, PATHINFO_FILENAME)
+		));
 		
-		return response()->json(['success' => true, 'msg' => 'OK', 'filename' => $destination]);
+		$mediaFile->thumbnail = MediaFile::createAndReturnImage($this->uploadUrl.$filename, 'thumb');
+		
+		$mediaFile->save();
 	}
 }

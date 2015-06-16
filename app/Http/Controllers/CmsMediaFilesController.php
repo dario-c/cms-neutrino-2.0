@@ -2,7 +2,7 @@
 
 use View;
 use Auth;
-use Config;
+use Neutrino\MediaFile;
 use Neutrino\Http\Requests;
 use Neutrino\Http\Controllers\Controller;
 
@@ -22,7 +22,7 @@ class CmsMediaFilesController extends Controller {
 	
 	public function index()
 	{
-		$files = array(); // get files
+		$files = MediaFile::all();
 		
 		return view('cms.partials.media.files', compact('files'));
 	}
