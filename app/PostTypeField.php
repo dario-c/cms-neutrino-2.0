@@ -17,13 +17,14 @@ class PostTypeField extends AbstractModel {
 	{
 		return (isset($this->parameters[$key])) ? $this->parameters[$key] : $default;
 	}
-		
+
 	public function source()
 	{
-		$source = $this->parameter('source', array());
-		$source = (is_array($source)) ? $source : self::getOptionsList($this->parameters['source']);
+		$source = $this->parameter('source');
 
-		return $source;
+		$options = ($source['type'] == "given") ?  $source['data'] :  self::getOptionsList($source);
+
+		return $options;
 	}
 
 	public function save($postId, Request $request)
@@ -41,11 +42,21 @@ class PostTypeField extends AbstractModel {
 		}
 	}
 
-	private function getOptionsList($modelName, $attribute='title')
+	private function getOptionsList($source)
 	{
-		$modelList = "Neutrino\\$modelName::lists";
+		$options = ($source['type'] == "model") ? self::fetchModelList($source['data']) : self::fetchPostTypeList($source['data']);
+		return $options;
+	}
+
+	private function fetchModelList($data, $attribute="title")
+	{
+		$modelList = "Neutrino\\".$data['model_name']."::lists";
 
 		return (call_user_func("$modelList", $attribute, 'id'));
 	}
-	
+
+	private function fetchPostTypeList($data)
+	{
+		return Post::where('type','directors')->lists("title", "id");
+	}
 }
