@@ -4,4 +4,5 @@
     margin-right: 20px;
 }
 
+.image-selector blockquote { width: 70%; margin-bottom: 0; }
 .image-selector footer a { margin-left: 10px; }

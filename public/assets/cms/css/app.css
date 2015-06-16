@@ -204,6 +204,8 @@ body {
   border-left: 1px solid #dedede;
   bottom: 0;
   font-size: 12px;
+  overflow-y: auto;
+  overflow-x: hidden;
   padding: 10px;
   position: absolute;
   right: 0;
