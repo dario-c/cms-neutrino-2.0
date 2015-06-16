@@ -106,7 +106,10 @@
                 {
                     "id": "biography",
                     "title": "Short Biography",
-                    "type": "text_area"
+                    "type": "text_area",
+                    "parameters": {
+                        "required": 0
+                    }
                 }
             ],
             "slug": "director",
