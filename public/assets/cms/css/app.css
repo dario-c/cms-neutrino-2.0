@@ -213,7 +213,7 @@ body {
   width: 200px;
 }
 #image-select-modal .tab-pane {
-  min-height: 240px;
+  min-height: 160px;
 }
 #image-select-modal .file-info-container .file-info img {
   width: 80px;

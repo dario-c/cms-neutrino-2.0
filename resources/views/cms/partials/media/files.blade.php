@@ -13,4 +13,10 @@
             No images upload yet, upload your first now
         </div>
     </div>
+    
+    <div class="col-xs-12 filterable no-filter-result hide">
+	    <div class="alert alert-warning" role="alert">
+            Could not find any results for the given keyword
+        </div>
+    </div>
 </div>

@@ -51,7 +51,7 @@
                                    <div class="input-group">
                                         <div class="inner-addon right-addon">
                                             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                                            <input type="text" class="form-control filter" placeholder="Search for...">
+                                            <input type="text" class="form-control filter" placeholder="Search for..." bt_filter=".filterable" />
                                         </div>
                                     </div>
                                 </form>

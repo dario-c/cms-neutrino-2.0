@@ -169,7 +169,7 @@ function BentleyJS()
 				
 				var lbDisplayNoResults = (self.appScope.find(lstrFilterSelector + ':visible').length == 0);
 				
-				self.appScope.find(lstrFilterSelector + '.no-filter-result').toggle(lbDisplayNoResults);
+				self.appScope.find(lstrFilterSelector + '.no-filter-result').toggle(lbDisplayNoResults).toggleClass('hide', !lbDisplayNoResults);
 			});	
 		});
 	}
