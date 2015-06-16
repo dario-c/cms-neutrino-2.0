@@ -1,7 +1,7 @@
 <div class="media-files row">
     @foreach ($files as $file)
     <div class="col-md-2 col-xs-4 thumbnail-holder filterable">
-        <div class="selectable" file_id="{{ $file->id }}" file_name="{{ $file->name }}" file_dimensions="{{ $file->dimensions }}" file_thumb="{{ $file->thumbnail }}">
+        <div class="selectable" file_id="{{ $file->id }}" file_name="{{ $file->name }}" file_dimensions="{{ $file->width }}x{{ $file->height }}" file_thumb="{{ $file->link }}" bt_click="highlight">
             <img src="{{ $file->link }}" alt="{{ $file->name }}" />
             <span class="sr-only">{{ $file->name }}</span>
         </div>

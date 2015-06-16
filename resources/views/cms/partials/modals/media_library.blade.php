@@ -42,7 +42,7 @@
                                     <dt>Dimensions:</dt>
                                     <dd class="file-info-dimensions">0x0</dd>
                                     
-                                    <dd><a href="javascript:void(0);">delete permenantly</a></dd>
+                                    <dd><a href="javascript:void(0);">delete permanently</a></dd>
                                 </dl>
                             </div>
                             
@@ -73,7 +73,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" disabled="disabled" bt_click="selectImage">Select image</button>
+                <button type="button" class="btn btn-primary btn-select-image" disabled="disabled" bt_click="selectImage">Select image</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
