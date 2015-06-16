@@ -93,27 +93,23 @@ function BentleyJS()
 	}
 	
 	/*
-	 * Get an controller
+	 * Execute controller method
 	 *
 	 * @param string pstrController
-	 * @return object (Controller Class)
+	 * @param string pstrMethod
+	 * @return mixed
 	 */
-	this.controller = function(pstrController)
+	this.execute = function(pstrController, pstrMethod)
 	{
     	try 
 		{
-			var lstrControllerName 	= escapeBeforeEval($(this).parents('[bt_controller]:first').attr('bt_controller'));
+			var lstrControllerName 	= escapeBeforeEval(pstrController);
 			
-			loadController(['controllers/' + lstrControllerName + '.class'], function()
-			{
-				var loControllerClass = window[lstrControllerName];
-				
-				return new loControllerClass();
-			}, false);
+			callControllerMethod(lstrControllerName, pstrMethod, $('[bt_controller='+ lstrControllerName +']'));
 		} 
 		catch(poError) 
 		{ 
-			self.log('Controller not exists : ' + lstrControllerName);
+			self.log('Controller or method not exists : ' + lstrControllerName);
 			self.log(poError);
 		}
 	}
@@ -249,10 +245,9 @@ function BentleyJS()
 	 *
 	 * @param array paFiles
 	 * @param function pfCallback
-	 * @param boolean pbAsync (default: true)
 	 * @return void
 	 */
-	function loadController(paFiles, pfCallback, pbAsync)
+	function loadController(paFiles, pfCallback)
 	{
 		$.each(paFiles, function(pnIndex, pstrControllerFileName)
 		{
@@ -280,6 +275,7 @@ function BentleyJS()
 		    };
 		
 		    loNewScript.src = self.basePath + pstrControllerFileName + '.js';
+		    
 		    loScript.parentNode.insertBefore(loNewScript, loScript);
 		});
 	}

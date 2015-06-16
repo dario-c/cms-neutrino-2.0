@@ -18,8 +18,10 @@ function MediaLibraryController($scope, BT)
 	
 	this.refresh = function(container)
 	{
+		var container = (container) ? container : element.find('.media-library-container');
+
 		$.ajax({
-			url: '/cms/partials/media/files/',
+			url: '/cms/partials/media/files',
 			success: function(data) {
 				container.html(data);
 				

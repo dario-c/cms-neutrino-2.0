@@ -102,7 +102,8 @@ function UploadController($scope, BT)
                     uploadStatusHandler($uploadItem, (response != false));
                     updateFilename($uploadItem, response);
                     
-                    // cmsMediaLibrary.refresh($('#image-select-modal:visible').find('.media-library-container'));
+                    // refresh Media Library
+                    BT.execute('MediaLibraryController', 'refresh');
                 }
             });
             
