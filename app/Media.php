@@ -31,9 +31,15 @@ class Media {
     {
 	    $object = $this->getObjectById($id);
 	    
-	    // option will be in next branch (image on the fly resizing)
+		if(isset($object))
+		{
+			$extension 	= pathinfo($object->link, PATHINFO_EXTENSION);
+	    	$link 		= ($option != '') ? $this->generateOptionLink($id, $option, $extension) : $object->link;
 	    
-        return (isset($object)) ? $object->link : $default;
+			return (isset($link)) ? $link : $default;
+		}
+		
+		return $default;
     }
     
     /**
@@ -83,4 +89,24 @@ class Media {
         return self::$lastObject = MediaFile::find($id);
     }
 
+	/**
+	 * Generate image link for dynamical sizes.
+	 * 
+	 * @access private
+	 * @param integer $id
+	 * @param string $option
+	 * @param string $extension (default: 'jpg')
+	 * @return string
+	 */
+	private function generateOptionLink($id, $option, $extension = 'jpg')
+	{
+		$imageOptions = Config::get('media.image_options', array('thumbnail' => array(200, 200, true, 70, 'center')));
+		
+		if(!isset($imageOptions[strtolower($option)]))
+		{
+			return null;
+		}
+		
+		return url().'/image/'.$option.'/'.$id.'.'.$extension;
+	}
 }

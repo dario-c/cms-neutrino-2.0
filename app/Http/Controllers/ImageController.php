@@ -27,15 +27,11 @@ class ImageController extends Controller {
 		$this->checkIfCached($option, $id);
 		
 		$file 	 = $this->findFileOrFail($id);
-		$changes = $this->findChanges($option);
-		
+
 		$image = Image::make($file->link);
-		
-		$image->fit($changes[0], $changes[1], function ($constraint) {
-		    $constraint->upsize();
-		}, (isset($changes[3])) ? $changes[3] : 'center');
-		
-		$this->cacheImage($option, $id, $image, (isset($changes[2])) ? intval($changes[2]) : 70);
+		$image = $this->applyChanges($image, $this->findChanges($option));
+					
+		$this->cacheImage($option, $id, $image, (isset($changes[3])) ? intval($changes[3]) : 70);
 		
 		return $image->response($extension);
 	}
@@ -69,7 +65,7 @@ class ImageController extends Controller {
 		
 	private function findChanges($option)
 	{
-		$imageOptions = Config::get('IMAGE_OPTIONS', array('thumbnail' => array(200, 200, 70, 'center')));
+		$imageOptions = Config::get('media.image_options', array('thumbnail' => array(200, 200, true, 70, 'center')));
 		
 		if(!isset($imageOptions[strtolower($option)]))
 		{
@@ -83,6 +79,21 @@ class ImageController extends Controller {
 		
 		return $imageOptions[$option];
 	}	
+	
+	private function applyChanges($image, $changes)
+	{
+		if(isset($changes[2]) && $changes[2] === true)
+		{	
+			return $image->fit($changes[0], $changes[1], function ($constraint) {
+			    $constraint->upsize();
+			}, (isset($changes[4])) ? $changes[4] : 'center');
+		}
+		
+		return $image->resize($changes[0], $changes[1], function ($constraint) {
+		    $constraint->aspectRatio();
+		    $constraint->upsize();
+		});
+	}
 	
 	private function cacheImage($option, $id, $image, $quality = 70)
 	{
