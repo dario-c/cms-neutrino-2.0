@@ -55,7 +55,6 @@
                                         </div>
                                     </div>
                                 </form>
-                                <!--<div class="clearfix"></div>-->
                                 
                                 <div class="container-fluid media-library-container">
                                     <div class="simple-loader">
