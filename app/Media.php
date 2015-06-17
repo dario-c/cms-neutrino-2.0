@@ -1,5 +1,6 @@
 <?php namespace Neutrino;
 
+use Config;
 use Neutrino\MediaFile;
 
 class Media {

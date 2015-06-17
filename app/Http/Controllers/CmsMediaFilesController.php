@@ -2,6 +2,7 @@
 
 use Image;
 use Config;
+use Neutrino\Facades\Media;
 use Neutrino\MediaFile;
 use Neutrino\Http\Requests;
 use Illuminate\Http\Request;
@@ -197,7 +198,7 @@ class CmsMediaFilesController extends Controller {
 			'caption'	=> pathinfo($filename, PATHINFO_FILENAME)
 		));
 		
-		$mediaFile->thumbnail = MediaFile::createAndReturnImage($this->uploadUrl.$filename, 'thumb');
+		$mediaFile->thumbnail = Media::getLink($mediaFile->id, 'thumbnail', '');
 		
 		$mediaFile->save();
 	}
