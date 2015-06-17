@@ -59,6 +59,19 @@
                     }
                 },
                 {
+                    "id": "_liked_by",
+                    "title": "Liked by",
+                    "type": "post_relation",
+                    "parameters": {
+                        "required": 0,
+                        "multiple": 1,
+                        "source": {
+                            "type": "relation",
+                            "data": {"related_post": "directors"}
+                        }
+                    }
+                },
+                {
                     "id": "_select_box",
                     "title": "Selection",
                     "type": "select_box",
