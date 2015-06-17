@@ -28,10 +28,17 @@ class PostTypeField extends AbstractModel {
 	}
 
 	public function save($postId, Request $request)
-	{
+	{		
+
+		($this->type == 'post_relation' && $this->parameters['multiple']) ? 
+			self::saveInPostRelation($postId, $request) :
+			self::saveInPostMeta($postId, $request);
+	}
+
+	public function saveInPostMeta($postId, Request $request){
 		$fields = Component::findByTypeOrFail($this->type)->getClass()->fields($this->id);
-		
-		foreach($fields as $field)
+
+		foreach($fields as $field) // TODO: Do we really need this loop?
 		{
 			$postMeta = PostMeta::updateOrCreate(array(
 				'post_id'	=> $postId,
@@ -39,6 +46,25 @@ class PostTypeField extends AbstractModel {
 			), array(
 				'value'		=> $request->input($field, '')
 			));
+		}			
+	}
+
+	public function saveInPostRelation($postId, Request $request)
+	{
+		$relationName 		= $this->id;
+		$postType			= $request->input('type');
+		$relatedPostType 	= $this->attributes['parameters']['source']['data']['related_post'];
+		$values 			= $request->input('_liked_by');
+
+		foreach($values as $value)
+		{
+			$relation = new PostRelation;
+			$relation->relation 	= $relationName;
+			$relation->post_type	= $postType;
+			$relation->post_id 		= $postId;
+			$relation->related_type	= $relatedPostType;
+			$relation->related_id	= $value;
+			$relation->save();
 		}
 	}
 
