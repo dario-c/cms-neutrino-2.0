@@ -27,6 +27,13 @@ class PostTypeField extends AbstractModel {
 		return $options;
 	}
 
+	/**
+	 * Save the field in the appropriate table
+	 *
+	 * @param  integer $postId
+	 * @param  Request $request
+	 * @return void
+	 */
 	public function save($postId, Request $request)
 	{		
 		($this->type == 'post_relation' && $this->parameters['multiple']) ? 
@@ -34,6 +41,13 @@ class PostTypeField extends AbstractModel {
 			self::saveInPostMeta($postId, $request);
 	}
 
+	/**
+	 * Save the field in the PostMeta table
+	 *
+	 * @param  integer $postId
+	 * @param  Request $request
+ 	 * @return  void
+	 */
 	public function saveInPostMeta($postId, Request $request){
 		$fields = Component::findByTypeOrFail($this->type)->getClass()->fields($this->id);
 
@@ -48,12 +62,19 @@ class PostTypeField extends AbstractModel {
 		}			
 	}
 
+	/**
+	 * Save the field in the PostRelation table
+	 *
+	 * @param  integer $postId
+	 * @param  Request $request
+	 * @return  void
+	 */
 	public function saveInPostRelation($postId, Request $request)
 	{
 		$relationName 		= $this->id;
 		$postType			= $request->input('type');
-		$relatedPostType 	= $this->attributes['parameters']['source']['data']['related_post'];
 		$values 			= $request->input('_liked_by');
+		$relatedPostType 	= $this->attributes['parameters']['source']['data']['related_post'];
 
 		PostRelation::where(['relation' => $relationName, 'post_id' => $postId])->delete();
 
@@ -69,19 +90,46 @@ class PostTypeField extends AbstractModel {
 		}
 	}
 
-	private function getOptionsList($source)
+	/**
+	 * Return an array with possible options
+	 * for checkboxes and selectboxes
+	 *
+	 * @param  array $source
+	 * @return array $options
+	 */
+	private function getOptionsList(array $source)
 	{
-		$options = ($source['type'] == "model") ? self::fetchModelList($source['data']) : self::fetchPostTypeList($source['data']);
+		$options = ($source['type'] == "model") ? 
+			self::fetchModelList($source['data']) : 
+			self::fetchPostTypeList($source['data']);
+
 		return $options;
 	}
 
-	private function fetchModelList($data, $attribute="title")
+	/**
+	 * Fetch and return an array with options for
+	 * checkboxes and selectboxes from a model
+	 * with id as key and attibute as value
+	 *
+	 * @param  array   $data
+	 * @param  string  $attribute (default: "title")
+	 * @return array
+	 */
+	private function fetchModelList(array $data, $attribute="title")
 	{
 		$modelList = "Neutrino\\".$data['model_name']."::lists";
 
 		return (call_user_func("$modelList", $attribute, 'id'));
 	}
 
+	/**
+	 * Fetch and return an array with options for
+	 * checkboxes and selectboxes from a post
+	 * with id as key and title as value
+	 *
+	 * @param  array $data
+	 * @return array
+	 */
 	private function fetchPostTypeList($data)
 	{
 		return Post::where('type','directors')->lists("title", "id");
