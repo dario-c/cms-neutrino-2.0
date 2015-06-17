@@ -1,6 +1,6 @@
 /vendor
 /node_modules
-/public/uploads
+/public/uploads/*
 .env
 
 # Packages #

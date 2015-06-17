@@ -22,9 +22,6 @@
     
     function selectMediaItem($selectedItem, $imageSelector)
 	{
-		console.log($selectedItem);
-		console.log($imageSelector);
-		
 		var $imageSelectorInput		= $imageSelector.find('input[type=hidden]');
 		var $imageSelectorPreview	= $imageSelector.find('img');
 		var $imageSelectorInfo		= $imageSelector.find('blockquote footer');
