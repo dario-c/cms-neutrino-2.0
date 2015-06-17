@@ -13,11 +13,8 @@
             <blockquote class="pull-left">
                 <p><button type="button" class="btn btn-default btn-media-library" selector="{{ $postTypeField->id }}-image-selector">Select image</button></p>
                 <footer>
-                    {{ Media::getName($imageId, 'No image selected') }}
-                    
-                    @if ($imageId > 0)
-                    <a href="javascript:void(0);">delete</a> 
-                    @endif
+                    <span>{{ Media::getName($imageId, 'No image selected') }}</span>
+                    <a class="btn-delete-file {{ ($imageId == 0) ? 'hide' : '' }}" href="javascript:void(0);">delete</a> 
                 </footer>
             </blockquote>
     

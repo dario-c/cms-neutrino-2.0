@@ -25,17 +25,12 @@ Route::get('/', 'HomeController@index');
 
 // CMS routing
 Route::get('cms', 'CmsController@index');
-// Route::get('cms/users', 'CmsUserController@index');
-// Route::get('cms/users/create', 'CmsUserController@create');
-// Route::get('cms/users/{id}/edit', 'CmsUserController@edit');
-// Route::get('cms/users/{id}/update', 'CmsUserController@update');
-
 Route::resource('cms/users', 'CmsUserController');
 Route::resource('cms/text-keys', 'CmsTextKeyController');
 
 // CMS Upload handling
-Route::post('cms/upload-handler/', 'CmsUploadController@store');
-Route::any('cms/upload-progress/', 'CmsUploadController@progress');
+Route::post('cms/upload-handler/', 'CmsMediaFilesController@store');
+Route::any('cms/upload-progress/', 'CmsMediaFilesController@progress');
 
 // CMS Partials
 Route::get('cms/partials/media/files', 'CmsMediaFilesController@index');
