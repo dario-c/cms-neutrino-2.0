@@ -21,6 +21,7 @@ elixir(function(mix) {
     /***** CMS / BACKEND *****/
     
     elixir.config.assetsDir = 'resources/assets/cms/';
+    elixir.config.registerWatcher("default", "resources/assets/cms/**");
     
     mix.styles([
 	    'libraries/bootstrap.min.css',
