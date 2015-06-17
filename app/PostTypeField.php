@@ -29,7 +29,6 @@ class PostTypeField extends AbstractModel {
 
 	public function save($postId, Request $request)
 	{		
-
 		($this->type == 'post_relation' && $this->parameters['multiple']) ? 
 			self::saveInPostRelation($postId, $request) :
 			self::saveInPostMeta($postId, $request);
@@ -56,15 +55,17 @@ class PostTypeField extends AbstractModel {
 		$relatedPostType 	= $this->attributes['parameters']['source']['data']['related_post'];
 		$values 			= $request->input('_liked_by');
 
+		PostRelation::where(['relation' => $relationName, 'post_id' => $postId])->delete();
+
 		foreach($values as $value)
 		{
-			$relation = new PostRelation;
-			$relation->relation 	= $relationName;
-			$relation->post_type	= $postType;
-			$relation->post_id 		= $postId;
-			$relation->related_type	= $relatedPostType;
-			$relation->related_id	= $value;
-			$relation->save();
+			$postRelation = PostRelation::Create([
+				'relation' 		=> $relationName,
+				'post_type' 	=> $postType,
+				'related_id' 	=> $value,
+				'post_id'		=> $postId,
+				'related_type'	=> $relatedPostType
+				]);
 		}
 	}
 
