@@ -1,6 +1,5 @@
 <div class="form-group">
 
-	
 	@if($postTypeField->parameters['multiple'])
 		<span class="form-label">{{ $postTypeField->title.(($postTypeField->parameter('required') == true) ? ' *' : '')}}</span>
 

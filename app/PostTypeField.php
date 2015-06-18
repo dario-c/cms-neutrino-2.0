@@ -67,7 +67,7 @@ class PostTypeField extends AbstractModel {
 	private function saveInPostMeta($postId, Request $request){
 		$fields = Component::findByTypeOrFail($this->type)->getClass()->fields($this->id);
 
-		foreach($fields as $field) // TODO: Do we really need this loop?
+		foreach($fields as $field)
 		{
 			$postMeta = PostMeta::updateOrCreate(array(
 				'post_id'	=> $postId,
