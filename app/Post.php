@@ -54,4 +54,5 @@ class Post extends Model {
 		
 		return (isset($postMetaCollection->first()->value)) ? $postMetaCollection->first()->value : null;
 	}
+
 }

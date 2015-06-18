@@ -11,19 +11,29 @@
 |
 */
 
+// custom csrf check for ajax
+Route::filter('csrf', function()
+{
+   $token = Request::ajax() ? Request::header('X-CSRF-Token') : Input::get('_token');
+   if (Session::token() != $token) {
+      throw new Illuminate\Session\TokenMismatchException;
+   }
+});
+
 // Frontend Routing
 Route::get('/', 'HomeController@index');
 
 // CMS routing
 Route::get('cms', 'CmsController@index');
-// Route::get('cms/users', 'CmsUserController@index');
-// Route::get('cms/users/create', 'CmsUserController@create');
-// Route::get('cms/users/{id}/edit', 'CmsUserController@edit');
-// Route::get('cms/users/{id}/update', 'CmsUserController@update');
-
 Route::resource('cms/users', 'CmsUserController');
 Route::resource('cms/text-keys', 'CmsTextKeyController');
 
+// CMS Upload handling
+Route::post('cms/upload-handler/', 'CmsMediaFilesController@store');
+Route::any('cms/upload-progress/', 'CmsMediaFilesController@progress');
+
+// CMS Partials
+Route::get('cms/partials/media/files', 'CmsMediaFilesController@index');
 
 // CMS Post Type routing
 Route::get('cms/{post_type}', 'CmsPostTypeController@index');

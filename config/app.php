@@ -163,6 +163,8 @@ return [
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Html\HtmlServiceProvider',
+		
+		'Intervention\Image\ImageServiceProvider',
 
 		/*
 		 * Application Service Providers...
@@ -179,6 +181,7 @@ return [
 		'Neutrino\Providers\BladeServiceProvider',
 		'Neutrino\Providers\PostTypeServiceProvider',
 		'Neutrino\Providers\ComponentServiceProvider',
+		'Neutrino\Providers\MediaServiceProvider',
 		'Neutrino\Services\Validation\ValidationExtensionServiceProvider',
 	],
 
@@ -211,6 +214,7 @@ return [
 		'Form'		=> 'Illuminate\Html\FormFacade',
 		'Hash'      => 'Illuminate\Support\Facades\Hash',
 		'Html'      => 'Illuminate\Html\HtmlFacade',
+		'Image' 	=> 'Intervention\Image\Facades\Image',
 		'Input'     => 'Illuminate\Support\Facades\Input',
 		'Inspiring' => 'Illuminate\Foundation\Inspiring',
 		'Lang'      => 'Illuminate\Support\Facades\Lang',

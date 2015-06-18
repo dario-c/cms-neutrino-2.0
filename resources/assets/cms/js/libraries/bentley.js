@@ -90,27 +90,23 @@ function BentleyJS()
 	};
 	
 	/*
-	 * Get an controller
+	 * Execute controller method
 	 *
 	 * @param string pstrController
-	 * @return object (Controller Class)
+	 * @param string pstrMethod
+	 * @return mixed
 	 */
-	this.controller = function(pstrController)
+	this.execute = function(pstrController, pstrMethod)
 	{
 		try
 		{
-			var lstrControllerName = escapeBeforeEval($(this).parents('[bt_controller]:first').attr('bt_controller'));
+			var lstrControllerName = escapeBeforeEval(pstrController);
 			
-			loadController(['controllers/' + lstrControllerName + '.class'], function()
-			{
-				var ControllerClass = window[lstrControllerName];
-				
-				return new ControllerClass();
-			}, false);
-		}
-		catch(poError)
-		{
-			self.log('Controller not exists : ' + lstrControllerName);
+			callControllerMethod(lstrControllerName, pstrMethod, $('[bt_controller='+ lstrControllerName +']'));
+		} 
+		catch(poError) 
+		{ 
+			self.log('Controller or method not exists : ' + lstrControllerName);
 			self.log(poError);
 		}
 	};
@@ -175,8 +171,8 @@ function BentleyJS()
 				
 				var lbDisplayNoResults = (self.appScope.find(lstrFilterSelector + ':visible').length === 0);
 				
-				self.appScope.find(lstrFilterSelector + '.no-filter-result').toggle(lbDisplayNoResults);
-			});
+				self.appScope.find(lstrFilterSelector + '.no-filter-result').toggle(lbDisplayNoResults).toggleClass('hide', !lbDisplayNoResults);
+			});	
 		});
 	}
 	
@@ -247,10 +243,9 @@ function BentleyJS()
 	 *
 	 * @param array paFiles
 	 * @param function pfCallback
-	 * @param boolean pbAsync (default: true)
 	 * @return void
 	 */
-	function loadController(paFiles, pfCallback, pbAsync)
+	function loadController(paFiles, pfCallback)
 	{
 		$.each(paFiles, function(pnIndex, pstrControllerFileName)
 		{

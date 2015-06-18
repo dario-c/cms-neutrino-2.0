@@ -6,6 +6,7 @@
         <meta charset="utf-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="_token" content="{{ csrf_token() }}" />
         
         <link type="text/css" rel="stylesheet" href="{{ asset('assets/cms/css/libraries.css') }}" />
         <link type="text/css" rel="stylesheet" href="{{ asset('assets/cms/css/app.css') }}" />
@@ -41,6 +42,7 @@
 		</div>
 	
 		@include('cms.partials.modals.confirm_delete')
+		@include('cms.partials.modals.media_library')
         
         <script type="text/javascript" src="{{ asset('assets/cms/js/libraries.js') }}"></script>
         <script type="text/javascript" src="{{ asset('assets/cms/js/app.js') }}"></script>

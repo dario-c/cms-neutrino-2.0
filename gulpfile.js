@@ -21,6 +21,7 @@ elixir(function(mix) {
     /***** CMS / BACKEND *****/
     
     elixir.config.assetsDir = 'resources/assets/cms/';
+    elixir.config.registerWatcher("default", "resources/assets/cms/**");
     
     mix.styles([
 	    'libraries/bootstrap.min.css',
@@ -35,15 +36,15 @@ elixir(function(mix) {
 	    'libraries/jquery-1.11.2.min.js',
 	    'libraries/bentley.js',
 	    'libraries/bootstrap.min.js',
+	    'libraries/pubsub.js',
 	    'libraries/form-validation.min.js',
 	    'libraries/form-validation-bootstrap.min.js',
 	    'libraries/bootstrap-wysiwyg.min.js',
-	    'libraries/jquery.hotkeys.min.js'
+	    'libraries/jquery.hotkeys.min.js',
+	    'libraries/simple-ajax-uploader.min.js'
     ], 'public/assets/cms/js/libraries.js');
     
     // copy scripts
-    mix.copy('resources/assets/cms/js/require.js', 'public/assets/cms/js/require.js');
-    mix.copy('resources/assets/cms/js/main.js', 'public/assets/cms/js/main.js');
     mix.copy('resources/assets/cms/js/app.js', 'public/assets/cms/js/app.js');
     mix.copy('resources/assets/cms/js/controllers', 'public/assets/cms/js/controllers');
     mix.copy('resources/assets/cms/js/components', 'public/assets/cms/js/components');
