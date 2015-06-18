@@ -1,12 +1,12 @@
 function MediaLibraryController($scope, BT)
 {
-	var self 	= this;
-	var element = $('#image-select-modal')
+	var self	= this;
+	var element	= $('#image-select-modal');
 	
 	this.initialize = function(poElement)
 	{
 		loadFiles();
-	}
+	};
 	
 	this.selectImage = function(poElement)
 	{
@@ -14,26 +14,26 @@ function MediaLibraryController($scope, BT)
 		{
 			events.publish('media_library_select');
 		}
-	}
+	};
 	
 	this.highlight = function(poElement)
 	{
-		var $selectableItems = $('#image-select-modal .selectable');
-		var $fileInfo		 = $('#image-select-modal:visible .file-info');
-		var $selectButton	 = $('#image-select-modal .btn-select-image');
-		var deselect		 = poElement.hasClass('active');
+		var $selectableItems	= $('#image-select-modal .selectable');
+		var $fileInfo			= $('#image-select-modal:visible .file-info');
+		var $selectButton		= $('#image-select-modal .btn-select-image');
+		var deselect			= poElement.hasClass('active');
 		
 		setFileInfo(poElement);
-			
+		
 		$selectableItems.removeClass('active');
-		poElement.toggleClass('active', !deselect);			   
+		poElement.toggleClass('active', !deselect);
 		$fileInfo.toggleClass('hidden', deselect);
 		$selectButton.prop('disabled', function(i, v) { return deselect; });
-	}
+	};
 	
 	this.refresh = function(container)
-	{
-		var container = (container) ? container : element.find('.media-library-container');
+	{ 
+		container = (container) ? container : element.find('.media-library-container');
 
 		$.ajax({
 			url: '/cms/partials/media/files',
@@ -44,7 +44,7 @@ function MediaLibraryController($scope, BT)
 				BT.refresh();
 			}
 		});
-	}
+	};
 	
 	function loadFiles()
 	{
