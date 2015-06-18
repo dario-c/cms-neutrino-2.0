@@ -1,6 +1,6 @@
 (function($) { 
   
-    var $imageSelectorButtons 	= $('.image-selector .btn-media-library');
+    var $imageSelectorButtons	= $('.image-selector .btn-media-library');
 	var $imageDeleteButtons		= $('.image-selector .btn-delete-file');
 	
     $imageSelectorButtons.on('click', openMediaLibrary); 
@@ -16,11 +16,11 @@
         $('#image-select-modal').modal('show');
         
         var $imageSelector  = $(this).parents('.image-selector:first');
-        var subscription 	= events.subscribe('media_library_select', function(obj) 
+        var subscription	= events.subscribe('media_library_select', function(obj) 
         {     
-	        fillAndPreviewFile($imageSelector); 
-	        subscription.remove();
-	    });
+			fillAndPreviewFile($imageSelector); 
+			subscription.remove();
+		});
     }    
     
     /**
@@ -31,9 +31,9 @@
      */
     function deleteSelectedFile()
     {
-	    var $deleteSelectedImage	= $(this);
-	    var $imageSelector  		= $deleteSelectedImage.parents('.image-selector:first');
-	    var $imageSelectorInput		= $imageSelector.find('input[type=hidden]');
+		var $deleteSelectedImage	= $(this);
+		var $imageSelector			= $deleteSelectedImage.parents('.image-selector:first');
+		var $imageSelectorInput		= $imageSelector.find('input[type=hidden]');
 		var $imageSelectorPreview	= $imageSelector.find('img');
 		var $imageSelectorInfo		= $imageSelector.find('blockquote footer span');
 		
