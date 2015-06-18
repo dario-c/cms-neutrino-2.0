@@ -30,10 +30,12 @@ THE SOFTWARE.
  */
 function BentleyJS()
 {
-	var self	 	= this;
+	"use strict";
 	
-	self.appScope 	= null;
-	self.events     = ['click', 'change', 'blur', 'keyup', 'keydown', 'keypress', 'focus', 'hover', 'mouseup', 'mousedown', 'mouseover', 'scroll'];
+	var self		= this;
+	
+	self.appScope	= null;
+	self.events		= ['click', 'change', 'blur', 'keyup', 'keydown', 'keypress', 'focus', 'hover', 'mouseup', 'mousedown', 'mouseover', 'scroll'];
 	self.basePath	= (window.BentleyJS.BASE_PATH) ? window.BentleyJS.BASE_PATH : '/assets/js/';
 
 	function __construct()
@@ -43,11 +45,11 @@ function BentleyJS()
 		initialize();
 
 		triggerReady();
-	}	
+	}
 	
 	function initialize()
 	{
-    	self.refresh();
+		self.refresh();
 	}
 	
 	/*
@@ -57,13 +59,13 @@ function BentleyJS()
 	 */
 	this.refresh = function()
 	{
-		$.each(self.events, function(pnIndex, pstrEvent) 
+		$.each(self.events, function(pnIndex, pstrEvent)
 		{
 			applyEvents(pstrEvent);
 		});
 
 		applyFilters();
-	}
+	};
 	
 	/*
 	 * Trigger an event by method in given scope, default scope is the app scope
@@ -76,7 +78,7 @@ function BentleyJS()
 	{
 		var loScope = (poScope) ? poScope : self.appScope;
 		
-		$.each(self.events, function(pnIndex, pstrEvent) 
+		$.each(self.events, function(pnIndex, pstrEvent)
 		{
 			var loElement = loScope.find('[bt_' + pstrEvent + '=' + pstrMethod + ']');
 			
@@ -85,7 +87,7 @@ function BentleyJS()
 				loElement.trigger(pstrEvent);
 			}
 		});
-	}
+	};
 	
 	/*
 	 * Execute controller method
@@ -96,9 +98,9 @@ function BentleyJS()
 	 */
 	this.execute = function(pstrController, pstrMethod)
 	{
-    	try 
+		try
 		{
-			var lstrControllerName 	= escapeBeforeEval(pstrController);
+			var lstrControllerName = escapeBeforeEval(pstrController);
 			
 			callControllerMethod(lstrControllerName, pstrMethod, $('[bt_controller='+ lstrControllerName +']'));
 		} 
@@ -107,7 +109,7 @@ function BentleyJS()
 			self.log('Controller or method not exists : ' + lstrControllerName);
 			self.log(poError);
 		}
-	}
+	};
 	
 	/**
 	 * Applies the given event inside the app scope
@@ -127,14 +129,14 @@ function BentleyJS()
 				var lstrExpression  = loElement.attr('bt_'+ pstrEvent);
 				var loScope			= loElement.parents('[bt_controller]:first');
 				
-				try 
+				try
 				{
-    				var lstrControllerName 	= escapeBeforeEval(loScope.attr('bt_controller'));
-    				
-    				return callControllerMethod(lstrControllerName, lstrExpression, loScope, loElement);
-   				} 
-				catch(poError) 
-				{ 
+					var lstrControllerName	= escapeBeforeEval(loScope.attr('bt_controller'));
+					
+					return callControllerMethod(lstrControllerName, lstrExpression, loScope, loElement);
+				}
+				catch(poError)
+				{
 					self.log(lstrExpression + ' not exists in controller: ' + lstrControllerName);
 					self.log(poError);
 				}
@@ -151,8 +153,8 @@ function BentleyJS()
 	{
 		self.appScope.find('[bt_filter]').each(function()
 		{
-			var loFilterInput	   = $(this);
-			var lstrFilterSelector = $(this).attr('bt_filter');
+			var loFilterInput		= $(this);
+			var lstrFilterSelector	= $(this).attr('bt_filter');
 			
 			loFilterInput.off('keyup');
 			loFilterInput.on('keyup', function(e)
@@ -167,7 +169,7 @@ function BentleyJS()
 					loFilterItem.toggle(lbDisplayItem);
 				});
 				
-				var lbDisplayNoResults = (self.appScope.find(lstrFilterSelector + ':visible').length == 0);
+				var lbDisplayNoResults = (self.appScope.find(lstrFilterSelector + ':visible').length === 0);
 				
 				self.appScope.find(lstrFilterSelector + '.no-filter-result').toggle(lbDisplayNoResults).toggleClass('hide', !lbDisplayNoResults);
 			});	
@@ -187,15 +189,15 @@ function BentleyJS()
 			var loScope			= $(this);
 			var lstrExpression  = loScope.attr('bt_ready');
 
-			try 
+			try
 			{
-				var lstrControllerName 	= escapeBeforeEval(loScope.attr('bt_controller'));
+				var lstrControllerName = escapeBeforeEval(loScope.attr('bt_controller'));
 
 				return callControllerMethod(lstrControllerName, lstrExpression, loScope, loScope);
-			} 
-			catch(poError) 
-			{ 
-				if(loScope.attr('bt_controller') == undefined)
+			}
+			catch(poError)
+			{
+				if(loScope.attr('bt_controller') === undefined)
 				{
 					self.log('Missing bt_controller="" definition for object:');
 					self.log(loScope);
@@ -223,15 +225,16 @@ function BentleyJS()
 	{
 		loadController(['controllers/' + pstrControllerName + '.class'], function()
 		{
-			var loControllerClass = window[pstrControllerName];
-			var loController      = new loControllerClass(poScope, self);
+			var ControllerClass	= window[pstrControllerName];
+			var loController	= new ControllerClass(poScope, self);
 
-			if(pstrMethod.indexOf('()') == -1)
+			if(pstrMethod.indexOf('(') == -1)
 			{
-				return eval('loController.' + escapeBeforeEval(pstrMethod) + '(poElement);');
+				return loController[pstrMethod](poElement);
+				//return eval('loController.' + escapeBeforeEval(pstrMethod) + '(poElement);');
 			}
 		
-			return eval('loController.' + escapeBeforeEval(pstrMethod));
+			return eval('loController.' + escapeBeforeEval(pstrMethod)); // 'method(1, 2);'
 		});
 	}
 	
@@ -246,32 +249,31 @@ function BentleyJS()
 	{
 		$.each(paFiles, function(pnIndex, pstrControllerFileName)
 		{
-			var lbScriptLoaded 	= false,
-				loScript 		= document.getElementsByTagName('script')[0],
-		        loNewScript 	= document.createElement('script');
+			var lbScriptLoaded	= false,
+				loScript		= document.getElementsByTagName('script')[0],
+				loNewScript		= document.createElement('script');
 		
-		    // IE
-		    loNewScript.onreadystatechange = function () 
-		    {
-		        if (loNewScript.readyState === 'loaded' || loNewScript.readyState === 'complete') 
-		        {
-		            if(!lbScriptLoaded) pfCallback();
-		            
-		            lbScriptLoaded = true;
-		        }
-		    };
+			// IE
+			loNewScript.onreadystatechange = function ()
+			{
+				if (loNewScript.readyState === 'loaded' || loNewScript.readyState === 'complete')
+				{
+					if(!lbScriptLoaded) pfCallback();
+					
+					lbScriptLoaded = true;
+				}
+			};
 		
-		    // others
-		    loNewScript.onload = function () 
-		    {
-			    if(!lbScriptLoaded)	pfCallback();
-			    
-			    lbScriptLoaded = true;
-		    };
+			// others
+			loNewScript.onload = function ()
+			{
+				if(!lbScriptLoaded)	pfCallback();
+				
+				lbScriptLoaded = true;
+			};
 		
-		    loNewScript.src = self.basePath + pstrControllerFileName + '.js';
-		    
-		    loScript.parentNode.insertBefore(loNewScript, loScript);
+			loNewScript.src = self.basePath + pstrControllerFileName + '.js';
+			loScript.parentNode.insertBefore(loNewScript, loScript);
 		});
 	}
 	
@@ -294,18 +296,18 @@ function BentleyJS()
 	 */
 	this.log = function(pstrMessage)
 	{
-		try 
+		try
 		{
-            console.log(pstrMessage);
-       	}
-	    catch (e) {}
-	    finally { return; }
-	}
+			console.log(pstrMessage);
+		}
+		catch (e) {}
+		finally { return; }
+	};
 	
 	/*
 	 * Check if jQuery is available, if not throw error
 	 */
-	if(!window.jQuery) 
+	if(!window.jQuery)
 	{
 		throw 'To use BentleyJS, jQuery needs to be loaded first.';
 	}
@@ -316,7 +318,5 @@ function BentleyJS()
 	$(function()
 	{
 		__construct();
-	})
+	});
 }
-
-'use strict';
