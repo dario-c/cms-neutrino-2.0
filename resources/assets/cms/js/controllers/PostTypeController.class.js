@@ -1,7 +1,5 @@
 function PostTypeController($scope, BT)
 {
-	var self = this;
-	
 	/*
 	 * On initialize trigger create slug for post type forms
 	 *
