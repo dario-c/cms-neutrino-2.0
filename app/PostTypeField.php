@@ -134,4 +134,48 @@ class PostTypeField extends AbstractModel {
 	{
 		return Post::where('type','directors')->lists("title", "id");
 	}
+
+	/**
+	 * Returns true or false depending on 
+	 * if two posts are related or not
+	 *
+	 * @param  string $relation  
+	 * @param  integer $postId  
+	 * @param  integer $relationId  
+	 * @return Boolean
+	 */
+	public function isRelated($relation, $postId, $relationId)
+	{
+		$fill = PostRelation::where(['relation'=>$relation, 'post_id'=>$postId, 'related_id'=>$relationId ])->count();
+
+		return ($fill > 0) ? true : false;
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

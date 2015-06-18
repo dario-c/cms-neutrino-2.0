@@ -1,11 +1,14 @@
 <div class="form-group">
+
 	
 	@if($postTypeField->parameters['multiple'])
 		<span class="form-label">{{ $postTypeField->title.(($postTypeField->parameter('required') == true) ? ' *' : '')}}</span>
 
 		<div class="selection-options">
 			@foreach($postTypeField->source() as $index => $value)
-				<?php $fill=false ?>
+				<?php 
+					$fill = (isset($post->id)) ? $postTypeField->isRelated($postTypeField->id, $post->id, $index) : false;
+				?>
 
 				{!! Form::checkbox($postTypeField->id.'[]', $index, $fill,
 					[
