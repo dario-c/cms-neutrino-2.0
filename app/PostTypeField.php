@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class PostTypeField extends AbstractModel {
 
-    protected $fillable = array('id', 'title', 'placeholder', 'type', 'parameters', 'source', 'post_type');
+	protected $fillable = array('id', 'title', 'placeholder', 'type', 'parameters', 'source', 'post_type');
 
 	public function template()
 	{
@@ -28,6 +28,22 @@ class PostTypeField extends AbstractModel {
 	}
 
 	/**
+	 * Returns true or false depending on 
+	 * if two posts are related or not
+	 *
+	 * @param  string $relation  
+	 * @param  integer $postId  
+	 * @param  integer $relationId  
+	 * @return Boolean
+	 */
+	public function isRelated($relation, $postId, $relationId)
+	{
+		$fill = PostRelation::where(['relation'=>$relation, 'post_id'=>$postId, 'related_id'=>$relationId ])->count();
+
+		return ($fill > 0) ? true : false;
+	}
+
+	/**
 	 * Save the field in the appropriate table
 	 *
 	 * @param  integer $postId
@@ -46,9 +62,9 @@ class PostTypeField extends AbstractModel {
 	 *
 	 * @param  integer $postId
 	 * @param  Request $request
- 	 * @return  void
+	 * @return  void
 	 */
-	public function saveInPostMeta($postId, Request $request){
+	private function saveInPostMeta($postId, Request $request){
 		$fields = Component::findByTypeOrFail($this->type)->getClass()->fields($this->id);
 
 		foreach($fields as $field) // TODO: Do we really need this loop?
@@ -69,7 +85,7 @@ class PostTypeField extends AbstractModel {
 	 * @param  Request $request
 	 * @return  void
 	 */
-	public function saveInPostRelation($postId, Request $request)
+	private function saveInPostRelation($postId, Request $request)
 	{
 		$relationName 		= $this->id;
 		$postType			= $request->input('type');
@@ -134,48 +150,4 @@ class PostTypeField extends AbstractModel {
 	{
 		return Post::where('type','directors')->lists("title", "id");
 	}
-
-	/**
-	 * Returns true or false depending on 
-	 * if two posts are related or not
-	 *
-	 * @param  string $relation  
-	 * @param  integer $postId  
-	 * @param  integer $relationId  
-	 * @return Boolean
-	 */
-	public function isRelated($relation, $postId, $relationId)
-	{
-		$fill = PostRelation::where(['relation'=>$relation, 'post_id'=>$postId, 'related_id'=>$relationId ])->count();
-
-		return ($fill > 0) ? true : false;
-	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
