@@ -1,4 +1,4 @@
-(function($) { 
+(function($) {
   
     var $textEditor = $('.text-editor');
     
@@ -18,12 +18,12 @@
     });
     
     $textEditor.on('keyup', function() {
-	
+
         $('textarea[name=' + $(this).attr('name') + ']').val($(this).html());
     });
     
     $('.btn-toolbar [data-edit]').on('click', function() {
-	
+
         $textEditor.trigger('keyup');
     });
     

@@ -59,6 +59,8 @@ class CmsUserController extends Controller {
 	 */
 	public function store(Request $request)
 	{		
+		$rules = $this->_userValidator->setRules();
+
 		$this->_userValidator->validateOrRespond($request->all(), 'CmsUserController@create'); 
 		User::create($request->all());
 
@@ -100,6 +102,7 @@ class CmsUserController extends Controller {
 	{
 		$user = User::findOrFail($id);
 
+		$rules = $this->_userValidator->setRules($id);
 
 		$this->_userValidator->validateOrRespond($request->all(), 'CmsUserController@edit', [$id]); 
 

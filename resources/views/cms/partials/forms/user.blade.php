@@ -1,21 +1,24 @@
 <!-- NAME -->
 <div class="form-group">
-	{!! Form::label('name', "Name:") !!}
+	{!! Form::label('name', 'Name *') !!}
 	{!! Form::text('name', null, [
-		'required'	=> 'required',
-		'class'		=> 'form-control',
+		'class'						=> 'form-control',
+
+		'required'					=> 'required',
 		'data-fv-notempty'			=> 'true',
-		'data-fv-notempty-message' 	=> 'This field is required, cannot be left empty'
+		'data-fv-notempty-message' 	=> 'This field is required, cannot be left empty',
+		'data-fv-trigger'			=> 'blur'
 	]) !!}
 </div>
 
 
 <!-- EMAIL -->
 <div class="form-group">
-	{!! Form::label('email', "Email:") !!}
+	{!! Form::label('email', 'Email *') !!}
 	{!! Form::email('email', null, [
-		'required'	=> 'required',
-		'class'		=> 'form-control',
+		'class'						=> 'form-control',
+
+		'required'					=> 'required',
 		'data-fv-notempty'			=> 'true',
 		'data-fv-notempty-message' 	=> 'This field is required, cannot be left empty',
 		'data-fv-emailaddress'		=> 'true',
@@ -27,12 +30,15 @@
 
 <!-- PASSWORD -->
 <div class="form-group">
-	{!! Form::label('password', "Password:") !!}
+	{!! Form::label('password', 'Password'.(($passwordRequired) ? ' *' : '' )) !!}
 	{!! Form::password('password',[
-		'required'	=> 'required',
-		'class'		=> 'form-control',
-		'data-fv-notempty'			=> 'true',
-		'data-fv-notempty-message' 	=> 'This field is required, cannot be left empty'
+		'class'						=> 'form-control',
+		'placeholder'				=> $passwordPlaceholder,
+		
+		'required'					=> ($passwordRequired) ? 'true' : 'false',
+		'data-fv-notempty'			=> ($passwordRequired) ? 'true' : 'false',
+		'data-fv-notempty-message' 	=> 'This field is required, cannot be left empty',
+		'data-fv-trigger'			=> 'blur'
 	]) !!}
 </div>
 
@@ -40,18 +46,12 @@
 <!-- ROLE -->
 @if(Auth::user()->isAdmin() )
 	<div class="form-group">
-		{!! Form::label('role', "Role:") !!}
+		{!! Form::label('role', 'Role *') !!}
 		{!! Form::select('role_id', $roles, null,['class' => 'form-control']) !!}
 	</div>
 @elseif(isset($user))
 	<div class="form-group">
-		{!! Form::label('role', "Role:") !!}
+		{!! Form::label('role', 'Role') !!}
 		{{ $user->role->name }}
 	</div>
 @endif
-
-
-<!-- SUBMIT -->
-<div class="form-group">
-	{!! Form::submit($submitText, ['class' => 'btn btn-info']) !!}
-</div>

@@ -1,5 +1,10 @@
 <div bt_controller="PostTypeController" bt_ready="initialize">
-		
+	
+	<div class="btn-toolbar text-right">
+		<button type="button" class="btn btn-default btn-submit" bt_click="submit" post-state="0">Save as Draft</button>
+		<button type="button" class="btn btn-success btn-submit" bt_click="submit" post-state="1">Publish</button>
+	</div>	
+	
 	<!-- POST TITLE -->
 	<div class="form-group">
 		{!! Form::label('title', "Title *") !!}
