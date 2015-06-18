@@ -42,7 +42,7 @@ function PostTypeController($scope, BT)
 	{
 		var lstrPostSlug = convertToPermalink(poElement.val());
 				
-		if(lstrPostSlug != '')
+		if(lstrPostSlug !== '')
 		{
 			$scope.find('.current-slug').html(lstrPostSlug);
 			$scope.find('[name=slug]').val(lstrPostSlug);

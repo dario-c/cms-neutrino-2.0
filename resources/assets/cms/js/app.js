@@ -4,7 +4,7 @@ window.BentleyJS = window.BentleyJS || {};
 {
 	"use strict";
 
-	ns.DEBUG		= false;
+	ns.DEBUG		= true;
 	ns.BASE_PATH	= '/assets/cms/js/';
 	
 	// Set debug flag

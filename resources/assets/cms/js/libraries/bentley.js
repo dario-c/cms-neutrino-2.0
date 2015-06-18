@@ -30,6 +30,8 @@ THE SOFTWARE.
  */
 function BentleyJS()
 {
+	"use strict";
+	
 	var self		= this;
 	
 	self.appScope	= null;
@@ -101,9 +103,9 @@ function BentleyJS()
 			
 			loadController(['controllers/' + lstrControllerName + '.class'], function()
 			{
-				var loControllerClass = window[lstrControllerName];
+				var ControllerClass = window[lstrControllerName];
 				
-				return new loControllerClass();
+				return new ControllerClass();
 			}, false);
 		}
 		catch(poError)
@@ -156,7 +158,7 @@ function BentleyJS()
 		self.appScope.find('[bt_filter]').each(function()
 		{
 			var loFilterInput		= $(this);
-			var lstrFilterSelector 	= $(this).attr('bt_filter');
+			var lstrFilterSelector	= $(this).attr('bt_filter');
 			
 			loFilterInput.off('keyup');
 			loFilterInput.on('keyup', function(e)
@@ -171,7 +173,7 @@ function BentleyJS()
 					loFilterItem.toggle(lbDisplayItem);
 				});
 				
-				var lbDisplayNoResults = (self.appScope.find(lstrFilterSelector + ':visible').length == 0);
+				var lbDisplayNoResults = (self.appScope.find(lstrFilterSelector + ':visible').length === 0);
 				
 				self.appScope.find(lstrFilterSelector + '.no-filter-result').toggle(lbDisplayNoResults);
 			});
@@ -199,7 +201,7 @@ function BentleyJS()
 			}
 			catch(poError)
 			{
-				if(loScope.attr('bt_controller') == undefined)
+				if(loScope.attr('bt_controller') === undefined)
 				{
 					self.log('Missing bt_controller="" definition for object:');
 					self.log(loScope);
@@ -227,15 +229,16 @@ function BentleyJS()
 	{
 		loadController(['controllers/' + pstrControllerName + '.class'], function()
 		{
-			var loControllerClass = window[pstrControllerName];
-			var loController      = new loControllerClass(poScope, self);
+			var ControllerClass	= window[pstrControllerName];
+			var loController	= new ControllerClass(poScope, self);
 
-			if(pstrMethod.indexOf('()') == -1)
+			if(pstrMethod.indexOf('(') == -1)
 			{
-				return eval('loController.' + escapeBeforeEval(pstrMethod) + '(poElement);');
+				return loController[pstrMethod](poElement);
+				//return eval('loController.' + escapeBeforeEval(pstrMethod) + '(poElement);');
 			}
 		
-			return eval('loController.' + escapeBeforeEval(pstrMethod));
+			return eval('loController.' + escapeBeforeEval(pstrMethod)); // 'method(1, 2);'
 		});
 	}
 	
@@ -322,5 +325,3 @@ function BentleyJS()
 		__construct();
 	});
 }
-
-'use strict';
