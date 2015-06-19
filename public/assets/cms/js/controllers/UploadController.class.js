@@ -56,106 +56,61 @@ function UploadController($scope, BT)
 				hoverClass: 'hover',
 				focusClass: 'active',
 				disabledClass: 'disabled',	 
-				onSubmit: onSubmitHandler,
-				onError: onErrorHandler,
-				onSizeError: onSizeErrorHandler,
-				onComplete: onCompleteHandler
+				onSubmit:	function(filename, extension) 
+				{
+					if($('[file="' + filename + '"]:visible').length > 0)
+					{
+						alert('This file is already in the upload queue.');
+						return false;
+					}
+					
+					$uploadContainer.removeClass('hide');
+					
+					var $progressBar		= $('<div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>');
+					var $progressContainer	= $('<div class="progress progress-striped active pull-right"></div>');
+					//var $fileSize			= $('<span class="file-size"></span>');
+					var $uploadItem			= $('<a class="list-group-item" file="' + filename + '"></a>');
+					var $uploadStatus		= $('<span class="badge pull-right">uploading</span>');
+					
+					$progressContainer.append($progressBar); 
+		
+					$uploadItem.append($uploadStatus);
+					$uploadItem.append($progressContainer);
+					$uploadItem.append($('<span class="file-name">' + filename + '</span>'));
+					//$uploadItem.append($fileSize);
+					
+					$uploadItems.append($uploadItem);
+			
+					this.setProgressBar($progressBar);
+					//this.setFileSizeBox($fileSize);
+					this.setProgressContainer($progressContainer);
+				},
+				onError:	function(filename, type, status, statusText, response, uploadBtn)
+				{
+					var $uploadItem = $uploadItems.find('[file="' + filename + '"]');
+					 
+					uploadStatusHandler($uploadItem, false);
+				},
+				onSizeError: function( filename, fileSize )
+				{
+					alert('File is too large, maximum allowed size is: ' + settings.maxSize + 'mb');  
+				},
+				onComplete: function(filename, response) 
+				{
+					var $uploadItem = $uploadItems.find('[file="' + filename + '"]');
+					 
+					uploadStatusHandler($uploadItem, (response !== false));
+					updateFilename($uploadItem, response);
+					
+					// refresh Media Library
+					BT.execute('MediaLibraryController', 'refresh');
+				}
 			});
 			
 			uploaders.push(uploader);
 		});
 	}	
-	
-	/*
-	 * Handle onSubmit callback
-	 * Create progress indicator with status and define it
-	 *
-	 * @param string filename
-	 * @parem string extension
-	 * @return void
-	 */
-	var onSubmitHandler = function(filename, extension) 
-	{
-		if($('[file="' + filename + '"]:visible').length > 0)
-		{
-			alert('This file is already in the upload queue.');
-			return false;
-		}
 		
-		$uploadContainer.removeClass('hide');
-		
-		var $progressBar		= $('<div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>');
-		var $progressContainer	= $('<div class="progress progress-striped active pull-right"></div>');
-		//var $fileSize			= $('<span class="file-size"></span>');
-		var $uploadItem			= $('<a class="list-group-item" file="' + filename + '"></a>');
-		var $uploadStatus		= $('<span class="badge pull-right">uploading</span>');   
-		
-		$progressContainer.append($progressBar); 
-
-		$uploadItem.append($uploadStatus);
-		$uploadItem.append($progressContainer);
-		$uploadItem.append($('<span class="file-name">' + filename + '</span>'));
-		//$uploadItem.append($fileSize);
-		
-		$uploadItems.append($uploadItem);
-
-		this.setProgressBar($progressBar);
-		//this.setFileSizeBox($fileSize);
-		this.setProgressContainer($progressContainer);
-	};
-	
-	/*
-	 * Handle onError callback
-	 * Update progress indicator and status is failed
-	 *
-	 * @param string filename
-	 * @param string type
-	 * @param string status
-	 * @param string statusText
-	 * @parem string response
-	 * @parem object uploadBtn
-	 * @return void
-	 */
-	var onErrorHandler = function(filename, type, status, statusText, response, uploadBtn)
-	{
-		var $uploadItem = $uploadItems.find('[file="' + filename + '"]');
-		 
-		uploadStatusHandler($uploadItem, false);
-	};
-
-	/*
-	 * Handle onSizeError callback
-	 * Show alert that file is too big
-	 *
-	 * @param string filename
-	 * @parem integer filesize
-	 * @return void
-	 */
-	var onSizeErrorHandler = function(filename, fileSize)
-	{
-		alert('File is too large, maximum allowed size is: ' + settings.maxSize + 'mb');  
-	};
-		
-	/*
-	 * Handle onComplete callback
-	 * Update progress indicator and status is completed and reload the media library
-	 *
-	 * @param string filename
-	 * @parem string response
-	 * @return void
-	 */
-	var onCompleteHandler = function(filename, response) 
-	{
-		var $uploadItem = $uploadItems.find('[file="' + filename + '"]');
-		 
-		uploadStatusHandler($uploadItem, (response !== false));
-		updateFilename($uploadItem, response);
-		
-		// refresh Media Library
-		BT.execute('MediaLibraryController', 'refresh');
-	};
-	
-	
 	/**
 	 * Update status handler.
 	 * 
