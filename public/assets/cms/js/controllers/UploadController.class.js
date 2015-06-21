@@ -1,6 +1,5 @@
 function UploadController($scope, BT)
 {
-	var self		= this;
 	var uploaders	= [];
 	var settings	= {
 		debug:				true,
@@ -29,10 +28,11 @@ function UploadController($scope, BT)
 	{
 		$(settings.selector).each(function()
 		{
-			var $uploadButton		= $(this).find(settings.uploadButton);
-			var $uploadContainer	= $(this).find(settings.uploadContainer);
-			var $uploadItems		= $(this).find(settings.uploadItems);
-			var $dropZone			= $(this).find(settings.dropzone);
+			var $uploader			= $(this);
+			var $uploadButton		= $uploader.find(settings.uploadButton);
+			var $uploadContainer	= $uploader.find(settings.uploadContainer);
+			var $uploadItems		= $uploader.find(settings.uploadItems);
+			var $dropZone			= $uploader.find(settings.dropzone);
 			
 			var uploader = new ss.SimpleUpload({
 				button: $uploadButton,
@@ -70,7 +70,7 @@ function UploadController($scope, BT)
 					var $progressContainer	= $('<div class="progress progress-striped active pull-right"></div>');
 					//var $fileSize			= $('<span class="file-size"></span>');
 					var $uploadItem			= $('<a class="list-group-item" file="' + filename + '"></a>');
-					var $uploadStatus		= $('<span class="badge pull-right">uploading</span>');   
+					var $uploadStatus		= $('<span class="badge pull-right">uploading</span>');
 					
 					$progressContainer.append($progressBar); 
 		
@@ -110,7 +110,14 @@ function UploadController($scope, BT)
 			uploaders.push(uploader);
 		});
 	}	
-	
+		
+	/**
+	 * Update status handler.
+	 * 
+	 * @param object $uploadItem
+	 * @param boolean success
+	 * @return void
+	 */
 	function uploadStatusHandler($uploadItem, success)
 	{
 		var $uploadStatus = $uploadItem.find('.badge');
@@ -130,6 +137,13 @@ function UploadController($scope, BT)
 		$uploadStatus.html('Failed');
 	}
 	
+	/**
+	 * Update filename, because every file needs an unique name and this will be feedbacked to the user.
+	 * 
+	 * @param object $uploadItem
+	 * @param stirng response
+	 * @return void
+	 */
 	function updateFilename($uploadItem, response)
 	{
 		if(response.filename)
@@ -138,6 +152,12 @@ function UploadController($scope, BT)
 		}
 	}
 	
+	/**
+	 * Add a remove button for the status indicator.
+	 * 
+	 * @param object $uploadItem
+	 * @return void
+	 */
 	function addRemoveButton($uploadItem)
 	{
 		var $uploadRemove = $('<button type="button" class="close pull-right" aria-label="Close"><span aria-hidden="true">&times;</span></button>');

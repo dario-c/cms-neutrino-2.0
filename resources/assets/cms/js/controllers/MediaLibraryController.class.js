@@ -1,7 +1,7 @@
 function MediaLibraryController($scope, BT)
 {
 	var self	= this;
-	var element = $('#image-select-modal');
+	var element	= $('#image-select-modal');
 	
 	this.initialize = function(poElement)
 	{
@@ -24,7 +24,7 @@ function MediaLibraryController($scope, BT)
 		var deselect			= poElement.hasClass('active');
 		
 		setFileInfo(poElement);
-			
+		
 		$selectableItems.removeClass('active');
 		poElement.toggleClass('active', !deselect);
 		$fileInfo.toggleClass('hidden', deselect);
@@ -32,7 +32,7 @@ function MediaLibraryController($scope, BT)
 	};
 	
 	this.refresh = function(container)
-	{
+	{ 
 		container = (container) ? container : element.find('.media-library-container');
 
 		$.ajax({

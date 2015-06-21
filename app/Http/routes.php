@@ -44,6 +44,9 @@ Route::get('cms/{post_type}/{id}/edit', 'CmsPostTypeController@edit');
 Route::patch('cms/{post_type}/{id}', 'CmsPostTypeController@update');
 Route::delete('cms/{post_type}/{id}', 'CmsPostTypeController@destroy');
 
+// Image Routing
+Route::get('image/{option}/{id}.{extension}', 'ImageController@show');
+
 // Authentication routing
 Route::controllers([
 	'auth' => 'Auth\AuthController',
